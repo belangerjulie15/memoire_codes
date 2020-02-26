@@ -2,9 +2,18 @@
 
 # -SECTION 5: Power Utility - Calculs reliés à la section "Résultats du mémoire" #
 
+
+############################## PACKAGES ################################################
+library(ggplot2)
+library(devtools) # installer si ce n'est pas déjà fait.
+devtools::install_github("belangerjulie15/Optimisation.Power.Utility")
+library(Optimisation.Power.Utility)
+########################################################################################
+
+
+
+
 ########## RÉSULTATS ##########################################
-
-
 #Montant équivalent sûr de l'espérance du bénéfice résultant du fonds distinct
 Inverse_P_Utility(-0.272,3)
 Inverse_P_Utility(-0.320,3)
@@ -36,8 +45,6 @@ Inverse_P_Utility(-0.381,3)
 ##################  -FRAIS ÉQUITABLE-  ##################  
 
 ########## PARAMÈTRES ##########################################
-library(ggplot2)
-library(Optimisation.Power.Utility)
 
 Maturi<-10         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
