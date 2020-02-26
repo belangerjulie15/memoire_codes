@@ -5,9 +5,9 @@
 
 
 ######### DIRECTIONS ##########################################################
-#-Note: toutes les formules sont UNIQUEMENT applicables ? la fonction Power Utility
+#-Note: toutes les formules sont UNIQUEMENT applicables à la fonction Power Utility
 
-#(1) Il faut rouler toute la section PARAM?TRES
+#(1) Il faut rouler toute la section PARAMÈTRES
 
 #(2) Il faut rouler toute la section FONCTIONS pour activer les fonctions qu'on
 #veut utiliser    OU   installer/activer* le package Optimisation.Power.Utility de Github,

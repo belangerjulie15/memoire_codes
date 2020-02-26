@@ -1,6 +1,11 @@
 ############ MÉMOIRE: Maitrise en Mathématiques Finacières et Actuarielle  #################
 
 # -SECTION 5: Power Utility - Calculs reliés à la section "Résultats du mémoire" #
+#-Note: toutes les formules sont UNIQUEMENT applicables à la fonction de Power Utility
+
+# Notes: ce ficher comporte 2 sections: 
+#        -la première: -RÉSULTATS- calculs des résultats pour le mémoire
+#        - la deuxième: -FRAIS ÉQUITABLE- contiens les fonctions pour trouver le frais équitable.
 
 
 ############################## PACKAGES ################################################
@@ -13,7 +18,8 @@ library(Optimisation.Power.Utility)
 
 
 
-########## RÉSULTATS ##########################################
+################################# -RÉSULTATS- ##########################################
+########################################################################################
 #Montant équivalent sûr de l'espérance du bénéfice résultant du fonds distinct
 round(Inverse_P_Utility(-0.272,3),3)
 round(Inverse_P_Utility(-0.320,3),3)
@@ -42,7 +48,12 @@ round(Inverse_P_Utility(-0.380,3),3)
 round(Inverse_P_Utility(-0.386,3),3)
 round(Inverse_P_Utility(-0.381,3),3)
 
-##################  -FRAIS ÉQUITABLE-  ##################  
+
+
+
+
+##################################  -FRAIS ÉQUITABLE-  ############################################  
+###################################################################################################
 
 ########## PARAMÈTRES ##########################################
 
