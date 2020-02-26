@@ -4,27 +4,32 @@
 #-Note: toutes les formules sont UNIQUEMENT applicables √† la fonction de Power Utility
 
 
-######### Directions ############################################
-#-Note: toutes les formules sont UNIQUEMENT applicables ‡ la fonction Power Utility
+######### DIRECTIONS ##########################################################
+#-Note: toutes les formules sont UNIQUEMENT applicables ? la fonction Power Utility
 
-#(1) Il faut rouler toute la section PARAM»TRES
+#(1) Il faut rouler toute la section PARAM?TRES
 
 #(2) Il faut rouler toute la section FONCTIONS pour activer les fonctions qu'on
-#veut utiliser    OU   installer/activer* le package Optimisation.Power.Utility
+#veut utiliser    OU   installer/activer* le package Optimisation.Power.Utility de Github,
+#il suffit de rouler la section PACKAGES.
 
-#(3) Il y a plusieurs sections pour diffÈrentes proportions (cte ou dynamiques)
-#investies dans l'actif risquÈ.
+#(3) Il y a plusieurs sections pour diff?rentes proportions (cte ou dynamiques)
+#investies dans l'actif risqu?.
 
+#(4) Pour enregistrer les modifications sur Github: Commit > Push > Pull
 
 #* Pour installer le package, il faut ouvrir le package et rouler:
 #build() install()
-################################################################
+################################################################################
 
 
 
 
 ########## PACKAGES ##########################################
 library(ggplot2)
+
+library(devtools) # installer si ce n'est pas d√©j√† fait.
+devtools::install_github("belangerjulie15/Optimisation.Power.Utility")
 library(Optimisation.Power.Utility)
 ###################################################################
 
@@ -182,8 +187,8 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations  
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
-  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du ptf pour tout t
-  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du fonds pour tout t
+  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
+  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
     
   #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
@@ -205,7 +210,7 @@ proc.time()-timer
 ######################################################################
 
 
-##### SECTION 2-) "Proportion optimale", avec la m√©thode martingale: proportion bornÈe entre [0,1] #######
+##### SECTION 2-) "Proportion optimale", avec la m√©thode martingale: proportion born?e entre [0,1] #######
 
 E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B){
   #initialisation
@@ -252,8 +257,8 @@ E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vect
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations  
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
-  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du ptf pour tout t
-  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du fonds pour tout t
+  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
+  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
   
   #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
@@ -320,8 +325,8 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations  
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
   #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
-  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du ptf pour tout t
-  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du fonds pour tout t
+  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
+  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
   
   #EU<-mean(Uty)
@@ -343,7 +348,7 @@ E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merto
 proc.time()-timer2
 
 
-########### SECTION 4-) Simulations du portefeuille optimal directement ‡ maturitÈ ###########
+########### SECTION 4-) Simulations du portefeuille optimal directement ? maturit? ###########
 
 Simulations_fonds_distinct<-function(matrice_pre2_S){
   matrice_S<-matrix(0,N_Simulations,Frequ*Maturi+1)
@@ -378,7 +383,7 @@ Simulations_fonds_distinct<-function(matrice_pre2_S){
 timer3<-proc.time()
 
 #ptf_terminal_final<-
-  Simulations_fonds_distinct(pre2_S_tilde_t)#funds_final, 37.06 sec ‡ rouler
+  Simulations_fonds_distinct(pre2_S_tilde_t)#funds_final, 37.06 sec ? rouler
 
 proc.time()-timer3
 
@@ -411,7 +416,7 @@ ptf_terminal_final<-Simulations_fonds_distinct(pre2_S_tilde_t)
 
 
 
-############## Graphique: densitÈ de toutes les stratÈgies ########################################################
+############## Graphique: densit? de toutes les strat?gies ########################################################
 ajust_grap<-2.5 #si ma d'ajustemenbt, alors mettre ex:20. 
 
 
@@ -468,10 +473,10 @@ Compa_combin_funds_uniq2<-rbind(funds_rebalancement_MMB_2,funds_final_2)
 ggplot(data=Compa_combin_funds_uniq2,aes(Compa_combin_funds_uniq2$funds_optimal,group=comp,fill=comp))+
   geom_histogram(colour='black',bins=100,alpha=0.5,position = "identity")+
   #facet_wrap(facets = vars(comp))+
-  labs(x=expression(paste("F",""[T])), y="# RÈalisations")+
+  labs(x=expression(paste("F",""[T])), y="# R?alisations")+
   theme(legend.position = 'bottom',legend.title = element_blank())
  # theme_classic()
-#  scale_fill_manual(name="",values=c("yellow","darkgray"),labels=c( expression(paste("X","*"[T],": Dynamique")),expression(paste("X","*"[T],": ThÈorique"))))+
+#  scale_fill_manual(name="",values=c("yellow","darkgray"),labels=c( expression(paste("X","*"[T],": Dynamique")),expression(paste("X","*"[T],": Th?orique"))))+
 
 
 hist(funds_final)
@@ -482,7 +487,7 @@ hist(funds_rebalancement)
 ############## Valeurs moyennes du portefeuille et du fonds #############
 par(mfrow=c(1,2))
 
-plot(1:521,moyenneMM,xlab='AnnÈes (t)', ylab='Valeur moyenne du portefeuille',type='l',lty=1,col='royalblue1',ylim=c(0.9,1.6),xaxt="n")#,lty='twodash'
+plot(1:521,moyenneMM,xlab='Ann?es (t)', ylab='Valeur moyenne du portefeuille',type='l',lty=1,col='royalblue1',ylim=c(0.9,1.6),xaxt="n")#,lty='twodash'
 xtick<-c(0,52,52*2,52*3,52*4,52*5,52*6,52*7,52*8,52*9,52*10)
 axis(side=1, at=xtick, labels =c(0,1,2,3,4,5,6,7,8,9,10))
 lines(1:521,moyenneMMB,col='purple',lty=2)#,lty='longdash'
@@ -491,10 +496,10 @@ lines(1:521,moyenne04,col='darkolivegreen4',lty=5) #lty='dotted'
 lines(1:521,moyenne06,col='goldenrod3',lty=4)
 lines(1:521,moyenne1,col='red',lty=3)
 lines(1:521,moyenneM,col='limegreen',lty=2)
-legend(50,1.6, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risquÈ','60% actif risquÈ','40% actif risquÈ','20% actif risquÈ','Constante de Merton'),
+legend(50,1.6, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risqu?','60% actif risqu?','40% actif risqu?','20% actif risqu?','Constante de Merton'),
        col=c('royalblue1', 'purple','red','goldenrod3','darkolivegreen4','mediumseagreen','limegreen'),lty=c(1,2,3,4,5,6,2), cex=0.8)
 
-plot(1:521,fmoyenneMM,xlab='AnnÈes (t)', ylab='Valeur moyenne du fonds distinct',type='l',lty=1,col='royalblue1',ylim=c(0.9,1.65),xaxt="n")#,lty='twodash'
+plot(1:521,fmoyenneMM,xlab='Ann?es (t)', ylab='Valeur moyenne du fonds distinct',type='l',lty=1,col='royalblue1',ylim=c(0.9,1.65),xaxt="n")#,lty='twodash'
 xtick<-c(0,52,52*2,52*3,52*4,52*5,52*6,52*7,52*8,52*9,52*10)
 axis(side=1, at=xtick, labels =c(0,1,2,3,4,5,6,7,8,9,10))
 lines(1:521,fmoyenneMMB,col='purple',lty=2)#,lty='longdash'
@@ -503,14 +508,14 @@ lines(1:521,fmoyenne04,col='darkolivegreen4',lty=5) #lty='dotted'
 lines(1:521,fmoyenne06,col='goldenrod3',lty=4)
 lines(1:521,fmoyenne1,col='red',lty=3)
 lines(1:521,fmoyenneM,col='limegreen',lty=2)
-legend(50,1.6, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risquÈ','60% actif risquÈ','40% actif risquÈ','20% actif risquÈ','Constante de Merton'),
+legend(50,1.6, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risqu?','60% actif risqu?','40% actif risqu?','20% actif risqu?','Constante de Merton'),
        col=c('royalblue1', 'purple','red','goldenrod3','darkolivegreen4','mediumseagreen','limegreen'),lty=c(1,2,3,4,5,6,2), cex=0.8)
 
 
-############## UtilitÈs moyennes du portefeuille et du fonds #############
+############## Utilit?s moyennes du portefeuille et du fonds #############
 par(mfrow=c(1,2))
 
-plot(1:521,UmoyenneMM,xlab='AnnÈes (t)', ylab=expression(paste("EspÈrance de l'utilitÈ du portefeuille")),type='l',lty=1,col='royalblue1',ylim=c(-2.4,-0.8),xaxt="n")#,lty='twodash'
+plot(1:521,UmoyenneMM,xlab='Ann?es (t)', ylab=expression(paste("Esp?rance de l'utilit? du portefeuille")),type='l',lty=1,col='royalblue1',ylim=c(-2.4,-0.8),xaxt="n")#,lty='twodash'
 xtick<-c(0,52,52*2,52*3,52*4,52*5,52*6,52*7,52*8,52*9,52*10)
 axis(side=1, at=xtick, labels =c(0,1,2,3,4,5,6,7,8,9,10))
 lines(1:521,UmoyenneMMB,col='purple',lty=2)#,lty='longdash'
@@ -519,10 +524,10 @@ lines(1:521,Umoyenne04,col='darkolivegreen4',lty=5) #lty='dotted'
 lines(1:521,Umoyenne06,col='goldenrod3',lty=4)
 lines(1:521,Umoyenne1,col='red',lty=3)
 lines(1:521,UmoyenneM,col='limegreen',lty=2)
-legend(50,-1.6, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risquÈ','60% actif risquÈ','40% actif risquÈ','20% actif risquÈ','Constante de Merton'),
+legend(50,-1.6, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risqu?','60% actif risqu?','40% actif risqu?','20% actif risqu?','Constante de Merton'),
        col=c('royalblue1', 'purple','red','goldenrod3','darkolivegreen4','mediumseagreen','limegreen'),lty=c(1,2,3,4,5,6,2), cex=0.8)
 
-plot(1:521,UfmoyenneMM,xlab='AnnÈes (t)', ylab="EspÈrance de l'utilitÈ du fonds distinct",type='l',lty=1,col='royalblue1',ylim=c(-1,-0.6),xaxt="n")#,lty='twodash'
+plot(1:521,UfmoyenneMM,xlab='Ann?es (t)', ylab="Esp?rance de l'utilit? du fonds distinct",type='l',lty=1,col='royalblue1',ylim=c(-1,-0.6),xaxt="n")#,lty='twodash'
 xtick<-c(0,52,52*2,52*3,52*4,52*5,52*6,52*7,52*8,52*9,52*10)
 axis(side=1, at=xtick, labels =c(0,1,2,3,4,5,6,7,8,9,10))
 lines(1:521,UfmoyenneMMB,col='purple',lty=2)#,lty='longdash'
@@ -531,16 +536,16 @@ lines(1:521,Ufmoyenne04,col='darkolivegreen4',lty=5) #lty='dotted'
 lines(1:521,Ufmoyenne06,col='goldenrod3',lty=4)
 lines(1:521,Ufmoyenne1,col='red',lty=3)
 lines(1:521,UfmoyenneM,col='limegreen',lty=2)
-legend(50,-0.6, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risquÈ','60% actif risquÈ','40% actif risquÈ','20% actif risquÈ','Constante de Merton'),
+legend(50,-0.6, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risqu?','60% actif risqu?','40% actif risqu?','20% actif risqu?','Constante de Merton'),
        col=c('royalblue1', 'purple','red','goldenrod3','darkolivegreen4','mediumseagreen','limegreen'),lty=c(1,2,3,4,5,6,2), cex=0.8)
 
 de<-matrix(1:6,3,2)
 eee<-apply(de,c(1,2),function(x) max(x,2))
 colMeans(eee)
-############## Gamma-ModifiÈ: UtilitÈs moyennes du portefeuille et du fonds #############
+############## Gamma-Modifi?: Utilit?s moyennes du portefeuille et du fonds #############
 par(mfrow=c(1,2))
 
-plot(1:521,U5moyenneMM,xlab='AnnÈes (t)', ylab=expression(paste("EspÈrance de l'utilitÈ du portefeuille")),type='l',ylim=c(-3,-0.2),lty=1,col='royalblue1',xaxt="n")#,lty='twodash'
+plot(1:521,U5moyenneMM,xlab='Ann?es (t)', ylab=expression(paste("Esp?rance de l'utilit? du portefeuille")),type='l',ylim=c(-3,-0.2),lty=1,col='royalblue1',xaxt="n")#,lty='twodash'
 xtick<-c(0,52,52*2,52*3,52*4,52*5,52*6,52*7,52*8,52*9,52*10)
 axis(side=1, at=xtick, labels =c(0,1,2,3,4,5,6,7,8,9,10))
 lines(1:521,U5moyenneMMB,col='purple',lty=2)#,lty='longdash'
@@ -549,10 +554,10 @@ lines(1:521,U5moyenne04,col='darkolivegreen4',lty=5) #lty='dotted'
 lines(1:521,U5moyenne06,col='goldenrod3',lty=4)
 lines(1:521,U5moyenne1,col='red',lty=3)
 lines(1:521,U5moyenneM,col='limegreen',lty=2)
-legend(0,-2.0, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risquÈ','60% actif risquÈ','40% actif risquÈ','20% actif risquÈ','Constante de Merton'),
+legend(0,-2.0, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risqu?','60% actif risqu?','40% actif risqu?','20% actif risqu?','Constante de Merton'),
        col=c('royalblue1', 'purple','red','goldenrod3','darkolivegreen4','mediumseagreen','limegreen'),lty=c(1,2,3,4,5,6,2), cex=0.8)
 
-plot(1:521,U5fmoyenneMM,xlab='AnnÈes (t)', ylab="EspÈrance de l'utilitÈ du fonds distinct",type='l',lty=1,col='royalblue1',xaxt="n")#,lty='twodash'
+plot(1:521,U5fmoyenneMM,xlab='Ann?es (t)', ylab="Esp?rance de l'utilit? du fonds distinct",type='l',lty=1,col='royalblue1',xaxt="n")#,lty='twodash'
 xtick<-c(0,52,52*2,52*3,52*4,52*5,52*6,52*7,52*8,52*9,52*10)
 axis(side=1, at=xtick, labels =c(0,1,2,3,4,5,6,7,8,9,10))
 lines(1:521,U5fmoyenneMMB,col='purple',lty=2)#,lty='longdash'
@@ -561,7 +566,7 @@ lines(1:521,U5fmoyenne04,col='darkolivegreen4',lty=5) #lty='dotted'
 lines(1:521,U5fmoyenne06,col='goldenrod3',lty=4)
 lines(1:521,U5fmoyenne1,col='red',lty=3)
 lines(1:521,U5fmoyenneM,col='limegreen',lty=2)
-legend(300,-0.2, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risquÈ','60% actif risquÈ','40% actif risquÈ','20% actif risquÈ','Constante de Merton'),
+legend(300,-0.2, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risqu?','60% actif risqu?','40% actif risqu?','20% actif risqu?','Constante de Merton'),
        col=c('royalblue1', 'purple','red','goldenrod3','darkolivegreen4','mediumseagreen','limegreen'),lty=c(1,2,3,4,5,6,2), cex=0.8)
 
 
