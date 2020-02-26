@@ -2,46 +2,42 @@
 
 # -SECTION 5: Power Utility - Calculs reli√©s √† la section "R√©sultats du m√©moire" #
 
-library(Optimisation.Power.Utility)
-
 ########## R√âSULTATS ##########################################
 
 
 #Montant √©quivalent s√ªr de l'esp√©rance du b√©n√©fice r√©sultant du fonds distinct
-Inverse_P_Utility(-0.6588855,2)
-Inverse_P_Utility(-0.7212401,2)
-Inverse_P_Utility(-0.7661636,2)
-Inverse_P_Utility(-0.7872158,2)
-Inverse_P_Utility(-0.8053852,2)
-Inverse_P_Utility(-0.8226161,2)
-Inverse_P_Utility(-0.8430111,2)
-Inverse_P_Utility(-0.8841667,2)
+Inverse_P_Utility(-0.272,3)
+Inverse_P_Utility(-0.320,3)
+Inverse_P_Utility(-0.358,3)
+Inverse_P_Utility(-0.375,3)
+Inverse_P_Utility(-0.399,3)
+Inverse_P_Utility(-0.423,3)
+Inverse_P_Utility(-0.462,3)
+Inverse_P_Utility(-0.470,3)
 
+Inverse_P_Utility(-0.276,3)
+Inverse_P_Utility(-0.319,3)
+Inverse_P_Utility(-0.348,3)
+Inverse_P_Utility(-0.375,3)
+Inverse_P_Utility(-0.383,3)
+Inverse_P_Utility(-0.395,3)
+Inverse_P_Utility(-0.414,3)
+Inverse_P_Utility(-0.426,3)
 
-#Montant √©quivalent s√ªr de l'esp√©rance du portfeuille
-Inverse_P_Utility(-2.361813,2) #MM
-Inverse_P_Utility(-1.076702,2)#MMB
-Inverse_P_Utility(-0.8488218,2)#20%
-Inverse_P_Utility(-0.8642856,2)#40%
-Inverse_P_Utility(-0.9085997,2)#60%
-Inverse_P_Utility(-1.105276,2)#100%
-Inverse_P_Utility(-0.8487646,2)#cte Merton
+Inverse_P_Utility(-0.277,3)
+Inverse_P_Utility(-0.315,3)
+Inverse_P_Utility(-0.340,3)
+Inverse_P_Utility(-0.373,3)
+Inverse_P_Utility(-0.375,3)
+Inverse_P_Utility(-0.380,3)
+Inverse_P_Utility(-0.386,3)
+Inverse_P_Utility(-0.381,3)
 
-
-
-
-
-
-
-
-
-
-
-##################  -FRAIS …QUITABLE-  ##################  
+##################  -FRAIS √âQUITABLE-  ##################  
 
 ########## PARAM√àTRES ##########################################
 library(ggplot2)
-
+library(Optimisation.Power.Utility)
 
 Maturi<-10         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
@@ -146,7 +142,7 @@ Investment_Fonct<-function(S_t,B_t,invest_risq_tm1,invest_srisq_tm1,propor){
 
 
 
-########### SECTION 1-) "Proportion optimale", avec la mÈthode martingale ###########
+########### SECTION 1-) "Proportion optimale", avec la m?thode martingale ###########
 
 frais_eq_martingale<-function(para_c_s,para_c_f){
   
@@ -228,8 +224,8 @@ frais_eq_martingale<-function(para_c_s,para_c_f){
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations  
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
-  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du ptf pour tout t
-  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du fonds pour tout t
+  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
+  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   
   #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
   #EU<-mean(Uty)
@@ -259,7 +255,7 @@ proc.time()-timer1
 
 
 
-########### SECTION 2-) "Proportion optimale", avec la mÈthode martingale, proportion bornÈe [0,1] ###########
+########### SECTION 2-) "Proportion optimale", avec la m?thode martingale, proportion born?e [0,1] ###########
 
 frais_eq_martingale_Borne<-function(para_c_s,para_c_f){
   
@@ -341,8 +337,8 @@ frais_eq_martingale_Borne<-function(para_c_s,para_c_f){
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations  
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
-  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du ptf pour tout t
-  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du fonds pour tout t
+  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
+  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   
   #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
   #EU<-mean(Uty)
@@ -445,8 +441,8 @@ frais_eq_prop_cte<-function(para_c_s,para_c_f,prop_act_r){
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations  
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
   #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
-  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du ptf pour tout t
-  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilitÈ des valeurs du fonds pour tout t
+  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
+  #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   
   #EU<-mean(Uty)
   
@@ -480,11 +476,11 @@ proc.time()-timer4
 
 
 
-########### SECTION 4-) Simulations du portefeuille optimal directement ‡ maturitÈ ###########
+########### SECTION 4-) Simulations du portefeuille optimal directement ? maturit? ###########
 
 frais_eq_fonds_distinct_maturite<-function(para_c_s,para_c_f){
   
-  #initialisation des  paramËtres
+  #initialisation des  param?tres
   alpha_tilde<-alpha-para_c_s-para_c_f
   r_no_risk_tilde<-r_no_risk-para_c_f
   theta_sim<-(alpha-r_no_risk)/sigma
