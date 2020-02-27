@@ -1,4 +1,4 @@
-#####test ####### MÉMOIRE: Maitrise en Mathématiques Finacières et Actuarielle  #################
+############ MÉMOIRE: Maitrise en Mathématiques Finacières et Actuarielle  #################
 
 library(ggplot2)
 
