@@ -212,7 +212,7 @@ proc.time()-timer
 
 
 ######################################################################
-c(1:4)-1
+
 
 ##### SECTION 2-) "Proportion optimale", avec la méthode martingale: proportion born?e entre [0,1] #######
 
@@ -354,7 +354,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
 timer2<-proc.time()
 
 #U5moyenne02<-
-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1)
+E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
 
 proc.time()-timer2
 
