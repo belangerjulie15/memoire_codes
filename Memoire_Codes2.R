@@ -11,9 +11,9 @@ sigma<-0.2         #Volatility
 gamma<-2           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 budget<-1          #Initial Budget amount
-N_Simulations<-10000 #Number of Simulations
-fee_c_s<-0.005     #Fee applied of the risky asset
-fee_c_f<-0.005     #Fee applied of the funds 
+N_Simulations<-100000 #Number of Simulations
+fee_c_s<-0.00     #Fee applied of the risky asset
+fee_c_f<-0.00     #Fee applied of the funds 
 
 Frequ<-52          #Frequency of rebalancing the portfolio
   
@@ -348,14 +348,14 @@ lbd<-(1/budget)^(gamma)*exp((-r_no_risk*gamma+r_no_risk-(0.5*theta_sim^2)+theta_
 mu_mod<-((r_no_risk+0.5*theta_sim^2)*Maturi-log(lbd))/gamma
 sigma_mod2<-theta_sim^2*Maturi/gamma^2
 
-mean_theo<-exp(mu_mod+0.5*sigma_mod^2)  
+mean_theo<-exp(mu_mod+0.5*sigma_mod2)  
 
 
 # Start the clock!
 ptm <- proc.time()
 
-Ptf_dyn<-data.frame(valeur_opt=Ptf_optimal_InvStg_Terminal(props=proportion_optimale))
-x <- seq(0, 3, length.out=100)
+Ptf_dyn<-data.frame(valeur_opt=as.numeric(Ptf_simul))#Ptf_simul is obtained from the Memoire_Codes3.3, 3th method.
+x <- seq(0.5, 2, length.out=100)
 df <- with(Ptf_dyn, data.frame(x = x, y = dlnorm(x, mu_mod,sqrt(sigma_mod2))))
 
 Ptf_dyn$comp<-'Dyn'
@@ -365,14 +365,16 @@ ggplot(data=Ptf_dyn,aes(Ptf_dyn$valeur_opt))+
   geom_histogram(aes(y=..density..),colour='black',binwidth = 0.05,alpha=0.5,position = "identity")+
   geom_line(data = df, aes(x = x, y = y), color = "red")+
   scale_fill_manual(values=c("firebrick2", "grey"))+
-  labs(title='Rebalancements Hebdomadaires',x=expression(paste("X","*"[T])), y="Densité")+
+  scale_x_continuous(breaks=NULL)+
+  scale_y_continuous(breaks=NULL)+
+  labs(title='',x=expression(paste("X","*"[T])), y="Densité")+
   theme(axis.title=element_text(size=16,face="bold"))+
   theme_classic()+
   theme(legend.position=c(0.75,0.8))+
-  theme(legend.text=element_text(size=13))+
-  geom_vline(aes(xintercept =mean_theo, linetype = "Moyenne Théorique: 1.268471")) +                                                                                                     
-  geom_vline(aes(xintercept =mean(as.numeric(Ptf_dyn$valeur_opt)), linetype = "Moyenne Dynamique:  1.286424"), data = Ptf_dyn)+                                                                                                     
-  theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15),hjust = 0.5))+
+  #theme(legend.text=element_text(size=13))+
+  #geom_vline(aes(xintercept =mean_theo, linetype = "Moyenne Théorique: 1.268471")) +                                                                                                     
+  #geom_vline(aes(xintercept =mean(as.numeric(Ptf_dyn$valeur_opt)), linetype = "Moyenne Dynamique:  1.286424"), data = Ptf_dyn)+                                                                                                     
+  #theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15),hjust = 0.5))+
   scale_linetype_discrete(name = " ")
  
  # Stop the clock
