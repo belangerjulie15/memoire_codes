@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.018    #Fee applied of the risky asset
-fee_c_f<-0.00648    #Fee applied of the funds 
+fee_c_s<-0.0    #Fee applied of the risky asset
+fee_c_f<-0.02448    #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -383,22 +383,22 @@ Simulations_fonds_distinct<-function(matrice_pre2_S){
   
   for (n in 1:(N_Simulations)){
     funds_d[n]<-a_call_sim*max(0,ptf_optimal[n]-b_call_sim)+K_call_sim
-    cout_guar_ass[n]<-max(0,b_call_sim-ptf_optimal[n])
+    #cout_guar_ass[n]<-max(0,b_call_sim-ptf_optimal[n])
   }
-  exercice_guarantie<-sum(ptf_optimal[]<b_call_sim)/N_Simulations
-  Esp_cout_garantie<-mean(cout_guar_ass)
+  #exercice_guarantie<-sum(ptf_optimal[]<b_call_sim)/N_Simulations
+  #Esp_cout_garantie<-mean(cout_guar_ass)
   
   #Utymod<-round(mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=7)))),3) # l'utlité est mesurée pour gamma=7.
   #EU<-mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma))))
   #CB<-mean(ptf_optimal*xi_tilde[,(Frequ*Maturi+1)])
   #verif<-mean(matrice_S[,(Frequ*Maturi+1)]*xi_tilde[,(Frequ*Maturi+1)])
-  return(c(round(exercice_guarantie,3),round(Esp_cout_garantie,3)))#c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
-}
+  return(funds_d)#c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
+}#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer3<-proc.time()
 
 #ptf_terminal_final<-
-  Simulations_fonds_distinct(pre2_S_tilde_t)#funds_final, 37.06 sec ? rouler
+ptf_2448_0<-Simulations_fonds_distinct(pre2_S_tilde_t)#funds_final, 37.06 sec ? rouler
 
 proc.time()-timer3
 

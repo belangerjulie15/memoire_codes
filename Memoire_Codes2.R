@@ -413,16 +413,27 @@ proc.time() - ptm_call
 
 ptm_call <- proc.time()
 
-Ptf_dyn_call_val_final<-data.frame(valeur_opt=as.numeric(Ptf_optimal_InvStg_Call_terminal(a_call=1,b_call=1,K_call=1)))
+Ptf_final_2448_0<-data.frame(valeur_opt=as.numeric(ptf_2448_0))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
+Ptf_final_1224_1224<-data.frame(valeur_opt=as.numeric(ptf_1224_1224))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
+Ptf_final_18_6448<-data.frame(valeur_opt=as.numeric(ptf_18_6448))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
+Ptf_final_0_0<-data.frame(valeur_opt=as.numeric(ptf_0_0))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
 
-Ptf_dyn_call_val_final$comp<-'Dyn'
+Ptf_final_2448_0$comp<-'2.c_s=0.000% et c_f=2.448%'
+Ptf_final_1224_1224$comp<-'3.c_s=1.224% et c_f=1.224%'
+Ptf_final_18_6448$comp<-'4. c_s=1.800% et c_f=0.6448%'
+Ptf_final_0_0$comp<-'1. Aucun frais'
 
 
+Combin_ptf_frais<-rbind(Ptf_final_2448_0,Ptf_final_1224_1224,Ptf_final_18_6448,Ptf_final_0_0)
 
-ggplot(data=Ptf_dyn_call_val_final,aes(Ptf_dyn_call_val_final$valeur_opt,group=comp,fill=comp))+
-  geom_histogram(colour='black',binwidth = 0.02,alpha=0.5,position = "identity")+
+
+ggplot(data=Combin_ptf_frais,aes(Combin_ptf_frais$valeur_opt,group=comp,fill=comp))+
+  geom_histogram(colour='black',binwidth = 0.01,alpha=0.7,position = "identity")+
   labs(x=expression(paste("X","*"[T])), y="# Réalisations")+
-  theme_classic()
+  scale_x_continuous(breaks=c(x_concavi),labels=expression(paste(widehat(x),'(',D[T],')')))+
+  scale_fill_manual(name="",values=c("#F8766D","#00B81F","#00A5FF","#E76BF3"),labels=c( expression(paste("1. Aucun frais")), expression(paste("2. ",c[s],"=0.000% et ",c[f],"=2.448%")),expression(paste("2. ",c[s],"=0.000% et ",c[f],"=2.448%")),expression(paste("2. ",c[s],"=0.000% et ",c[f],"=2.448%"))))+
+  theme_classic()+
+  theme(legend.position = 'bottom',legend.title = element_blank())
 
 proc.time() - ptm_call
 
