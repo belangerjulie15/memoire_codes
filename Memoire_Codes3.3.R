@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.0    #Fee applied of the risky asset
-fee_c_f<-0.02448     #Fee applied of the funds 
+fee_c_s<-0.018    #Fee applied of the risky asset
+fee_c_f<-0.00648    #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -354,7 +354,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
 timer2<-proc.time()
 
 #U5moyenne02<-
-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1)
+E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
 
 proc.time()-timer2
 
@@ -401,7 +401,6 @@ timer3<-proc.time()
   Simulations_fonds_distinct(pre2_S_tilde_t)#funds_final, 37.06 sec ? rouler
 
 proc.time()-timer3
-
 
 
 
