@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.0    #Fee applied of the risky asset
-fee_c_f<-0.02448    #Fee applied of the funds 
+fee_c_s<-0.018    #Fee applied of the risky asset
+fee_c_f<-0.006448    #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -331,16 +331,16 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
     cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
   }
   
-  exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
-  Esp_cout_garantie<-mean(cout_guar_ass)
+  #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
+  #Esp_cout_garantie<-mean(cout_guar_ass)
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
-  #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
+  Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
   #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
   #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
   #Utymod<-round(mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=7)))),3) # l'utlité est mesurée pour gamma=7.
   
-  #EU<-mean(Uty)
+  EU<-mean(Uty)
   
   #xi_tilde[n,(Frequ*Maturi+1)]<-matrice_S[n,(Frequ*Maturi+1)]^(-theta_sim_tilde/sigma)*exp((theta_sim_tilde*alpha_tilde/sigma-theta_sim_tilde*sigma/2-r_no_risk_tilde-0.5*theta_sim_tilde^2)*petit_t)
   
@@ -348,8 +348,8 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
   
-  return(c(round(exercice_guarantie,3),round(Esp_cout_garantie,3)))#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
-}
+  return(EU)#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
+}#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer2<-proc.time()
 
@@ -582,6 +582,20 @@ lines(1:521,U5fmoyenne1,col='red',lty=3)
 lines(1:521,U5fmoyenneM,col='limegreen',lty=2)
 legend(300,-0.2, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risqu?','60% actif risqu?','40% actif risqu?','20% actif risqu?','Constante de Merton'),
        col=c('royalblue1', 'purple','red','goldenrod3','darkolivegreen4','mediumseagreen','limegreen'),lty=c(1,2,3,4,5,6,2), cex=0.8)
+
+
+
+
+
+######### Graphique de l'espérance de l'utilité du bénéfice résultant du fonds distinct#########
+############## en fonction des proportions cte investies dans le fonds #########################
+
+system.time(res<-lapply(seq(0,1,0.1),function(x) E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=x)))
+
+#1852.11 sec sur l'ordi de l'université
+
+plot(seq(0,1,0.1),as.numeric(res),xlab=expression(paste('Proportion ',(nu))),ylab=expression(paste('E[',(x^nu[T]-1)^{2},']')),type='l')
+
 
 
 
