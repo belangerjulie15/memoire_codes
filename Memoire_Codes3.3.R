@@ -594,8 +594,7 @@ system.time(res<-lapply(seq(0,1,0.1),function(x) E_utility_prop_cte(pre2_S_tilde
 
 #1852.11 sec sur l'ordi de l'université
 
-plot(seq(0,1,0.1),as.numeric(res),xlab=expression(paste('Proportion ',(nu))),ylab=expression(paste('E[',(x^nu[T]-1)^{2},']')),type='l')
-
-
+plot(seq(0,1,0.1),as.numeric(res),cex.lab=0.85,ylab=expression(paste('E[',(x^{nu[T]}-1)^'+',']')),xlab=expression(paste('Proportion ',(nu[T]))),type='l')#ylab=expression(paste('E[',(x^{nu[T]}-1)^'+',']'))
+#-0.3812930 -0.3840199 -0.3859154 -0.3835929 -0.3804927 -0.3777547 -0.3757349 -0.3744792 -0.3739521 -0.3740703 -0.3747655
 
 
