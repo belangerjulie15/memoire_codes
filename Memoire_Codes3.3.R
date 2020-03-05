@@ -611,8 +611,8 @@ c_s00<-c(-0.5000000, -0.4868001, -0.4615917, -0.4401641, -0.4228823, -0.4091114,
 
 
 plot(seq(0,1,0.1),c_s00,cex.lab=0.8,ylab=expression(paste('E[',(x[T]^{nu}-1)^'+',']')),xlab=expression(paste("Proportion constante investie dans l'actif risqué ",(nu[t]))),type='l')#ylab=expression(paste('E[',(x^{nu[T]}-1)^'+',']'))
-lines(seq(0,1,0.1),c_s1224,col='coral3')
-lines(seq(0,1,0.1),c_s18,col='darkgoldenrod3')
-legend()
+lines(seq(0,1,0.1),c_s1224,col='coral3',lty=2)
+lines(seq(0,1,0.1),c_s18,col='darkgoldenrod3',lty=3)
+legend(0.6,-0.44, legend=c(expression(paste(c[s],"=0.000%  et  ",c[f],"=2.448%")),expression(paste(c[s],"=1.224%  et  ",c[f],"=1.224%")),expression(paste(c[s],"=1.800%  et  ",c[f],"=0.6448%"))),col=c('black','coral3','darkgoldenrod3'),lty=c(1,2,3))
 
 
