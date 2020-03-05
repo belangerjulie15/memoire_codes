@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.01224    #Fee applied of the risky asset
-fee_c_f<-0.01224    #Fee applied of the funds 
+fee_c_s<-0.0    #Fee applied of the risky asset
+fee_c_f<-0.02448    #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -604,3 +604,6 @@ plot(seq(0,1,0.1),as.numeric(res),cex.lab=0.85,ylab=expression(paste('E[',(x^{nu
 #fee_c_f<-0.01224
 #-0.4281220 -0.4236095 -0.4137572 -0.4035169 -0.3949490 -0.3882057 -0.3830944 -0.3793837 -0.3768577 -0.3753254 -0.3746159
 
+#fee_c_s<-0.0    
+#fee_c_f<-0.02448 
+#-0.5000000 -0.4868001 -0.4615917 -0.4401641 -0.4228823 -0.4091114 -0.3982256 -0.3897042 -0.3831251 -0.3781514 -0.3745170
