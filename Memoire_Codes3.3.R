@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.018    #Fee applied of the risky asset
-fee_c_f<-0.006448    #Fee applied of the funds 
+fee_c_s<-0.01224    #Fee applied of the risky asset
+fee_c_f<-0.01224    #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -595,6 +595,9 @@ system.time(res<-lapply(seq(0,1,0.1),function(x) E_utility_prop_cte(pre2_S_tilde
 #1852.11 sec sur l'ordi de l'université
 
 plot(seq(0,1,0.1),as.numeric(res),cex.lab=0.85,ylab=expression(paste('E[',(x^{nu[T]}-1)^'+',']')),xlab=expression(paste('Proportion ',(nu[T]))),type='l')#ylab=expression(paste('E[',(x^{nu[T]}-1)^'+',']'))
+
+#fee_c_s<-0.018   
+#fee_c_f<-0.006448 
 #-0.3812930 -0.3840199 -0.3859154 -0.3835929 -0.3804927 -0.3777547 -0.3757349 -0.3744792 -0.3739521 -0.3740703 -0.3747655
 
 
