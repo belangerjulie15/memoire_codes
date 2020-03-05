@@ -591,19 +591,28 @@ legend(300,-0.2, legend=c("Optimale [0,2]", "Optimale [0,1]",'100% actif risqu?'
 ############## en fonction des proportions cte investies dans le fonds #########################
 
 system.time(res<-lapply(seq(0,1,0.1),function(x) E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=x)))
-
 #1852.11 sec sur l'ordi de l'université
 
 plot(seq(0,1,0.1),as.numeric(res),cex.lab=0.85,ylab=expression(paste('E[',(x^{nu[T]}-1)^'+',']')),xlab=expression(paste('Proportion ',(nu[T]))),type='l')#ylab=expression(paste('E[',(x^{nu[T]}-1)^'+',']'))
 
 #fee_c_s<-0.018   
 #fee_c_f<-0.006448 
-#-0.3812930 -0.3840199 -0.3859154 -0.3835929 -0.3804927 -0.3777547 -0.3757349 -0.3744792 -0.3739521 -0.3740703 -0.3747655
+c_s18<-c(-0.3812930, -0.3840199, -0.3859154, -0.3835929, -0.3804927, -0.3777547, -0.3757349, -0.3744792, -0.3739521, -0.3740703, -0.3747655)
 
 #fee_c_s<-0.01224  
 #fee_c_f<-0.01224
-#-0.4281220 -0.4236095 -0.4137572 -0.4035169 -0.3949490 -0.3882057 -0.3830944 -0.3793837 -0.3768577 -0.3753254 -0.3746159
+c_s1224<-c(-0.4281220, -0.4236095, -0.4137572, -0.4035169, -0.3949490, -0.3882057, -0.3830944, -0.3793837, -0.3768577, -0.3753254, -0.3746159)
 
 #fee_c_s<-0.0    
 #fee_c_f<-0.02448 
-#-0.5000000 -0.4868001 -0.4615917 -0.4401641 -0.4228823 -0.4091114 -0.3982256 -0.3897042 -0.3831251 -0.3781514 -0.3745170
+c_s00<-c(-0.5000000, -0.4868001, -0.4615917, -0.4401641, -0.4228823, -0.4091114, -0.3982256, -0.3897042, -0.3831251, -0.3781514, -0.3745170)
+
+
+
+
+plot(seq(0,1,0.1),c_s00,cex.lab=0.8,ylab=expression(paste('E[',(x[T]^{nu}-1)^'+',']')),xlab=expression(paste("Proportion constante investie dans l'actif risqué ",(nu[t]))),type='l')#ylab=expression(paste('E[',(x^{nu[T]}-1)^'+',']'))
+lines(seq(0,1,0.1),c_s1224,col='coral3')
+lines(seq(0,1,0.1),c_s18,col='darkgoldenrod3')
+legend()
+
+
