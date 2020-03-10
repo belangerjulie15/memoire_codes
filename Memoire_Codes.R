@@ -119,15 +119,30 @@ text(0.93, -0.52, labels =  expression(paste(gamma,"=3")))
 text(0.93, -0.35, labels =  expression(paste(gamma,"=4")))
 text(0.93, -0.14, labels = expression(paste(gamma,"=8")))
 
+
+par(mfrow=c(1,1))
 axex_Utility<-seq(0.5,2.5,1/100)
 plot(axex_Utility,lapply(axex_Utility,function(x)P_Utility(x,2)),ylab = "U(x)",type='l',lty=1,xlab="x",ylim = c(-1.1,0.03),xlim=c(0.75,2.7))#,yaxt = "n" ,xaxt = "n"
 lines(axex_Utility,lapply(axex_Utility,function(x)P_Utility(x,3)),col='saddlebrown',lty=2)
 lines(axex_Utility,lapply(axex_Utility,function(x)P_Utility(x,4)),col='tomato3',lty=5)
 lines(axex_Utility,lapply(axex_Utility,function(x)P_Utility(x,8)),col='red',lty=4)
-text(2.6, -0.39, labels =  expression(paste(gamma,"=2")))
-text(2.6, -0.09, labels =  expression(paste(gamma,"=3")))
-text(2.6, -0.03, labels =  expression(paste(gamma,"=4")))
-text(2.6, 0.02, labels = expression(paste(gamma,"=8")))
+text(2.6, -0.39, labels =  expression(paste(gamma,"=2")),cex=0.9)
+text(2.6, -0.09, labels =  expression(paste(gamma,"=3")),cex=0.9)
+text(2.6, -0.03, labels =  expression(paste(gamma,"=4")),cex=0.9)
+text(2.6, 0.02, labels = expression(paste(gamma,"=8")),cex=0.9)
+
+
+### Dérivée des fonctions d'utilités précédentes ###
+#Mettre par(mfrow=c(2,1)) pour mettre les grpahiques côte-à-côte.
+plot(axex_Utility,lapply(axex_Utility,function(x)derivee_Power_Utility(x,2)),ylab = "U'(x)",type='l',lty=1,xlab="x",ylim = c(-0.1,1.5),xlim=c(0.75,2.7))#,yaxt = "n" ,xaxt = "n"
+lines(axex_Utility,lapply(axex_Utility,function(x)derivee_Power_Utility(x,3)),col='saddlebrown',lty=2)
+lines(axex_Utility,lapply(axex_Utility,function(x)derivee_Power_Utility(x,4)),col='tomato3',lty=5)
+lines(axex_Utility,lapply(axex_Utility,function(x)derivee_Power_Utility(x,8)),col='red',lty=4)
+text(2.6, 0.18, labels =  expression(paste(gamma,"=2")),cex=0.9)
+text(2.6, 0.095, labels =  expression(paste(gamma,"=3")),cex=0.9)
+text(2.6, 0.025, labels =  expression(paste(gamma,"=4")),cex=0.9)
+text(2.6, -0.04, labels = expression(paste(gamma,"=8")),cex=0.9)
+
 
 
 #Concavification#
