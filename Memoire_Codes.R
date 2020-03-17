@@ -188,21 +188,29 @@ ytick<-Derivee_P_Utility_con(0,gamma_c=par_Gamma,b_c=par_b,a_c=par_a,K_c=par_K)
 axis(1, at=xtick, labels=c(0 ,expression(tilde(x))))
 axis(2, at=ytick, labels=c( expression(paste(tilde(u)," '",(tilde(x))))))
 
-#Graphe: Fonction convexe#
+#Graphe: Fonction concave#
 x_1<-1.5
-x_2<-3.5
-
+x_2<-3.7
+psi<-0.25
+x_mel<-psi*x_1+(1-psi)*x_2
+y_mel<-psi*(x_1^5.5)+(1-psi)*(x_2^5.5)
+  
 axe_d_x<-seq(1,4,0.05)
 plot(axe_d_x,lapply(axe_d_x,function(x)x^5.5), type='l',ylim=c(-200,2048),xaxt = "n",yaxt = "n",xlab = '',ylab='')
-xtick<-c(x_1,x_2)
-ytick<-c(lapply(x_1,function(x)x^5.5),lapply(x_2,function(x)x^5.5))
-axis(1, at=xtick, labels=c(expression(x[1]),expression(x[2])),las=0,col='azure4')
-axis(2, at=ytick, labels=c( expression(paste('f(',x[1],')')),expression(paste('f(',x[2],')'))),las=1,col='azure4')
+xtick<-c(x_1,x_2,x_mel)
+ytick<-c(lapply(x_1,function(x)x^5.5),lapply(x_2,function(x)x^5.5),lapply(x_mel,function(x)x^5.5),y_mel)
+axis(1, at=xtick,cex=0.1, labels=c(expression(x[1]),expression(x[2]),expression(paste(psi,x[1],'+ (1 -',psi,')',x[2]))),las=0,col='azure4')
+axis(2, at=ytick, labels=c( expression(paste('f(',x[1],')')),expression(paste('f(',x[2],')')),'',''),las=1,col='azure4',cex=0.5)
 
 segments(x0=x_1, y0=-200, x1 =x_1, y1 =as.numeric(ytick[1]), lty=3, col='azure4')
 segments(x0=x_2, y0=-200, x1 =x_2, y1 =as.numeric(ytick[2]), lty=3, col='azure4')
+segments(x0=x_mel, y0=-200, x1 =x_mel, y1 =y_mel, lty=3, col='darkgrey')
+
 segments(x0=0, y0=as.numeric(ytick[1]), x1 =x_1, y1 =as.numeric(ytick[1]), lty=3, col='azure4')
 segments(x0=0, y0=as.numeric(ytick[2]), x1 =x_2, y1 =as.numeric(ytick[2]), lty=3, col='azure4')
+segments(x0=0, y0=as.numeric(ytick[3]), x1 =x_mel, y1 =as.numeric(ytick[3]), lty=3, col='azure4')
+segments(x0=0, y0=y_mel, x1 =x_mel, y1 =y_mel, lty=3, col='azure4')
+
 segments(x0=x_1, y0=as.numeric(ytick[1]), x1 =x_2, y1 =as.numeric(ytick[2]), lty=4, col='red')
 
 
