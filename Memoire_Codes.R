@@ -253,6 +253,12 @@ text(0.75,y_mel+0.025 , labels = expression(paste(psi,f,'(',x[1],') + (1 -',psi,
 points(x_mel,as.numeric(ytick[3]),pch = 19,col='grey',cex=0.7)
 points(x_mel,y_mel,pch = 19,col='grey',cex=0.7)
 
+
+
+#Graphes: optimisation convexe, relaxation lagrangienne#
+axe_d_x<-seq(1,50,1)
+
+
 ##### -TEST SECTION- #####
 
 f <- function(x) x^2-x-4         #-Finding the fee
