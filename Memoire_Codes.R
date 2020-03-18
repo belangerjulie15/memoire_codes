@@ -257,12 +257,25 @@ points(x_mel,y_mel,pch = 19,col='grey',cex=0.7)
 
 #Graphes: optimisation convexe, relaxation lagrangienne#
 axe_d_x<-seq(-2,2,0.01)
-plot(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)),type='l',xlab = '',ylab='',ylim=c(-5,5))
+plot(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1),type='l',xlab = '',ylab='',ylim=c(-6,2))
 #segments(x0=-2, y0=0, x1 =2, y1 =0, lty=3, col='dimgrey')
-#lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*()),col='gray0',lty=2)
+lines(axe_d_x,lapply(axe_d_x,function(x)2*x^2-1),col='gray0',lty=2)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.1)*(2*x^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.2)*(2*x^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.3)*(2*x^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.4)*(2*x^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.5)*(2*x^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.6)*(2*x^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.7)*(2*x^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.8)*(2*x^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(1)*(2*x^2-1)),col='gray0',lty=3)
+
+plot(seq(0.1,1,0.01),lapply(seq(0.1,1,0.01),function(y)max(as.numeric(lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(y)*(2*x^2-1))))),type='l',xlab = expression(lambda),ylab=expression(paste('J(',lambda,')')))
+
+
 ##### -TEST SECTION- #####
 
-plot(c(-3,3),lapply(c(-3,3),function(x)x^2),type='l',xlab = '',ylab='')
+plot(seq(-3,3,0.1),lapply(seq(-3,3,0.1),function(x)x^2),type='l',xlab = '',ylab='')
 
 f <- function(x) x^2-x-4         #-Finding the fee
 r<-uniroot(f, c(0,100))
