@@ -281,31 +281,30 @@ abline(h=lapply(sqrt(0.5),function(x)-0.1*(x-5)^(2)-1),col='azure4',lty=2)
 
 # Fonction de contrainte non-convexe #
 axe_d_x<-seq(-2,4.5,0.01)
-plot(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75),type='l',xlab =expression(x),ylab='',ylim=c(-4,1))
+plot(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2),type='l',xlab =expression(x),ylab='',ylim=c(-4,1))
 #segments(x0=-2, y0=0, x1 =2, y1 =0, lty=3, col='dimgrey')
-lines(axe_d_x,lapply(axe_d_x,function(x)0.5*(x-0.5)^2-1),col='gray0',lty=2)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.1)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.2)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.3)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.4)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.5)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.6)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.7)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.8)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.9)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
-lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(1)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.5*(x-0.5)^2-0.5),col='gray0',lty=2)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(0.1)*(0.5*(x-0.5)^2-0.5)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(0.2)*(0.5*(x-0.5)^2-0.5)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(0.3)*(0.5*(x-0.5)^2-0.5)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(0.4)*(0.5*(x-0.5)^2-0.5)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(0.5)*(0.5*(x-0.5)^2-0.5)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(0.6)*(0.5*(x-0.5)^2-0.5)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(0.7)*(0.5*(x-0.5)^2-0.5)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(0.8)*(0.5*(x-0.5)^2-0.5)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(0.9)*(0.5*(x-0.5)^2-0.5)),col='gray0',lty=3)
 
-points(4.256215,lapply(4.256215,function(y)-0.1*(y-5)^(2)-1),pch = 19,col='red',cex=0.7)
-abline(v=4.2562,col='darkgrey',lty=3)
-abline(v=-0.86156,col='darkgrey',lty=3)
+points(1.499,lapply(1.499,function(y)-0.01*(3*y^4-17*y^3+17*y^2+48)-2),pch = 19,col='red',cex=0.7)
+abline(v=1.4999,col='darkgrey',lty=3)
+abline(v=-0.4999,col='darkgrey',lty=3)
 
-plot(seq(0.1,1,0.01),lapply(seq(0.1,1,0.01),function(y)max(as.numeric(lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(y)*(0.01*(3*x^4-17*x^3+20*x^2+48)-0.75))))),type='l',xlab = expression(lambda),ylab=expression(paste('J(',lambda,')')))
-abline(h=lapply(4.256,function(x)-0.1*(x-5)^(2)-1),col='azure4',lty=2)
+plot(seq(0.1,1,0.01),lapply(seq(0.1,1,0.01),function(y)max(as.numeric(lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(y)*(0.5*(x-0.5)^2-0.5))))),type='l',xlab = expression(lambda),ylab=expression(paste('J(',lambda,')')),ylim=c(-2.5,-2))
+abline(h=lapply(1.499,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2),col='azure4',lty=2)
 
 ##### -TEST SECTION- #####
 plot(seq(-2,5,0.01),lapply(seq(-2,5,0.01),function(x)0.01*(3*x^4-17*x^3+20*x^2+48)),col='gray0',lty=2,type='l')
-f <- function(x) 0.01*(3*x^4-17*x^3+19.5*x^2+48)-0.75        #-Finding the fee
-r<-uniroot(f, c(-2,1))
+f <- function(x) 0.5*(x-0.5)^2-0.5        #-Finding the fee
+uniroot(f, c(0,3))$root
 
 plot(1:10, 1:10, type="l", lty=2, lwd=3)
 plot(1:10, 1:10, type="l", lty=1)
