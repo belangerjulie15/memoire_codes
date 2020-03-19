@@ -303,8 +303,10 @@ abline(h=lapply(1.499,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2),col='azure4',
 
 ##### -TEST SECTION- #####
 plot(seq(-2,5,0.01),lapply(seq(-2,5,0.01),function(x)0.01*(3*x^4-17*x^3+20*x^2+48)),col='gray0',lty=2,type='l')
-f <- function(x) 2*(5-(4*x+1)/0.2)^2-1       #-Finding the fee
-uniroot(f, c(-3,0))$root
+f <- function(y) max(as.numeric(lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(y)*(0.5*(x-0.5)^2-0.5))))+2.8429      #-Finding the fee
+uniroot(f, c(0.1,3))$root
+
+max(as.numeric(lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.1)*(2*x^2-1))))
 
 plot(1:10, 1:10, type="l", lty=2, lwd=3)
 plot(1:10, 1:10, type="l", lty=1)
