@@ -255,7 +255,9 @@ points(x_mel,y_mel,pch = 19,col='grey',cex=0.7)
 
 
 
-#Graphes: optimisation convexe, relaxation lagrangienne#
+### Graphes: optimisation convexe, relaxation lagrangienne ###
+# Fonction de contrainte convexe #
+
 axe_d_x<-seq(-2,2,0.01)
 plot(axe_d_x,lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1),type='l',xlab =expression(x),ylab='',ylim=c(-6,2))
 #segments(x0=-2, y0=0, x1 =2, y1 =0, lty=3, col='dimgrey')
@@ -275,15 +277,35 @@ abline(v=sqrt(0.5),col='darkgrey',lty=3)
 abline(v=-sqrt(0.5),col='darkgrey',lty=3)
 
 plot(seq(0.1,1,0.01),lapply(seq(0.1,1,0.01),function(y)max(as.numeric(lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(y)*(2*x^2-1))))),type='l',xlab = expression(lambda),ylab=expression(paste('J(',lambda,')')))
-abline(h=lapply(sqrt(0.5),function(x)-0.1*(x-5)^(2)-1),col='grey',lty=2)
+abline(h=lapply(sqrt(0.5),function(x)-0.1*(x-5)^(2)-1),col='azure4',lty=2)
 
+# Fonction de contrainte non-convexe #
+axe_d_x<-seq(-2,4.5,0.01)
+plot(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75),type='l',xlab =expression(x),ylab='',ylim=c(-4,1))
+#segments(x0=-2, y0=0, x1 =2, y1 =0, lty=3, col='dimgrey')
+lines(axe_d_x,lapply(axe_d_x,function(x)0.5*(x-0.5)^2-1),col='gray0',lty=2)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.1)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.2)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.3)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.4)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.5)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.6)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.7)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.8)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(0.9)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+lines(axe_d_x,lapply(axe_d_x,function(x)0.01*(3*x^4-17*x^3+19.5*x^2+48)-2.75-(1)*(0.5*(x-0.5)^2-1)),col='gray0',lty=3)
+
+points(4.256215,lapply(4.256215,function(y)-0.1*(y-5)^(2)-1),pch = 19,col='red',cex=0.7)
+abline(v=4.2562,col='darkgrey',lty=3)
+abline(v=-0.86156,col='darkgrey',lty=3)
+
+plot(seq(0.1,1,0.01),lapply(seq(0.1,1,0.01),function(y)max(as.numeric(lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(y)*(0.01*(3*x^4-17*x^3+20*x^2+48)-0.75))))),type='l',xlab = expression(lambda),ylab=expression(paste('J(',lambda,')')))
+abline(h=lapply(4.256,function(x)-0.1*(x-5)^(2)-1),col='azure4',lty=2)
 
 ##### -TEST SECTION- #####
-
-plot(seq(-3,3,0.1),lapply(seq(-3,3,0.1),function(x)x^2),type='l',xlab = '',ylab='')
-
-f <- function(x) x^2-x-4         #-Finding the fee
-r<-uniroot(f, c(0,100))
+plot(seq(-2,5,0.01),lapply(seq(-2,5,0.01),function(x)0.01*(3*x^4-17*x^3+20*x^2+48)),col='gray0',lty=2,type='l')
+f <- function(x) 0.01*(3*x^4-17*x^3+19.5*x^2+48)-0.75        #-Finding the fee
+r<-uniroot(f, c(-2,1))
 
 plot(1:10, 1:10, type="l", lty=2, lwd=3)
 plot(1:10, 1:10, type="l", lty=1)
