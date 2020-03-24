@@ -149,6 +149,7 @@ text(2.6, -0.04, labels = expression(paste(gamma,"=8")),cex=0.9)
 plot(axex,axey_ut,ylab = "Utilité",xlab=expression(paste("Valeur de l'actif à maturité (x)" )),type='l',yaxt = "n" ,xaxt = "n",lty=2,xaxs="i" )
 xtick<-c( 0,b=par_b,round(Find_x_theta_PU(b_o=par_b,a_o=par_a,K_o=par_K,gamma_o=par_Gamma),0))
 axis(1, at=xtick, labels=c(0 ,expression(d),expression(paste(tilde(x),'(d)'))))
+axis(2, at=axey_ut[1], labels=c(expression(paste(u,'(K)'))))
 lines(axex, axey_concav, col = "red",lty=4)
 legend(par_b+25, par_K+10, legend=c( expression(paste("Fonction concavifiée  ",tilde(u)(x))), "Fonction originale u(x)"),
        col=c("red", "black"), lty=c(4,2), cex=0.8)
