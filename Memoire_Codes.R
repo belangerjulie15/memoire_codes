@@ -278,7 +278,11 @@ abline(v=sqrt(0.5),col='darkgrey',lty=3)
 abline(v=-sqrt(0.5),col='darkgrey',lty=3)
 
 plot(seq(0.1,1,0.01),lapply(seq(0.1,1,0.01),function(y)max(as.numeric(lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(y)*(2*x^2-1))))),type='l',xlab = expression(lambda),ylab=expression(paste('J(',lambda,')')))
-abline(h=lapply(sqrt(0.5),function(x)-0.1*(x-5)^(2)-1),col='azure4',lty=2)
+abline(h=lapply(sqrt(0.5),function(x)-0.1*(x-5)^(2)-1),col='red',lty=2)
+points(0.3,-2.842,pch = 19,col='azure4',cex=0.7)
+text(0.33,-2.82,labels=expression(j^'*'),col='azure4')
+text(1,-2.82,labels=expression(c^'*'),col='red')
+
 
 # Fonction de contrainte non-convexe #
 axe_d_x<-seq(-2,4.5,0.01)
@@ -300,13 +304,14 @@ abline(v=1.4999,col='darkgrey',lty=3)
 abline(v=-0.4999,col='darkgrey',lty=3)
 
 plot(seq(0.1,1,0.01),lapply(seq(0.1,1,0.01),function(y)max(as.numeric(lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(y)*(0.5*(x-0.5)^2-0.5))))),type='l',xlab = expression(lambda),ylab=expression(paste('J(',lambda,')')),ylim=c(-2.5,-2))
-abline(h=lapply(1.499,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2),col='azure4',lty=2)
-points(0.22,-2.3849,pch = 19,col='red',cex=0.7) #-2.384961
-text(0.25,-2.4,labels=expression(j^'*'),col='red')
+abline(h=lapply(1.499,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2),col='red',lty=2)
+points(0.22,-2.3849,pch = 19,col='azure4',cex=0.7) #-2.384961
+text(0.25,-2.405,labels=expression(j^'*'),col='azure4')
+text(1,-2.46,labels=expression(c^'*'),col='red')
 
 ##### -TEST SECTION- #####
 plot(seq(-2,5,0.01),lapply(seq(-2,5,0.01),function(x)0.01*(3*x^4-17*x^3+20*x^2+48)),col='gray0',lty=2,type='l')
-f <- function(y) max(as.numeric(lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(y)*(0.5*(x-0.5)^2-0.5))))+2.385      #-Finding the fee
+f <- function(y) max(as.numeric(lapply(axe_d_x,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2-(y)*(0.5*(x-0.5)^2-0.5))))+2.84      #-Finding the fee
 uniroot(f, c(0.1,3))$root
 
 max(as.numeric(lapply(axe_d_x,function(x)-0.1*(x-5)^(2)-1-(0.1)*(2*x^2-1))))
