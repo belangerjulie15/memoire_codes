@@ -133,7 +133,7 @@ text(2.6, 0.02, labels = expression(paste(gamma,"=8")),cex=0.9)
 
 
 ### Dérivée des fonctions d'utilités précédentes ###
-#Mettre par(mfrow=c(2,1)) pour mettre les grpahiques côte-à-côte.
+#Mettre par(mfrow=c(2,1)) pour mettre les graphiques côte-à-côte.
 plot(axex_Utility,lapply(axex_Utility,function(x)derivee_Power_Utility(x,2)),ylab = "U'(x)",type='l',lty=1,xlab="x",ylim = c(-0.1,1.5),xlim=c(0.75,2.7))#,yaxt = "n" ,xaxt = "n"
 lines(axex_Utility,lapply(axex_Utility,function(x)derivee_Power_Utility(x,3)),col='saddlebrown',lty=2)
 lines(axex_Utility,lapply(axex_Utility,function(x)derivee_Power_Utility(x,4)),col='tomato3',lty=5)
