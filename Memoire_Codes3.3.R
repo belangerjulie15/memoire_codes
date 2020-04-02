@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.0    #Fee applied of the risky asset
-fee_c_f<-0.02448    #Fee applied of the funds 
+fee_c_s<-0.018    #Fee applied of the risky asset
+fee_c_f<-0.00648    #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -398,7 +398,9 @@ Simulations_fonds_distinct<-function(matrice_pre2_S){
 timer3<-proc.time()
 
 #ptf_terminal_final<-
-ptf_2448_0<-Simulations_fonds_distinct(pre2_S_tilde_t)#funds_final, 37.06 sec ? rouler
+ptf_18_6448<-Simulations_fonds_distinct(pre2_S_tilde_t)#funds_final, 37.06 sec ? rouler
+
+
 
 proc.time()-timer3
 

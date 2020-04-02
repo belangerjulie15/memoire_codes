@@ -428,10 +428,10 @@ Combin_ptf_frais<-rbind(Ptf_final_2448_0,Ptf_final_1224_1224,Ptf_final_18_6448,P
 
 
 ggplot(data=Combin_ptf_frais,aes(Combin_ptf_frais$valeur_opt,group=comp,fill=comp))+
-  geom_histogram(colour='black',binwidth = 0.01,alpha=0.7,position = "identity")+
+  geom_histogram(colour='black',binwidth = 0.01,alpha=0.6,position = "identity")+
   labs(x=expression(paste("X","*"[T])), y="# Réalisations")+
   scale_x_continuous(breaks=c(x_concavi),labels=expression(paste(widehat(x),'(',D[T],')')))+
-  scale_fill_manual(name="",values=c("#F8766D","#00B81F","#00A5FF","#E76BF3"),labels=c( expression(paste("1. Aucun frais")), expression(paste("2. ",c[s],"=0.000% et ",c[f],"=2.448%")),expression(paste("2. ",c[s],"=0.000% et ",c[f],"=2.448%")),expression(paste("2. ",c[s],"=0.000% et ",c[f],"=2.448%"))))+
+  scale_fill_manual(name="",values=c("#7CAE00","yellow","red","#C77CFF"),labels=c( expression(paste("4. Aucun frais")), expression(paste("3. ",c[s],"=0.000% et ",c[f],"=2.448%")),expression(paste("2. ",c[s],"=1.224% et ",c[f],"=1.224%")),expression(paste("1. ",c[s],"=1.800% et ",c[f],"=0.6448%"))))+
   theme_classic()+
   theme(legend.position = 'bottom',legend.title = element_blank())
 
