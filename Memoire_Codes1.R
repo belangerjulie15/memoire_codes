@@ -360,7 +360,7 @@ legend(20,0.17, legend=c( expression(paste(gamma,"=2")), expression(paste(gamma,
 
 #Valeur Optimale ptf VS S_T
 par(mfrow=c(1,1))
-axe_x4<-seq(0.1,4,0.5)
+axe_x4<-seq(0.1,4,0.05)
 plot(axe_x4,lapply(axe_x4, function(x)Test_Valeur_Optimale(lambda=0.001,S_t=x,S_0=1,a=1,sigma=0.3,T_t=10,alpha=0.07,gamma=2,K=1,r=0.03,b=1)
 ),type='l',xlab=expression(s[T]),ylab=expression(paste("X","*"[T])),ylim=c(0,60))
 lines(axe_x4,lapply(axe_x4,function(x)Test_Valeur_Optimale(lambda=0.001,S_t=x,S_0=1,a=1,sigma=0.3,T_t=10,alpha=0.07,gamma=2.2,K=1,r=0.03,b=1)),col='grey')
@@ -374,8 +374,8 @@ legend( 0.3,50, legend=c( expression(paste(gamma,"=2")), expression(paste(gamma,
 
 
 # Xi with respect to S_t #
-par(mfrow=c(1,2))
-plot(axe_x4,lapply(axe_x4,function(x)Xi_shape(S_t_xi=x,S_0=50,alpha_xi=0.07,r_xi=0.03,sigma_xi=0.25,T_xi=10)),type='l',xlab=expression(S[t]),ylab=expression(xi[t]))
+par(mfrow=c(1,1))
+plot(axe_x4,lapply(axe_x4,function(x)Xi_shape(S_t_xi=x,S_0=1,alpha_xi=0.04,r_xi=0.02,sigma_xi=0.2,T_xi=10)),type='l',xlab=expression(S[t]),ylab=expression(xi[t]))
 lines(axe_x4,lapply(axe_x4,function(x)Xi_shape(S_t_xi=x,S_0=50,alpha_xi=0.07,r_xi=0.03,sigma_xi=0.35,T_xi=10)),col='grey')
 lines(axe_x4,lapply(axe_x4,function(x)Xi_shape(S_t_xi=x,S_0=50,alpha_xi=0.07,r_xi=0.03,sigma_xi=0.55,T_xi=10)),col='orange')
 legend( 34,8, legend=c( expression(paste(sigma,"=0.25")), expression(paste(sigma,"=0.35")),expression(paste(sigma,"=0.55"))),
