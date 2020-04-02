@@ -431,7 +431,7 @@ ggplot(data=Combin_ptf_frais,aes(Combin_ptf_frais$valeur_opt,group=comp,fill=com
   geom_histogram(colour='black',binwidth = 0.01,alpha=0.6,position = "identity")+
   labs(x=expression(paste("X","*"[T])), y="# Réalisations")+
   scale_x_continuous(breaks=c(x_concavi),labels=expression(paste(widehat(x),'(',D[T],')')))+
-  scale_fill_manual(name="",values=c("#7CAE00","yellow","red","#C77CFF"),labels=c( expression(paste("4. Aucun frais")), expression(paste("3. ",c[s],"=0.000% et ",c[f],"=2.448%")),expression(paste("2. ",c[s],"=1.224% et ",c[f],"=1.224%")),expression(paste("1. ",c[s],"=1.800% et ",c[f],"=0.6448%"))))+
+  scale_fill_manual(name="",values=c("#7CAE00","yellow","#F8766D","#C77CFF"),labels=c( expression(paste("4. Aucun frais")), expression(paste("3. ",c[s],"=0.000% et ",c[f],"=2.448%")),expression(paste("2. ",c[s],"=1.224% et ",c[f],"=1.224%")),expression(paste("1. ",c[s],"=1.800% et ",c[f],"=0.6448%"))))+
   theme_classic()+
   theme(legend.position = 'bottom',legend.title = element_blank())
 
