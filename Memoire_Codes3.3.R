@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.00   #Fee applied of the risky asset
-fee_c_f<-0.00    #Fee applied of the funds 
+fee_c_s<-0.018   #Fee applied of the risky asset
+fee_c_f<-0.0124    #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -630,12 +630,38 @@ funds_cf0648<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre
 funds_cf1224<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
 funds_cf2448<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
 
-funds_final_2$comp<-'Optimale'
-funds_rebalancement_MMB_2$comp<-'Optimale, [0,1]'
+funds_cf0648$comp<-'cf0648'
+funds_cf1224$comp<-'cf1224'
+funds_cf2448$comp<-'cf2448'
 
-Compa_combin_funds_uniq2<-rbind(funds_rebalancement_MMB_2,funds_final_2)
+Compa_combin_funds_cf<-rbind(funds_cf0648,funds_cf1224,funds_cf2448)
+
+ggplot(data=Compa_combin_funds_cf,aes(Compa_combin_funds_cf$funds_optimal,group=comp,fill=comp))+
+  geom_histogram(colour='black',bins=100,alpha=0.5,position = "identity")+
+  labs(x=expression(paste("F",""[T])), y="Réalisations")+
+ theme_classic()+
+scale_fill_manual(name="",values=c('#00BFC3',"#7CAE00","yellow"),labels=c( expression(paste(c[f],"=0.648%")),expression(paste(c[f],"=1.224%")),expression(paste(c[f],"=2.448%"))))+
+theme(legend.position = 'bottom',legend.title = element_blank())  
 
 
+## -Graphique 2: variation de c_s- ##
+# (c_f=1.224%) #
 
 
+funds_cs0648<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_cs1224<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_cs18<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+
+funds_cs0648$comp<-'cf0648'
+funds_cs1224$comp<-'cf1224'
+funds_cs18$comp<-'cf18'
+
+Compa_combin_funds_cs<-rbind(funds_cs0648,funds_cs1224,funds_cs18)
+
+ggplot(data=Compa_combin_funds_cs,aes(Compa_combin_funds_cs$funds_optimal,group=comp,fill=comp))+
+  geom_histogram(colour='black',bins=100,alpha=0.5,position = "identity")+
+  labs(x=expression(paste("F",""[T])), y="Réalisations")+
+  theme_classic()+
+  scale_fill_manual(name="",values=c('firebrick1','lightsalmon1','darkgoldenrod1'),labels=c( expression(paste(c[s],"=0.000%")),expression(paste(c[s],"=1.224%")),expression(paste(c[s],"=1.800%"))))+
+  theme(legend.position = 'bottom',legend.title = element_blank())  
 
