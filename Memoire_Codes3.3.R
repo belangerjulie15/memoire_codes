@@ -621,3 +621,21 @@ lines(seq(0,1,0.1),c_s18,col='darkgoldenrod3',lty=3)
 legend(0.6,-0.44, legend=c(expression(paste(c[s],"=0.000%  et  ",c[f],"=2.448%")),expression(paste(c[s],"=1.224%  et  ",c[f],"=1.224%")),expression(paste(c[s],"=1.800%  et  ",c[f],"=0.6448%"))),col=c('black','coral3','darkgoldenrod3'),lty=c(1,2,3))
 
 
+#### -Graphiques: comparaisons, variation des frais- ###
+## -Graphique 1: variation de c_f- ##
+# (c_s=1.224%) #
+
+
+funds_cf0648<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_cf1224<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_cf2448<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+
+funds_final_2$comp<-'Optimale'
+funds_rebalancement_MMB_2$comp<-'Optimale, [0,1]'
+
+Compa_combin_funds_uniq2<-rbind(funds_rebalancement_MMB_2,funds_final_2)
+
+
+
+
+
