@@ -38,13 +38,13 @@ Maturi<-10         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
-gamma<-3           #Parameter of Utility function
+gamma<-7           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.018   #Fee applied of the risky asset
-fee_c_f<-0.0124    #Fee applied of the funds 
+fee_c_s<-0.01224   #Fee applied of the risky asset
+fee_c_f<-0.01224    #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -663,5 +663,28 @@ ggplot(data=Compa_combin_funds_cs,aes(Compa_combin_funds_cs$funds_optimal,group=
   labs(x=expression(paste("F",""[T])), y="Réalisations")+
   theme_classic()+
   scale_fill_manual(name="",values=c('firebrick1','lightsalmon1','darkgoldenrod1'),labels=c( expression(paste(c[s],"=0.000%")),expression(paste(c[s],"=1.224%")),expression(paste(c[s],"=1.800%"))))+
+  theme(legend.position = 'bottom',legend.title = element_blank())  
+
+
+## -Graphique 3: variation de gamma- ##
+# (c_f=1.224% et c_s=1.224% ) #
+
+funds_gamma2<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_gamma3<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_gamma4<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_gamma7<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+
+funds_gamma2$comp<-'gamma2'
+funds_gamma3$comp<-'gamma3'
+funds_gamma4$comp<-'gamma4'
+funds_gamma7$comp<-'gamma7'
+
+Compa_combin_funds_gamma<-rbind(funds_gamma2,funds_gamma3,funds_gamma4,funds_gamma7)
+
+ggplot(data=Compa_combin_funds_gamma,aes(Compa_combin_funds_gamma$funds_optimal,group=comp,fill=comp))+
+  geom_histogram(colour='black',bins=100,alpha=0.5,position = "identity")+
+  labs(x=expression(paste("F",""[T])), y="Réalisations")+
+  theme_classic()+
+  scale_fill_manual(name="",values=c('gold2','darkorange1',"violet","red"),labels=c( expression(paste(gamma,"=2")),expression(paste(gamma,"=3")),expression(paste(gamma,"=4")),expression(paste(gamma,"=7"))))+
   theme(legend.position = 'bottom',legend.title = element_blank())  
 
