@@ -34,11 +34,11 @@ library(Optimisation.Power.Utility)
 ###################################################################
 
 ############## PARAMÈTRES ########################################
-Maturi<-10         #Time until maturity
+Maturi<-15         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
-gamma<-7           #Parameter of Utility function
+gamma<-3           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
@@ -686,5 +686,32 @@ ggplot(data=Compa_combin_funds_gamma,aes(Compa_combin_funds_gamma$funds_optimal,
   labs(x=expression(paste("F",""[T])), y="Réalisations")+
   theme_classic()+
   scale_fill_manual(name="",values=c('gold2','darkorange1',"violet","red"),labels=c( expression(paste(gamma,"=2")),expression(paste(gamma,"=3")),expression(paste(gamma,"=4")),expression(paste(gamma,"=7"))))+
+  theme(legend.position = 'bottom',legend.title = element_blank())  
+
+
+
+
+## -Graphique 4: variation de la maturité du fonds distinct- ##
+# (c_f=1.224% et c_s=1.224% ) #
+
+funds_maturite1<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_maturite5<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_maturite10<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+funds_maturite15<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+
+funds_maturite1$comp<-'T=1'
+funds_maturite5$comp<-'T=5'
+funds_maturite10$comp<-'T=10'
+funds_maturite15$comp<-'T=15'
+
+Compa_combin_funds_maturite<-rbind(funds_maturite1,funds_maturite5,funds_maturite10,funds_maturite15)
+Compa_combin_funds_maturite$comp<-factor(Compa_combin_funds_maturite$comp,levels=c('T=1','T=5','T=10','T=15'))
+
+
+ggplot(data=Compa_combin_funds_maturite,aes(Compa_combin_funds_maturite$funds_optimal,group=comp,fill=comp,order = as.numeric(comp)))+
+  geom_histogram(colour='black',bins=150,alpha=0.55,position = "identity")+
+  labs(x=expression(paste("F"[T]^"*")), y="Réalisations")+
+  theme_classic()+
+  #scale_fill_manual(name=""s,values=c('gold2','darkorange1',"violet","red"),labels=c( expression(paste(gamma,"=2")),expression(paste(gamma,"=3")),expression(paste(gamma,"=4")),expression(paste(gamma,"=7"))))+
   theme(legend.position = 'bottom',legend.title = element_blank())  
 
