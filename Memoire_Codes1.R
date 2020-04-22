@@ -119,7 +119,7 @@ Ptf_optimalCall_wrt_ST<-function(alpha_par,r_par,sigma_par,gamma_par,K_par,b_par
   if(indicatrice>x_concavification){X_opt<-indicatrice}
   else{X_opt<-0}
   
-  print(c(x_concavification,lambda_par))
+  #print(c(x_concavification,lambda_par))
   
   return(X_opt)
 }
@@ -401,7 +401,7 @@ VO_gamma4<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST(alpha_par=0.04,r_
 VO_gamma4_5<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4.5,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1))
                                     
                    
-plot(axe_test,VO_gamma3,type='l',xlab=expression(s[T]),ylab=expression(paste("X","*"[T])))
+plot(axe_test,VO_gamma3,type='l',xlab=expression(s[T]),ylab=expression(paste(F[T],"*")))
 lines(axe_test,VO_gamma3_5,col='grey',lty=2)
 lines(axe_test,VO_gamma4,col='orange',lty=4)
 lines(axe_test, VO_gamma4_5,col='red',lty=3)
@@ -411,21 +411,30 @@ legend( 0.2,1.7, legend=c( expression(paste(gamma,"=3")), expression(paste(gamma
 
 
 ###### Graphiques X*_t different frais ######
-XT_gamma4_fees0et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0)
+XT_gamma4_fees0et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0)
 )
-XT_gamma4_fees005et005<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.005,c_s=0.005)
+XT_gamma4_fees005et005<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.005,c_s=0.005)
 )
-XT_gamma4_fees01et01<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01,c_s=0.01)
+XT_gamma4_fees01et01<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01,c_s=0.01)
 )
-XT_gamma4_fees0et005<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.005,c_s=0)
+XT_gamma4_fees0et005<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.005,c_s=0)
 )
-XT_gamma4_fees005et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0.005)
+XT_gamma4_fees005et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0.005)
 )
-XT_gamma4_fees02et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0.02)
+XT_gamma4_fees02et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0.02)
 )
-XT_gamma4_fees0et02<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.02,c_s=0)
+XT_gamma4_fees0et02<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.02,c_s=0)
 )
-XT_gamma4_fees015et005<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.005,c_s=0.015)
+XT_gamma4_fees015et005<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.005,c_s=0.015)
+)
+
+XT_gamma4_fees00et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0)
+)
+XT_gamma4_fees18et0648<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.00648,c_s=0.018)
+)
+XT_gamma4_fees1224et1224<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01224,c_s=0.01224)
+)
+XT_gamma4_fees0et2448<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.02448,c_s=0.0)
 )
 
 plot(axe_test,XT_gamma4_fees0et0,type='l',xlab=expression(s[T]),ylab=expression(paste("X","*"[T])),xlim =c(0.5,2) )
@@ -437,12 +446,19 @@ legend( 1.3,1, legend=c( expression(paste(c[s],"=0.000"," et ",c[f],"=0.000")),e
         col=c("black","grey",'blue','green','red'), lty=c(1,2,5,4,3), cex=0.8)
 
 
-plot(axe_test,XT_gamma4_fees02et0,col='purple',lty=2,type='l',xlab=expression(s[T]),ylab=expression(paste("X","*"[T])),xlim =c(0,2),ylim=c(0,2) )
+plot(axe_test,XT_gamma4_fees02et0,col='purple',lty=2,type='l',xlab=expression(s[T]),ylab=expression(paste(F[T],"*")),xlim =c(0,2),ylim=c(0,2) )
 lines(axe_test,XT_gamma4_fees015et005,col='navy',lty=6)
 lines(axe_test,XT_gamma4_fees01et01,col='blue',lty=5)
 lines(axe_test,XT_gamma4_fees0et02,col='firebrick3',lty=4)
 legend( 1.3,1, legend=c(expression(paste(c[s],"=0.02","   et  ",c[f],"=0.00")), expression(paste(c[s],"=0.015"," et  ",c[f],"=0.005")),expression(paste(c[s],"=0.01","   et  ",c[f],"=0.01")),expression(paste(c[s],"=0.00","   et  ",c[f],"=0.02"))),
         col=c('purple','navy','blue','firebrick3'), lty=c(2,6,5,4), cex=0.8)
+
+plot(axe_test,XT_gamma4_fees00et0,col='purple',lty=1,type='l',xlab=expression(s[T]),ylab=expression(paste(F[T],"*")),xlim =c(0,2),ylim=c(0,2) )
+lines(axe_test,XT_gamma4_fees18et0648,col='navy',lty=3)
+lines(axe_test,XT_gamma4_fees1224et1224,col='blue',lty=5)
+lines(axe_test,XT_gamma4_fees0et2448,col='firebrick3',lty=2)
+legend( 1.3,1, legend=c(expression(paste("Aucun frais")), expression(paste(c[s],"=1.800%"," et ",c[f],"=0.648%")),expression(paste(c[s],"=1.224%"," et ",c[f],"=1.224%")),expression(paste(c[s],"=0.000%"," et ",c[f],"=2.448%"))),
+        col=c('purple','navy','blue','firebrick3'), lty=c(1,3,5,2), cex=0.8)
 
 
 
