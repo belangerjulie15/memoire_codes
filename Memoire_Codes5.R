@@ -561,13 +561,32 @@ proc.time()-timer5
 
 
 
+proportion_funds_optimale<-function(S_tilde,alpha_prop,r_prop,sigma_prop,c_f_prop,c_s_prop,T_prop1,t_prop2,gamma_prop){
+  alpha_tilde<-alpha_prop-c_s_prop-c_f_prop
+  r_no_risk_tilde<-r_prop-c_f_prop
+  theta_sim_tilde<-(alpha_tilde-r_no_risk_tilde)/sigma_prop
+  x_concavi<-Find_x_theta_PU(1,1,1,gamma_prop)
+  y_concavi<-x_concavi^(-gamma_prop)
+  lambda_prop<-lambda_optimal(r_FL=r_no_risk_tilde,alpha_FL=alpha_tilde,sigma_FL=sigma_prop,gamma_FL=gamma_prop,K_FL=1,b_FL=1,a_FL=1,X_0_FL=1,T_FL=T_prop1)
+  
+  xi_tilde_prop<-S_tilde^(-theta_sim_tilde/sigma_prop)*exp((theta_sim_tilde*alpha_tilde/sigma_prop-theta_sim_tilde*sigma_prop/2-r_no_risk_tilde-0.5*theta_sim_tilde^2)*t_prop2)
+
+  
+  j<-((r_no_risk_tilde+(1/gamma_prop-0.5)*theta_sim_tilde^2)*(T_prop1-t_prop2)+log(y_concavi/(xi_tilde_prop*lambda_prop)))/(theta_sim_tilde*sqrt(T_prop1-t_prop2))
+  if(j<(-30)){j<--30}
+  proport<-max(min((theta_sim_tilde/gamma_prop+dnorm(j)/(pnorm(j)*sqrt(T_prop1-t_prop2)))/sigma_prop,1),0)
+  
+  cte_M<-theta_sim_tilde/(sigma_prop*gamma_prop)
+  print(cte_M)
+  return(proport)
+}
+
+axe_d_s<-seq(0.9,5,0.01)
+p_g3<-lapply(axe_d_s,function(s)proportion_funds_optimale(S_tilde=s,alpha_prop=0.04,r_prop=0.02,sigma_prop=0.2,c_f_prop=0.01224,c_s_prop=0.01224,T_prop1=10,t_prop2=1,gamma_prop=3))
 
 
-
-
-
-
-
+plot(axe_d_s,p_g3,type='l')
+lines(axe_d_s,rep(0.06466667,length(axe_d_s)),col='red',lty=2)
 
 
 
