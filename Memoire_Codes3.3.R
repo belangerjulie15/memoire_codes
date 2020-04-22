@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.0   #Fee applied of the risky asset
-fee_c_f<-0.02448    #Fee applied of the funds 
+fee_c_s<-0.018   #Fee applied of the risky asset
+fee_c_f<-0.00648    #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -721,19 +721,21 @@ ggplot(data=Compa_combin_funds_maturite,aes(Compa_combin_funds_maturite$funds_op
 
 ## -Graphique 5: Pour différentes combinaisons de frais- ##
 ajust_graphique5<-2.5
+library(scales)
+
 #Ne pas toucher#ptf_2448_0<-Simulations_fonds_distinct(pre2_S_tilde_t)
 #Ne pas toucher#ptf_1224_1224<-Simulations_fonds_distinct(pre2_S_tilde_t)
-#Ne pas toucher#ptf_18_6448<-Simulations_fonds_distinct(pre2_S_tilde_t)
+#Ne pas toucher#ptf_18_648<-Simulations_fonds_distinct(pre2_S_tilde_t)
 #Ne pas toucher#ptf_0_0<-Simulations_fonds_distinct(pre2_S_tilde_t)
   
 Ptf_final_2448_0<-data.frame(valeur_opt=as.numeric(lapply(ptf_2448_0,function(x) min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
 Ptf_final_1224_1224<-data.frame(valeur_opt=as.numeric(lapply(ptf_1224_1224,function(x)min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
-Ptf_final_18_6448<-data.frame(valeur_opt=as.numeric(lapply(ptf_18_6448,function(x)min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
+Ptf_final_18_648<-data.frame(valeur_opt=as.numeric(lapply(ptf_18_6448,function(x)min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
 Ptf_final_0_0<-data.frame(valeur_opt=as.numeric(lapply(ptf_0_0,function(x)min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
 
 Ptf_final_2448_0$comp<-'2.c_s=0.000% et c_f=2.448%'
 Ptf_final_1224_1224$comp<-'3.c_s=1.224% et c_f=1.224%'
-Ptf_final_18_6448$comp<-'4. c_s=1.800% et c_f=0.6448%'
+Ptf_final_18_648$comp<-'4. c_s=1.800% et c_f=0.648%'
 Ptf_final_0_0$comp<-'1. Aucun frais'
 
 
@@ -742,8 +744,11 @@ Combin_ptf_frais<-rbind(Ptf_final_2448_0,Ptf_final_1224_1224,Ptf_final_18_6448,P
 
 ggplot(data=Combin_ptf_frais,aes(Combin_ptf_frais$valeur_opt,group=comp,fill=comp))+
   geom_histogram(colour='black',binwidth = 0.01,alpha=0.6,position = "identity")+
-  labs(x=expression(paste("F","*"[T])), y="Réalisations")+
+  labs(x=expression(paste(F[T]^"*")), y="Réalisations")+
   #scale_x_continuous(breaks=c(x_concavi),labels=expression(paste(widehat(x),'(',D[T],')')))+
-  scale_fill_manual(name="",values=c("#7CAE00","yellow","#F8766D","deepskyblue3"),labels=c( expression(paste("Aucun frais")), expression(paste(" ",c[s],"=0.000% et ",c[f],"=2.448%")),expression(paste(" ",c[s],"=1.224% et ",c[f],"=1.224%")),expression(paste(" ",c[s],"=1.800% et ",c[f],"=0.6448%"))))+
+  scale_fill_manual(name="",values=c("#7CAE00","yellow","#F8766D","deepskyblue3"),labels=c( expression("Aucun frais"), expression(atop(paste(c[s],"=0.000%"),paste(c[f],"=2.448%"))),expression(atop(paste(c[s],"=1.224%"),paste(c[f],"=1.224%"))),expression(atop(paste(c[s],"=1.800%"),paste(c[f],"=0.648%")))))+
   theme_classic()+
+  guides(colour = guide_legend(nrow = 2))+
   theme(legend.position = 'bottom',legend.title = element_blank())##C77CFF
+
+
