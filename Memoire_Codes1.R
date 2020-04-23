@@ -206,13 +206,13 @@ Ptf_optimalCall_wrt_ST_Fee<-function(alpha_par_ini,r_par_ini,sigma_par,gamma_par
   #Pour S_0=1
   r_par<-r_par_ini-c_f
   alpha_par<-alpha_par_ini-c_f-c_s
-  
+  S_T_par_2<-S_T_par*exp((-c_f-c_s)*T_par) #S_T avec frais à partir de S_T sans les frais.
   
   theta<-(alpha_par-r_par)/sigma_par
   lambda_par<-lambda_optimal(r_FL=r_par,alpha_FL=alpha_par,sigma_FL=sigma_par,gamma_FL=gamma_par,K_FL=K_par,b_FL=b_par,a_FL=a_par,X_0_FL=X_0_par,T_FL=T_par)
   
   
-  qsi<-(S_T_par)^(-(alpha_par-r_par)/(sigma_par^2))*exp((theta*alpha_par/sigma_par-0.5*theta*sigma_par-r_par-0.5*theta^2)*T_par)
+  qsi<-(S_T_par_2)^(-(alpha_par-r_par)/(sigma_par^2))*exp((theta*alpha_par/sigma_par-0.5*theta*sigma_par-r_par-0.5*theta^2)*T_par)
   indicatrice<-((lambda_par*qsi/a_par)^(-1/gamma_par)-K_par)/a_par+b_par
   x_concavification<-Find_x_theta_PU(b_par,a_par,K_par,gamma_par)
   
@@ -657,11 +657,27 @@ ggplot(data=simul_combin,aes(simul_combin$Optimal_portfolio,group=simul,fill=sim
  Compa_EU_gamma<-rbind( result_g6, result_g5, result_g4, result_g3, result_g2)
  Compa_EU_gamma$c_s<-c(0,0.5,1,1.5)
  
- ggplot(data= Compa_EU_gamma,aes( x=Compa_EU_gamma$c_s,y=Compa_EU_gamma$results,group=gamma,fill=gamma,color=gamma))+
-   geom_line(linetype = "dashed")+
+ ggplot(data= Compa_EU_gamma,aes(x=Compa_EU_gamma$c_s,y=Compa_EU_gamma$results,group=gamma,color=gamma))+
+    geom_line(aes(linetype=gamma))+
    geom_point(aes(shape=gamma))+
+   scale_shape_discrete(name="",
+                        breaks=c("g6", "g5", "g4","g3","g2"),
+                        labels=c(expression(paste(gamma,"=6")), expression(paste(gamma,"=5")), expression(paste(gamma,"=4")),expression(paste(gamma,"=3")),expression(paste(gamma,"=2"))))+
+   scale_color_discrete(name="",
+                        breaks=c("g6", "g5", "g4","g3","g2"),
+                        labels=c(expression(paste(gamma,"=6")), expression(paste(gamma,"=5")), expression(paste(gamma,"=4")),expression(paste(gamma,"=3")),expression(paste(gamma,"=2"))))+
+   scale_linetype_discrete(name="",
+                        breaks=c("g6", "g5", "g4","g3","g2"),
+                        labels=c(expression(paste(gamma,"=6")), expression(paste(gamma,"=5")), expression(paste(gamma,"=4")),expression(paste(gamma,"=3")),expression(paste(gamma,"=2"))))+
+   theme(legend.position = "bottom")+
    #theme_classic()+
-   labs(title=expression(paste("Espérance de l'utilité avec ",c[f]," =0.02448- ",c[s])),x=expression(paste("Frais ","c"[s])), y="Espérance de l'utilité")+
-   theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15),hjust = 0.5))
+   labs(x=expression(paste(c[s])), y=expression(paste("E"^P,"[ (",F[T]^"*","-1)"^"+","+1"," ]")))
+   #theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15),hjust = 0.5))
+
+ 
+
+ 
+ 
+ 
  
  
