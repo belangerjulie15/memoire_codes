@@ -223,7 +223,7 @@ Ptf_optimalCall_wrt_ST_Fee<-function(alpha_par_ini,r_par_ini,sigma_par,gamma_par
   
   return(X_opt)
 }
-Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=1,T_par=10,X_0_par=1,c_f=0.005,c_s=0.005)
+Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=2,K_par=1,b_par=1,a_par=1,S_T_par=1,T_par=10,X_0_par=1,c_f=0.005,c_s=0.005)
 
 
 
@@ -392,15 +392,39 @@ legend( 34,1.1, legend=c( expression(paste(alpha,"=0.05")), expression(paste(alp
 par(mfrow=c(1,1))
 axe_test<-seq(0.1,2,0.001)
 
-#Bornes d'optimisation pour Gamma=3:c(0.0000000000000001,0.1)#
+###### Graphiques X*_t differents gamma ######
+#-Préparer les données-#
+VO_gamma2<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1))
 VO_gamma3<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1))
-
-#Bornes d'optimisation pour Gamma=3.5,4,4.5:c(0.0000000000000001,0.07)#
 VO_gamma3_5<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3.5,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1))
 VO_gamma4<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1))
 VO_gamma4_5<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4.5,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1))
-                                    
-                   
+
+F_gamma2<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=2,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01224,c_s=0.01224))
+F_gamma3<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01224,c_s=0.01224))
+F_gamma4<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01224,c_s=0.01224))
+F_gamma5<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=5,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01224,c_s=0.01224))
+F_gamma6<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=6,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01224,c_s=0.01224))
+F_gamma7<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=7,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01224,c_s=0.01224))
+
+ggp_gamma2<-data.frame(results=as.numeric(F_gamma2))
+ggp_gamma3<-data.frame(results=as.numeric(F_gamma3))
+ggp_gamma4<-data.frame(results=as.numeric(F_gamma4))
+ggp_gamma5<-data.frame(results=as.numeric(F_gamma5))
+ggp_gamma6<-data.frame(results=as.numeric(F_gamma6))
+ggp_gamma7<-data.frame(results=as.numeric(F_gamma7))
+
+ggp_gamma2$gamma<-'2'
+ggp_gamma3$gamma<-'3'
+ggp_gamma4$gamma<-'4'
+ggp_gamma5$gamma<-'5'
+ggp_gamma6$gamma<-'6'
+ggp_gamma7$gamma<-'7'
+
+F_ggp_total<-rbind(ggp_gamma2,ggp_gamma3,ggp_gamma4,ggp_gamma5,ggp_gamma6,ggp_gamma7)
+F_ggp_total$S_T<-axe_test
+
+# 1) Avec plot #
 plot(axe_test,VO_gamma3,type='l',xlab=expression(s[T]),ylab=expression(paste(F[T],"*")))
 lines(axe_test,VO_gamma3_5,col='grey',lty=2)
 lines(axe_test,VO_gamma4,col='orange',lty=4)
@@ -408,13 +432,27 @@ lines(axe_test, VO_gamma4_5,col='red',lty=3)
 legend( 0.2,1.7, legend=c( expression(paste(gamma,"=3")), expression(paste(gamma,"=3.5")),expression(paste(gamma,"=4")),expression(paste(gamma,"=4.5"))),
         col=c("black","grey",'orange','red'), lty=c(1,2,4,3), cex=0.8)
 
+# 2) Avec ggplot #
+ggplot(data=F_ggp_total,aes(x=F_ggp_total$S_T,y=F_ggp_total$results,group=gamma,color=gamma))+
+  geom_line(aes(linetype=gamma))+
+ scale_linetype_discrete(name="",
+                          breaks=c("2", "3", "4","5","6","7"),
+                          labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
+  scale_color_discrete(name="",
+                          breaks=c("2", "3", "4","5","6","7"),
+                          labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
+  theme(legend.position = "bottom")+
+  labs(x=expression(paste(S[T])), y=expression(paste(F[T]^"*")))
 
 
 
 
 
 
-###### Graphiques X*_t different frais ######
+
+
+
+###### Graphiques X*_t differents frais ######
 
 #-Préparer les données-#
 XT_gamma4_fees00et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0)
@@ -436,7 +474,7 @@ ggp_fees1224et1224$fee<-'c_s=1.224 et c_f=1.224'
 ggp_fees0et2448$fee<-'c_s=0 et c_f=2.448'
 
 Compa_ggp_total<-rbind(ggp_fees00et0,ggp_fees18et0648,ggp_fees1224et1224,ggp_fees0et2448)
-Compa_ggp_total$c_s<-axe_test
+Compa_ggp_total$c_s<-axe_test #Ici, c_s représente plutot S_T
 
 
 #-Graphiques-#
@@ -487,9 +525,9 @@ alpha_sim<-0.04
 r_sim<-0.02
 T_sim<-10
 sigma_sim<-0.2
-gamma_sim<-2
+gamma_sim<-7
 x_conca<-Find_x_theta_PU(1,1,1,gamma_sim)
-c_s_sim<-0.015 
+c_s_sim<-0.0 
 c_f_sim<-0.02448-c_s_sim
 alpha_sim_frais<-alpha_sim-c_s_sim-c_f_sim
 r_sim_frais<-r_sim-c_f_sim
@@ -642,34 +680,36 @@ ggplot(data=simul_combin,aes(simul_combin$Optimal_portfolio,group=simul,fill=sim
   #3) Calcul de l'espérance de l'utilité: E[  U( max(X_T,1) ) ]
   EU_Call_sim<-mean(1/(1-gamma_sim)*(as.numeric(lapply(Ptf_call_sim,function(x)max(x,1))))^(1-gamma_sim))
 
-
+ result_g7<-data.frame(results=c(-0.05218744,-0.05192372,-0.05082127,-0.04896291))
  result_g6<-data.frame(results=c(-0.06958732, -0.06941325,-0.06857159,-0.06692696))
  result_g5<-data.frame(results=c(-0.09835473,-0.09831733,-0.09749544,-0.09620082))
  result_g4<-data.frame(results=c(-0.1514656,-0.1522911,-0.1523024,-0.1513727))
  result_g3<-data.frame(results=c(-0.2722601,-0.2745076,-0.2756578,-0.2762874))
  result_g2<-data.frame(results=c(-0.6920812,-0.6977341,-0.702836, -0.7063659))
-   
+ 
+ result_g7$gamma<-'g7'   
  result_g6$gamma<-'g6'
  result_g5$gamma<-'g5' 
  result_g4$gamma<-'g4'
  result_g3$gamma<-'g3'
  result_g2$gamma<-'g2'
  
- Compa_EU_gamma<-rbind( result_g6, result_g5, result_g4, result_g3, result_g2)
+ Compa_EU_gamma<-rbind( result_g7, result_g6, result_g5, result_g4, result_g3, result_g2)
+ Compa_EU_gamma$gamma <- factor( Compa_EU_gamma$gamma , levels = c("g2", "g3","g4","g5", "g6","g7"))
  Compa_EU_gamma$c_s<-c(0,0.5,1,1.5)
  
  ggplot(data= Compa_EU_gamma,aes(x=Compa_EU_gamma$c_s,y=Compa_EU_gamma$results,group=gamma,color=gamma))+
     geom_line(aes(linetype=gamma))+
    geom_point(aes(shape=gamma))+
    scale_shape_discrete(name="",
-                        breaks=c("g6", "g5", "g4","g3","g2"),
-                        labels=c(expression(paste(gamma,"=6")), expression(paste(gamma,"=5")), expression(paste(gamma,"=4")),expression(paste(gamma,"=3")),expression(paste(gamma,"=2"))))+
+                        breaks=c("g2", "g3", "g4","g5","g6","g7"),
+                        labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
    scale_color_discrete(name="",
-                        breaks=c("g6", "g5", "g4","g3","g2"),
-                        labels=c(expression(paste(gamma,"=6")), expression(paste(gamma,"=5")), expression(paste(gamma,"=4")),expression(paste(gamma,"=3")),expression(paste(gamma,"=2"))))+
+                        breaks=c("g2", "g3", "g4","g5","g6","g7"),
+                        labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
    scale_linetype_discrete(name="",
-                        breaks=c("g6", "g5", "g4","g3","g2"),
-                        labels=c(expression(paste(gamma,"=6")), expression(paste(gamma,"=5")), expression(paste(gamma,"=4")),expression(paste(gamma,"=3")),expression(paste(gamma,"=2"))))+
+                        breaks=c("g2", "g3", "g4","g5","g6","g7"),
+                        labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
    theme(legend.position = "bottom")+
    #theme_classic()+
    labs(x=expression(paste(c[s])), y=expression(paste("E"^P,"[ (",F[T]^"*","-1)"^"+","+1"," ]")))
