@@ -410,24 +410,13 @@ legend( 0.2,1.7, legend=c( expression(paste(gamma,"=3")), expression(paste(gamma
 
 
 
-###### Graphiques X*_t different frais ######
-XT_gamma4_fees0et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0)
-)
-XT_gamma4_fees005et005<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.005,c_s=0.005)
-)
-XT_gamma4_fees01et01<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.01,c_s=0.01)
-)
-XT_gamma4_fees0et005<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.005,c_s=0)
-)
-XT_gamma4_fees005et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0.005)
-)
-XT_gamma4_fees02et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0.02)
-)
-XT_gamma4_fees0et02<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.02,c_s=0)
-)
-XT_gamma4_fees015et005<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.005,c_s=0.015)
-)
 
+
+
+
+###### Graphiques X*_t different frais ######
+
+#-Préparer les données-#
 XT_gamma4_fees00et0<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0,c_s=0)
 )
 XT_gamma4_fees18et0648<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.00648,c_s=0.018)
@@ -436,23 +425,22 @@ XT_gamma4_fees1224et1224<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fe
 )
 XT_gamma4_fees0et2448<-lapply(axe_test, function (x)Ptf_optimalCall_wrt_ST_Fee(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=3,K_par=1,b_par=1,a_par=1,S_T_par=x,T_par=10,X_0_par=1,c_f=0.02448,c_s=0.0)
 )
+ggp_fees00et0<-data.frame(results=as.numeric(XT_gamma4_fees00et0))
+ggp_fees18et0648<-data.frame(results=as.numeric(XT_gamma4_fees18et0648))
+ggp_fees1224et1224<-data.frame(results=as.numeric(XT_gamma4_fees1224et1224))
+ggp_fees0et2448<-data.frame(results=as.numeric(XT_gamma4_fees0et2448)) 
 
-plot(axe_test,XT_gamma4_fees0et0,type='l',xlab=expression(s[T]),ylab=expression(paste("X","*"[T])),xlim =c(0.5,2) )
-lines(axe_test,XT_gamma4_fees005et005,col='grey',lty=2)
-lines(axe_test,XT_gamma4_fees0et005,col='green',lty=4)
-lines(axe_test, XT_gamma4_fees005et0,col='red',lty=3)
-lines(axe_test,XT_gamma4_fees01et01,col='blue',lty=5)
-legend( 1.3,1, legend=c( expression(paste(c[s],"=0.000"," et ",c[f],"=0.000")),expression(paste(c[s],"=0.005"," et ",c[f],"=0.005")),expression(paste(c[s],"=0.010"," et ",c[f],"=0.010")),expression(paste(c[s],"=0.000"," et ",c[f],"=0.005")),expression(paste(c[s],"=0.005"," et ",c[f],"=0.000"))),
-        col=c("black","grey",'blue','green','red'), lty=c(1,2,5,4,3), cex=0.8)
+ggp_fees00et0$fee<-'c_s=0 et c_f=0'
+ggp_fees18et0648$fee<-'c_s=1.8 et c_f=0.648'
+ggp_fees1224et1224$fee<-'c_s=1.224 et c_f=1.224'
+ggp_fees0et2448$fee<-'c_s=0 et c_f=2.448'
+
+Compa_ggp_total<-rbind(ggp_fees00et0,ggp_fees18et0648,ggp_fees1224et1224,ggp_fees0et2448)
+Compa_ggp_total$c_s<-axe_test
 
 
-plot(axe_test,XT_gamma4_fees02et0,col='purple',lty=2,type='l',xlab=expression(s[T]),ylab=expression(paste(F[T],"*")),xlim =c(0,2),ylim=c(0,2) )
-lines(axe_test,XT_gamma4_fees015et005,col='navy',lty=6)
-lines(axe_test,XT_gamma4_fees01et01,col='blue',lty=5)
-lines(axe_test,XT_gamma4_fees0et02,col='firebrick3',lty=4)
-legend( 1.3,1, legend=c(expression(paste(c[s],"=0.02","   et  ",c[f],"=0.00")), expression(paste(c[s],"=0.015"," et  ",c[f],"=0.005")),expression(paste(c[s],"=0.01","   et  ",c[f],"=0.01")),expression(paste(c[s],"=0.00","   et  ",c[f],"=0.02"))),
-        col=c('purple','navy','blue','firebrick3'), lty=c(2,6,5,4), cex=0.8)
-
+#-Graphiques-#
+# 1) Avec plot #
 plot(axe_test,XT_gamma4_fees00et0,col='purple',lty=1,type='l',xlab=expression(s[T]),ylab=expression(paste(F[T],"*")),xlim =c(0,2),ylim=c(0,2) )
 lines(axe_test,XT_gamma4_fees18et0648,col='navy',lty=3)
 lines(axe_test,XT_gamma4_fees1224et1224,col='blue',lty=5)
@@ -460,7 +448,20 @@ lines(axe_test,XT_gamma4_fees0et2448,col='firebrick3',lty=2)
 legend( 1.3,1, legend=c(expression(paste("Aucun frais")), expression(paste(c[s],"=1.800%"," et ",c[f],"=0.648%")),expression(paste(c[s],"=1.224%"," et ",c[f],"=1.224%")),expression(paste(c[s],"=0.000%"," et ",c[f],"=2.448%"))),
         col=c('purple','navy','blue','firebrick3'), lty=c(1,3,5,2), cex=0.8)
 
-
+# 2) Avec ggplot2, pour le mémoire #
+ggplot(data=Compa_ggp_total,aes(x=Compa_ggp_total$c_s,y=Compa_ggp_total$results,group=fee,color=fee))+
+  geom_line(aes(linetype=fee))+
+scale_color_discrete(name="",
+                       breaks=c('c_s=0 et c_f=0','c_s=1.8 et c_f=0.648','c_s=1.224 et c_f=1.224','c_s=0 et c_f=2.448'),
+                       labels=c(expression(paste("Aucun frais")), expression(atop(paste(c[s],"=0.000%"),paste(c[f],"=2.448%"))),expression(atop(paste(c[s],"=1.224%"),paste(c[f],"=1.224%"))),expression(atop(paste(c[s],"=1.800%"),paste(c[f],"=0.648%")))))+
+  scale_linetype_discrete(name="",
+                       breaks=c('c_s=0 et c_f=0','c_s=1.8 et c_f=0.648','c_s=1.224 et c_f=1.224','c_s=0 et c_f=2.448'),
+                       labels=c(expression(paste("Aucun frais")), expression(atop(paste(c[s],"=0.000%"),paste(c[f],"=2.448%"))),expression(atop(paste(c[s],"=1.224%"),paste(c[f],"=1.224%"))),expression(atop(paste(c[s],"=1.800%"),paste(c[f],"=0.648%")))))+
+  theme(legend.position = "bottom")+
+  #theme_classic()+
+  labs(x=expression(paste(S[T])), y=expression(paste(F[T]^"*")))
+#theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15),hjust = 0.5))
+#guides(colour = guide_legend(nrow = 2))
 
 
 
