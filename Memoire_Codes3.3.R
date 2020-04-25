@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.01  #Fee applied of the risky asset
-fee_c_f<-0.02448-0.01   #Fee applied of the funds 
+fee_c_s<-0.015  #Fee applied of the risky asset
+fee_c_f<-0.02448-0.015   #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -865,68 +865,180 @@ ggplot(data=Combin_ptf_frais,aes(Combin_ptf_frais$valeur_opt,group=comp,fill=com
 # proc.time()-timer6
 
 #c) Pour c_s=1% et c_f=2.448-1%
-timer7<-proc.time()
-ggp_v_ac_MMB_c_s1<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
-proc.time()-timer7
-ggp_v_ac_MM_c_s1<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
-proc.time()-timer7
-ggp_v_ac_100_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
-proc.time()-timer7
-ggp_v_ac_60_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
-proc.time()-timer7
-ggp_v_ac_40_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
-proc.time()-timer7
-ggp_v_ac_20_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
-proc.time()-timer7
-ggp_v_ac_Merton_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
-proc.time()-timer7
-ggp_v_ac_terminal_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
-proc.time()-timer7
+# timer7<-proc.time()
+# ggp_v_ac_MMB_c_s1<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+# proc.time()-timer7
+# ggp_v_ac_MM_c_s1<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+# proc.time()-timer7
+# ggp_v_ac_100_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
+# proc.time()-timer7
+# ggp_v_ac_60_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
+# proc.time()-timer7
+# ggp_v_ac_40_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
+# proc.time()-timer7
+# ggp_v_ac_20_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
+# proc.time()-timer7
+# ggp_v_ac_Merton_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
+# proc.time()-timer7
+# ggp_v_ac_terminal_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
+# proc.time()-timer7
 
 
 #d) Pour c_s=1.5% et c_f=2.448-1.5%
-timer8<-proc.time()
-ggp_v_ac_MMB_c_s15<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
-proc.time()-timer8
-ggp_v_ac_MM_c_s15<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
-proc.time()-timer8
-ggp_v_ac_100_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
-proc.time()-timer8
-ggp_v_ac_60_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
-proc.time()-timer8
-ggp_v_ac_40_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
-proc.time()-timer8
-ggp_v_ac_20_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
-proc.time()-timer8
-ggp_v_ac_Merton_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
-proc.time()-timer8
-ggp_v_ac_terminal_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
-proc.time()-timer8
+# timer8<-proc.time()
+# ggp_v_ac_MMB_c_s15<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+# proc.time()-timer8
+# ggp_v_ac_MM_c_s15<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+# proc.time()-timer8
+# ggp_v_ac_100_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
+# proc.time()-timer8
+# ggp_v_ac_60_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
+# proc.time()-timer8
+# ggp_v_ac_40_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
+# proc.time()-timer8
+# ggp_v_ac_20_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
+# proc.time()-timer8
+# ggp_v_ac_Merton_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
+# proc.time()-timer8
+# ggp_v_ac_terminal_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
+# proc.time()-timer8
 
 # -Formatage des données- #
-ggpVac_tot_c_s0<-c(ggp_v_ac_MMB_c_s0,ggp_v_ac_MM_c_s0,ggp_v_ac_100_c_s0,ggp_v_ac_60_c_s0,ggp_v_ac_40_c_s0,ggp_v_ac_20_c_s0,ggp_v_ac_Merton_c_s0,ggp_v_ac_terminal_c_s0)
-ggpVac_tot_c_s05<-c(ggp_v_ac_MMB_c_s05,ggp_v_ac_MM_c_s05,ggp_v_ac_100_c_s05,ggp_v_ac_60_c_s05,ggp_v_ac_40_c_s05,ggp_v_ac_20_c_s05,ggp_v_ac_Merton_c_s05,ggp_v_ac_terminal_c_s05)
-ggpVac_tot_c_s1<-c(ggp_v_ac_MMB_c_s1,ggp_v_ac_MM_c_s1,ggp_v_ac_100_c_s1,ggp_v_ac_60_c_s1,ggp_v_ac_40_c_s1,ggp_v_ac_20_c_s1,ggp_v_ac_Merton_c_s1,ggp_v_ac_terminal_c_s1)
-ggpVac_tot_c_s15<-c(ggp_v_ac_MMB_c_s15,ggp_v_ac_MM_c_s15,ggp_v_ac_100_c_s15,ggp_v_ac_60_c_s15,ggp_v_ac_40_c_s15,ggp_v_ac_20_c_s15,ggp_v_ac_Merton_c_s15,ggp_v_ac_terminal_c_s15)
+ggpVac_tot_c_s0<-c(0.9881922,1.0809471,1.0012364,0.9231385,0.8835673,0.8445091,0.8382593,
+                   1.1861791)#c(ggp_v_ac_MMB_c_s0,ggp_v_ac_MM_c_s0,ggp_v_ac_100_c_s0,ggp_v_ac_60_c_s0,ggp_v_ac_40_c_s0,ggp_v_ac_20_c_s0,ggp_v_ac_Merton_c_s0,ggp_v_ac_terminal_c_s0)
+ggpVac_tot_c_s05<-c(0.9935308, 1.0748678, 1.0000568, 0.9309548, 0.8950383, 0.8583977, 0.8445159,
+                   1.1739887)#c(ggp_v_ac_MMB_c_s05,ggp_v_ac_MM_c_s05,ggp_v_ac_100_c_s05,ggp_v_ac_60_c_s05,ggp_v_ac_40_c_s05,ggp_v_ac_20_c_s05,ggp_v_ac_Merton_c_s05,ggp_v_ac_terminal_c_s05)
+ggpVac_tot_c_s1<-c(0.9987706,1.0693147, 0.9988078, 0.9387356, 0.9072777, 0.8760920,0.8615410,
+                   1.1628909)#c(ggp_v_ac_MMB_c_s1,ggp_v_ac_MM_c_s1,ggp_v_ac_100_c_s1,ggp_v_ac_60_c_s1,ggp_v_ac_40_c_s1,ggp_v_ac_20_c_s1,ggp_v_ac_Merton_c_s1,ggp_v_ac_terminal_c_s1)
+ggpVac_tot_c_s15<-c(1.0068096, 1.0675851, 0.9993189, 0.9491258, 0.9234596, 0.9013734, 0.9045667,
+                   1.1548775)#c(ggp_v_ac_MMB_c_s15,ggp_v_ac_MM_c_s15,ggp_v_ac_100_c_s15,ggp_v_ac_60_c_s15,ggp_v_ac_40_c_s15,ggp_v_ac_20_c_s15,ggp_v_ac_Merton_c_s15,ggp_v_ac_terminal_c_s15)
 
 V_ac_c_s0<-data.frame(value=ggpVac_tot_c_s0)
 V_ac_c_s05<-data.frame(value=ggpVac_tot_c_s05)
 V_ac_c_s1<-data.frame(value=ggpVac_tot_c_s1)
 V_ac_c_s15<-data.frame(value=ggpVac_tot_c_s15)
 
-V_ac_c_s0$c_S<-0.00
-V_ac_c_s0$c_S<-0.005
-V_ac_c_s0$c_S<-0.01
-V_ac_c_s0$c_S<-0.015
+V_ac_c_s0$c_S<-c(0)
+V_ac_c_s05$c_S<-c(0.5)
+V_ac_c_s1$c_S<-c(1.0)
+V_ac_c_s15$c_S<-c(1.5)
 
-V_ac_tot<-rbind(V_ac_c_s0,V_ac_c_s0,V_ac_c_s0,V_ac_c_s0)
+V_ac_tot<-rbind(V_ac_c_s0,V_ac_c_s05,V_ac_c_s1,V_ac_c_s15)
 V_ac_tot$method<-c('7-Optimale [0,2]','6-Optimale [0,1]','1-100% risque','2-60% risque','3-40% risque','4-20% risque','5-Constante Merton','8-Optimale')
 # La ligne d'en haut à vérifier, il faut que la méthode se répète.
 
-ggplot(data=V_ac_tot,aes(x=V_ac_tot$c_S,y=V_ac_to$value,group=method,color=method))+
+ggplot(data=V_ac_tot,aes(x=V_ac_tot$c_S,y=V_ac_tot$value,group=method,color=method))+
   geom_line(aes(linetype=method))+
-  geom_point(aes(shape=method))+  theme(legend.position = "bottom")+
-  labs(x=expression(paste(c[s])), y=expression(paste("VAfonds")))
+  geom_point(aes(shape=method))+ 
+  theme(legend.position = "bottom",legend.title =element_blank())+
+  labs(x=expression(paste(c[s],' (%)')), y=expression(paste("E"^P,"[",xi[T]," ( (","F"[T],"-1)"^"+","+1 )"," ]")))
 
 
+#### Graphique 7: Valeur présente de la garantie pour diff. gamma#####
+## Pour la stratégie optimale ##
 
+
+#a) Pour c_s=0.000% et c_f=2.448% 
+#-gamma=2-
+timer9<-proc.time()
+ggp_v_ac_g2_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=3-
+timer9<-proc.time()
+ggp_v_ac_g3_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=4-
+timer9<-proc.time()
+ggp_v_ac_g4_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=5-
+timer9<-proc.time()
+ggp_v_ac_g5_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=6-
+timer9<-proc.time()
+ggp_v_ac_g6_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=7-
+timer9<-proc.time()
+ggp_v_ac_g7_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+
+#b) Pour c_s=0.005% et c_f=2.448-0.005% 
+#-gamma=2-
+timer9<-proc.time()
+ggp_v_ac_g2_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=3-
+timer9<-proc.time()
+ggp_v_ac_g3_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=4-
+timer9<-proc.time()
+ggp_v_ac_g4_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=5-
+timer9<-proc.time()
+ggp_v_ac_g5_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=6-
+timer9<-proc.time()
+ggp_v_ac_g6_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=7-
+timer9<-proc.time()
+ggp_v_ac_g7_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+
+#c) Pour c_s=0.01% et c_f=2.448-0.01% 
+#-gamma=2-
+timer9<-proc.time()
+ggp_v_ac_g2_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=3-
+timer9<-proc.time()
+ggp_v_ac_g3_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=4-
+timer9<-proc.time()
+ggp_v_ac_g4_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=5-
+timer9<-proc.time()
+ggp_v_ac_g5_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=6-
+timer9<-proc.time()
+ggp_v_ac_g6_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=7-
+timer9<-proc.time()
+ggp_v_ac_g7_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+
+
+#d) Pour c_s=0.015% et c_f=2.448-0.015% 
+#-gamma=2-
+timer9<-proc.time()
+ggp_v_ac_g2_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=3-
+timer9<-proc.time()
+ggp_v_ac_g3_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=4-
+timer9<-proc.time()
+ggp_v_ac_g4_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=5-
+timer9<-proc.time()
+ggp_v_ac_g5_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=6-
+timer9<-proc.time()
+ggp_v_ac_g6_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
+#-gamma=7-
+timer9<-proc.time()
+ggp_v_ac_g7_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer9
