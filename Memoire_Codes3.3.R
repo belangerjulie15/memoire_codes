@@ -137,6 +137,12 @@ pre2_xi_tilde_t<-cbind((rep(S_0,N_Simulations)),pre1_xi_tilde_t)
 
 pre1_B_tilde_t<-rep(exp(r_no_risk_tilde/Frequ),Frequ*Maturi) #vecteur actif sans risque
 B_tilde_t<-B_0*cumprod(c(B_0,pre1_B_tilde_t))
+
+pre1_S_t<-S_0*exp((alpha-0.5*sigma^2)/Frequ+sigma*sqrt(1/Frequ)*random_var)
+pre2_S_t<-cbind((rep(S_0,N_Simulations)),pre1_S_t)
+
+pre1_xi_t<-exp(-(r_no_risk+0.5*theta_sim^2)/Frequ-theta_sim*sqrt(1/Frequ)*random_var)
+pre2_xi_t<-cbind((rep(S_0,N_Simulations)),pre1_xi_t)
 #########################################################################
 
 
@@ -155,10 +161,12 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
   cout_guar_ass<-rep(0,N_Simulations)
   Uprocessus_ptf<-matrix(0,N_Simulations,Frequ*Maturi+1)
   matrice_xi_tilde<-matrix(0,N_Simulations,Frequ*Maturi+1)
+  matrice_xi<-matrix(0,N_Simulations,Frequ*Maturi+1)
   
   for (n in 1:(N_Simulations)){ #Loop sur les simulations
     matrice_S[n,]<-cumprod(matrice_pre2_S[n,])
     matrice_xi_tilde[n,]<-cumprod(matrice_pre2_xi_tilde_t[n,])
+    matrice_xi[n,]<-cumprod(pre2_xi_t[n,])
     
     for(m in 1:(Frequ*Maturi)){ #Frequ*Maturi
       petit_t<-(m-1)/(Frequ)
@@ -186,6 +194,7 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
     #cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
   }
   
+  CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
   #Esp_cout_garantie<-mean(cout_guar_ass)
@@ -200,7 +209,7 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
   
-  return(funds_d)#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(Utymod,round(Inverse_P_Utility(Utymod,7),3))#c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
+  return(c(CAss))#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(Utymod,round(Inverse_P_Utility(Utymod,7),3))#c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
 }
 
 timer<-proc.time()
@@ -229,10 +238,12 @@ E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vect
   cout_guar_ass<-rep(0,N_Simulations)
   Uprocessus_ptf<-matrix(0,N_Simulations,Frequ*Maturi+1)
   matrice_xi_tilde<-matrix(0,N_Simulations,Frequ*Maturi+1)
+  matrice_xi<-matrix(0,N_Simulations,Frequ*Maturi+1)
   
   for (n in 1:(N_Simulations)){ #Loop sur les simulations
     matrice_S[n,]<-cumprod(matrice_pre2_S[n,])
     matrice_xi_tilde[n,]<-cumprod(matrice_pre2_xi_tilde_t[n,])
+    matrice_xi[n,]<-cumprod(pre2_xi_t[n,])
     
     for(m in 1:(Frequ*Maturi)){ #Frequ*Maturi
       petit_t<-(m-1)/(Frequ)
@@ -257,9 +268,10 @@ E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vect
     }
     processus_ptf[n,(Frequ*Maturi+1)]<-unit_risque[n,(Frequ*Maturi)]*matrice_S[n,(Frequ*Maturi+1)]+unit_n_risque[n,(Frequ*Maturi)]*B_tilde_t[(Frequ*Maturi+1)]
     funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
-    cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
+    #cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
   }
   
+  CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations  
   #Esp_cout_garantie<-mean(cout_guar_ass)
@@ -274,7 +286,7 @@ E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vect
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
   
-  return(funds_d)#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
+  return(c(CAss))#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
 }
 
 timer<-proc.time()
@@ -302,10 +314,12 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
   cout_guar_ass<-rep(0,N_Simulations)
   Uprocessus_ptf<-matrix(0,N_Simulations,Frequ*Maturi+1)
   matrice_xi_tilde<-matrix(0,N_Simulations,Frequ*Maturi+1)
+  matrice_xi<-matrix(0,N_Simulations,Frequ*Maturi+1)
   
   for (n in 1:(N_Simulations)){ #Loop sur les simulations
     matrice_S[n,]<-cumprod(matrice_pre2_S[n,])
     matrice_xi_tilde[n,]<-cumprod(matrice_pre2_xi_tilde_t[n,])
+    matrice_xi[n,]<-cumprod(pre2_xi_t[n,])
     
     for(m in 1:(Frequ*Maturi)){ #Frequ*Maturi
       petit_t<-(m-1)/(Frequ)
@@ -331,6 +345,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
     #cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
   }
   
+  CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
   #Esp_cout_garantie<-mean(cout_guar_ass)
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
@@ -348,7 +363,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
   
-  return(funds_d)#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
+  return(CAss)#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
 }#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer2<-proc.time()
@@ -366,9 +381,11 @@ Simulations_fonds_distinct<-function(matrice_pre2_S){
   xi_tilde<-matrix(0,N_Simulations,Frequ*Maturi+1)
   funds_d<-rep(0,N_Simulations)
   cout_guar_ass<-rep(0,N_Simulations)
+  matrice_xi<-matrix(0,N_Simulations,Frequ*Maturi+1)
   
   for (n in 1:(N_Simulations)){ #Loop sur les simulations
     matrice_S[n,]<-cumprod(matrice_pre2_S[n,])
+    matrice_xi[n,]<-cumprod(pre2_xi_t[n,])
     
     for(m in 1:(Frequ*Maturi+1)){ #Frequ*Maturi
       petit_t<-(m-1)/(Frequ) 
@@ -385,6 +402,7 @@ Simulations_fonds_distinct<-function(matrice_pre2_S){
     funds_d[n]<-a_call_sim*max(0,ptf_optimal[n]-b_call_sim)+K_call_sim
     #cout_guar_ass[n]<-max(0,b_call_sim-ptf_optimal[n])
   }
+  CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
   #exercice_guarantie<-sum(ptf_optimal[]<b_call_sim)/N_Simulations
   #Esp_cout_garantie<-mean(cout_guar_ass)
   
@@ -392,7 +410,7 @@ Simulations_fonds_distinct<-function(matrice_pre2_S){
   #EU<-mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma))))
   #CB<-mean(ptf_optimal*xi_tilde[,(Frequ*Maturi+1)])
   #verif<-mean(matrice_S[,(Frequ*Maturi+1)]*xi_tilde[,(Frequ*Maturi+1)])
-  return(funds_d)#funds_d,c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
+  return(CAss)#funds_d,c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
 }#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer3<-proc.time()
@@ -403,7 +421,7 @@ timer3<-proc.time()
 #ptf_2448_0
 #ptf_1224_1224
 #ptf_0_0
-
+Simulations_fonds_distinct(pre2_S_tilde_t)
 #fait#cs0<-Simulations_fonds_distinct(pre2_S_tilde_t)
 #fait#cs05<-
 #fait#cs1<-
@@ -797,3 +815,90 @@ ggplot(data=Combin_ptf_frais,aes(Combin_ptf_frais$valeur_opt,group=comp,fill=com
 
 
 
+
+
+
+#### Graphique 6: Valeur présente de la garantie pour diff. combinaison de frais #####
+## Pour différentes stratégies, non optimales 
+
+# 1) Changer les formules 1-2-3-4 pour obtenir la valeur présente
+# 2) Rouler le code pour les frais c_f=2.448-c_s:
+#    c_s=0%, 0.5%,1%, 1.5%,
+
+
+#a) Pour c_s=0.000% et c_f=2.448%
+timer5<-proc.time()
+ggp_v_ac_MMB_c_s0<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+proc.time()-timer5
+ggp_v_ac_MM_c_s0<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+proc.time()-timer5
+ggp_v_ac_100_c_s0<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
+proc.time()-timer5
+ggp_v_ac_60_c_s0<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
+proc.time()-timer5
+ggp_v_ac_40_c_s0<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
+proc.time()-timer5
+ggp_v_ac_20_c_s0<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
+proc.time()-timer5
+ggp_v_ac_Merton_c_s0<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
+proc.time()-timer5
+ggp_v_ac_terminal_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer5
+
+#b) Pour c_s=0.5% et c_f=2.448-0.5%
+timer6<-proc.time()
+ggp_v_ac_MMB_c_s05<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+proc.time()-timer6
+ggp_v_ac_MM_c_s05<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+proc.time()-timer6
+ggp_v_ac_100_c_s05<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
+proc.time()-timer6
+ggp_v_ac_60_c_s05<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
+proc.time()-timer6
+ggp_v_ac_40_c_s05<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
+proc.time()-timer6
+ggp_v_ac_20_c_s05<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
+proc.time()-timer6
+ggp_v_ac_Merton_c_s05<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
+proc.time()-timer6
+ggp_v_ac_terminal_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer6
+
+#c) Pour c_s=1% et c_f=2.448-1%
+timer7<-proc.time()
+ggp_v_ac_MMB_c_s1<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+proc.time()-timer7
+ggp_v_ac_MM_c_s1<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+proc.time()-timer7
+ggp_v_ac_100_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
+proc.time()-timer7
+ggp_v_ac_60_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
+proc.time()-timer7
+ggp_v_ac_40_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
+proc.time()-timer7
+ggp_v_ac_20_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
+proc.time()-timer7
+ggp_v_ac_Merton_c_s1<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
+proc.time()-timer7
+ggp_v_ac_terminal_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer7
+
+
+#d) Pour c_s=1.5% et c_f=2.448-1.5%
+timer8<-proc.time()
+ggp_v_ac_MMB_c_s15<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+proc.time()-timer8
+ggp_v_ac_MM_c_s15<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+proc.time()-timer8
+ggp_v_ac_100_c_s51<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
+proc.time()-timer8
+ggp_v_ac_60_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
+proc.time()-timer8
+ggp_v_ac_40_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
+proc.time()-timer8
+ggp_v_ac_20_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
+proc.time()-timer8
+ggp_v_ac_Merton_c_s15<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
+proc.time()-timer8
+ggp_v_ac_terminal_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
+proc.time()-timer8
