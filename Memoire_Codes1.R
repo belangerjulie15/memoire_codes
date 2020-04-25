@@ -390,7 +390,7 @@ legend( 34,1.1, legend=c( expression(paste(alpha,"=0.05")), expression(paste(alp
 
 ####################### TESTS SECTION #######################
 par(mfrow=c(1,1))
-axe_test<-seq(0.1,2,0.001)
+axe_test<-seq(0.1,3,0.001)
 
 ###### Graphiques X*_t differents gamma ######
 #-Préparer les données-#
@@ -475,7 +475,7 @@ ggp_fees0et2448$fee<-'c_s=0 et c_f=2.448'
 
 Compa_ggp_total<-rbind(ggp_fees00et0,ggp_fees18et0648,ggp_fees1224et1224,ggp_fees0et2448)
 Compa_ggp_total$c_s<-axe_test #Ici, c_s représente plutot S_T
-
+Compa_ggp_total$fee<-factor(Compa_ggp_total$fee , levels = c('c_s=0 et c_f=0', 'c_s=1.8 et c_f=0.648','c_s=1.224 et c_f=1.224','c_s=0 et c_f=2.448'))
 
 #-Graphiques-#
 # 1) Avec plot #
@@ -490,10 +490,10 @@ legend( 1.3,1, legend=c(expression(paste("Aucun frais")), expression(paste(c[s],
 ggplot(data=Compa_ggp_total,aes(x=Compa_ggp_total$c_s,y=Compa_ggp_total$results,group=fee,color=fee))+
   geom_line(aes(linetype=fee))+
 scale_color_discrete(name="",
-                       breaks=c('c_s=0 et c_f=0','c_s=1.8 et c_f=0.648','c_s=1.224 et c_f=1.224','c_s=0 et c_f=2.448'),
+                       breaks=c('c_s=0 et c_f=0','c_s=0 et c_f=2.448','c_s=1.224 et c_f=1.224','c_s=1.8 et c_f=0.648'),
                        labels=c(expression(paste("Aucun frais")), expression(atop(paste(c[s],"=0.000%"),paste(c[f],"=2.448%"))),expression(atop(paste(c[s],"=1.224%"),paste(c[f],"=1.224%"))),expression(atop(paste(c[s],"=1.800%"),paste(c[f],"=0.648%")))))+
   scale_linetype_discrete(name="",
-                       breaks=c('c_s=0 et c_f=0','c_s=1.8 et c_f=0.648','c_s=1.224 et c_f=1.224','c_s=0 et c_f=2.448'),
+                       breaks=c('c_s=0 et c_f=0','c_s=0 et c_f=2.448','c_s=1.224 et c_f=1.224','c_s=1.8 et c_f=0.648'),
                        labels=c(expression(paste("Aucun frais")), expression(atop(paste(c[s],"=0.000%"),paste(c[f],"=2.448%"))),expression(atop(paste(c[s],"=1.224%"),paste(c[f],"=1.224%"))),expression(atop(paste(c[s],"=1.800%"),paste(c[f],"=0.648%")))))+
   theme(legend.position = "bottom")+
   #theme_classic()+
@@ -712,7 +712,7 @@ ggplot(data=simul_combin,aes(simul_combin$Optimal_portfolio,group=simul,fill=sim
                         labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
    theme(legend.position = "bottom")+
    #theme_classic()+
-   labs(x=expression(paste(c[s])), y=expression(paste("E"^P,"[ (",F[T]^"*","-1)"^"+","+1"," ]")))
+   labs(x=expression(paste(c[s],"  (%)")), y=expression(paste("E"^P,"[ (",F[T]^"*","-1)"^"+","+1"," ]")))
    #theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15),hjust = 0.5))
 
  
