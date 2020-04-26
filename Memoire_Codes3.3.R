@@ -38,13 +38,13 @@ Maturi<-10         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
-gamma<-7           #Parameter of Utility function
+gamma<-3           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.01  #Fee applied of the risky asset
-fee_c_f<-0.02448-0.01  #Fee applied of the funds 
+fee_c_s<-0.015  #Fee applied of the risky asset
+fee_c_f<-0.02448-0.015  #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -910,7 +910,7 @@ ggpVac_tot_c_s05<-c(0.9935308, 1.0748678, 1.0000568, 0.9309548, 0.8950383, 0.858
                    1.1739887)#c(ggp_v_ac_MMB_c_s05,ggp_v_ac_MM_c_s05,ggp_v_ac_100_c_s05,ggp_v_ac_60_c_s05,ggp_v_ac_40_c_s05,ggp_v_ac_20_c_s05,ggp_v_ac_Merton_c_s05,ggp_v_ac_terminal_c_s05)
 ggpVac_tot_c_s1<-c(0.9987706,1.0693147, 0.9988078, 0.9387356, 0.9072777, 0.8760920,0.8615410,
                    1.1628909)#c(ggp_v_ac_MMB_c_s1,ggp_v_ac_MM_c_s1,ggp_v_ac_100_c_s1,ggp_v_ac_60_c_s1,ggp_v_ac_40_c_s1,ggp_v_ac_20_c_s1,ggp_v_ac_Merton_c_s1,ggp_v_ac_terminal_c_s1)
-ggpVac_tot_c_s15<-c(1.0068096, 1.0675851, 0.9993189, 0.9491258, 0.9234596, 0.9013734, 0.9045667,
+ggpVac_tot_c_s15<-c(1.0068096, 1.0675851, 0.9993189, 0.9491258, 0.9234596, 0.9013734, 0.9037023,
                    1.1548775)#c(ggp_v_ac_MMB_c_s15,ggp_v_ac_MM_c_s15,ggp_v_ac_100_c_s15,ggp_v_ac_60_c_s15,ggp_v_ac_40_c_s15,ggp_v_ac_20_c_s15,ggp_v_ac_Merton_c_s15,ggp_v_ac_terminal_c_s15)
 
 V_ac_c_s0<-data.frame(value=ggpVac_tot_c_s0)
@@ -941,117 +941,72 @@ ggplot(data=V_ac_tot,aes(x=V_ac_tot$c_S,y=V_ac_tot$value,group=method,color=meth
 ## Pour la stratégie optimale ##
 
 
-#a) Pour c_s=0.000% et c_f=2.448% 
+#a) Pour c_s=0.000% et c_f=2.448 #fait
+#b) Pour c_s=0.0025% et c_f=2.448-0.0025% #fait
+#c) Pour c_s=0.005% et c_f=2.448-0.005%  #fait
+#d) Pour c_s=0.0075% et c_f=2.448-0.0075% #fait
+#e) Pour c_s=0.01% et c_f=2.448-0.01%  #fait
+#f) Pour c_s=0.0125% et c_f=2.448-0.0125%#fait
+#g) Pour c_s=0.015% et c_f=2.448-0.015% #fait
+#h) Pour c_s=0.0175% et c_f=2.448-0.0175% 
+
 #-gamma=2-
-ggp_v_ac_g2_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+ggp_v_ac_g2_c_s175<-Simulations_fonds_distinct(pre2_S_tilde_t)
 
 #-gamma=3-
-ggp_v_ac_g3_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+ggp_v_ac_g3_c_s175<-Simulations_fonds_distinct(pre2_S_tilde_t)
 
 #-gamma=4-
-ggp_v_ac_g4_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+ggp_v_ac_g4_c_s175<-Simulations_fonds_distinct(pre2_S_tilde_t)
 
 #-gamma=5-
-ggp_v_ac_g5_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+ggp_v_ac_g5_c_s175<-Simulations_fonds_distinct(pre2_S_tilde_t)
 
 #-gamma=6-
-ggp_v_ac_g6_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
+ggp_v_ac_g6_c_s175<-Simulations_fonds_distinct(pre2_S_tilde_t)
 
 #-gamma=7-
-ggp_v_ac_g7_c_s0<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-
-#b) Pour c_s=0.005% et c_f=2.448-0.005% 
-#-gamma=2-
-ggp_v_ac_g2_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=3-
-ggp_v_ac_g3_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=4-
-ggp_v_ac_g4_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=5-
-ggp_v_ac_g5_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=6-
-ggp_v_ac_g6_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=7-
-ggp_v_ac_g7_c_s05<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-
-#c) Pour c_s=0.01% et c_f=2.448-0.01% 
-#-gamma=2-
-ggp_v_ac_g2_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=3-
-ggp_v_ac_g3_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=4-
-ggp_v_ac_g4_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=5-
-ggp_v_ac_g5_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=6-
-ggp_v_ac_g6_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
-
-#-gamma=7-
-ggp_v_ac_g7_c_s1<-Simulations_fonds_distinct(pre2_S_tilde_t)
+ggp_v_ac_g7_c_s175<-Simulations_fonds_distinct(pre2_S_tilde_t)
 
 
 
-#d) Pour c_s=0.015% et c_f=2.448-0.015% 
-#-gamma=2-
-timer9<-proc.time()
-ggp_v_ac_g2_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
-proc.time()-timer9
-#-gamma=3-
-timer9<-proc.time()
-ggp_v_ac_g3_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
-proc.time()-timer9
-#-gamma=4-
-timer9<-proc.time()
-ggp_v_ac_g4_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
-proc.time()-timer9
-#-gamma=5-
-timer9<-proc.time()
-ggp_v_ac_g5_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
-proc.time()-timer9
-#-gamma=6-
-timer9<-proc.time()
-ggp_v_ac_g6_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
-proc.time()-timer9
-#-gamma=7-
-timer9<-proc.time()
-ggp_v_ac_g7_c_s15<-Simulations_fonds_distinct(pre2_S_tilde_t)
-proc.time()-timer9
 
 # -Formatage des données- #
-ggpVac_ga_tot_c_s0<-c(1.2553966,1.1858717,1.1418219,1.1073739,1.0814788,0.9011188)#c(ggp_v_ac_g2_c_s0,ggp_v_ac_g3_c_s0,ggp_v_ac_g4_c_s0,ggp_v_ac_g5_c_s0,ggp_v_ac_g6_c_s0,ggp_v_ac_g7_c_s0)
+ggpVac_ga_tot_c_s0<-c(1.2553966,1.1858717,1.1418219,1.1073739,1.0814788,1.060112)#c(ggp_v_ac_g2_c_s0,ggp_v_ac_g3_c_s0,ggp_v_ac_g4_c_s0,ggp_v_ac_g5_c_s0,ggp_v_ac_g6_c_s0,ggp_v_ac_g7_c_s0)
+ggpVac_ga_tot_c_s025<-c( 1.243003,1.179959,1.136115,1.103264,1.078331,1.057911)#c(ggp_v_ac_g2_c_s025,ggp_v_ac_g3_c_s025,ggp_v_ac_g4_c_s025,ggp_v_ac_g5_c_s025,ggp_v_ac_g6_c_s025,ggp_v_ac_g7_c_s025)
 ggpVac_ga_tot_c_s05<-c( 1.234192,1.174178,1.131885,1.100623,1.076360,1.056395)#c(ggp_v_ac_g2_c_s05,ggp_v_ac_g3_c_s05,ggp_v_ac_g4_c_s05,ggp_v_ac_g5_c_s05,ggp_v_ac_g6_c_s05,ggp_v_ac_g7_c_s05)
+ggpVac_ga_tot_c_s075<-c( 1.223556,1.167625,1.128256,1.098047,1.074802,1.055590)#c(ggp_v_ac_g2_c_s075,ggp_v_ac_g3_c_s075,ggp_v_ac_g4_c_s075,ggp_v_ac_g5_c_s075,ggp_v_ac_g6_c_s075,ggp_v_ac_g7_c_s075)
 ggpVac_ga_tot_c_s1<-c(1.215882,1.163435,1.124941,1.095723,1.073407,1.055695)#c(ggp_v_ac_g2_c_s1,ggp_v_ac_g3_c_s1,ggp_v_ac_g4_c_s1,ggp_v_ac_g5_c_s1,ggp_v_ac_g6_c_s1,ggp_v_ac_g7_c_s1)
-ggpVac_ga_tot_c_s15<-c(ggp_v_ac_g2_c_s15,ggp_v_ac_g3_c_s15,ggp_v_ac_g4_c_s15,ggp_v_ac_g5_c_s15,ggp_v_ac_g6_c_s15,ggp_v_ac_g7_c_s15)
+ggpVac_ga_tot_c_s125<-c(1.209324,1.158076,1.121104,1.093232,1.070939,1.053376)#c(ggp_v_ac_g2_c_s1255,ggp_v_ac_g3_c_s125,ggp_v_ac_g4_c_s125,ggp_v_ac_g5_c_s125,ggp_v_ac_g6_c_s125,ggp_v_ac_g7_c_s125)
+ggpVac_ga_tot_c_s15<-c( 1.203194,1.154905,1.120078,1.093828,1.071933,1.051930)#c(ggp_v_ac_g2_c_s15,ggp_v_ac_g3_c_s15,ggp_v_ac_g4_c_s15,ggp_v_ac_g5_c_s15,ggp_v_ac_g6_c_s15,ggp_v_ac_g7_c_s15)
+ggpVac_ga_tot_c_s175<-c(1.196787,1.152575,1.118419,1.092845,1.072702,1.055441)#c(ggp_v_ac_g2_c_s175,ggp_v_ac_g3_c_s175,ggp_v_ac_g4_c_s175,ggp_v_ac_g5_c_s175,ggp_v_ac_g6_c_s175,ggp_v_ac_g7_c_s175)
 
   
 V_ac_ga_c_s0<-data.frame(value=ggpVac_ga_tot_c_s0)
+V_ac_ga_c_s025<-data.frame(value=ggpVac_ga_tot_c_s025)
 V_ac_ga_c_s05<-data.frame(value=ggpVac_ga_tot_c_s05)
+V_ac_ga_c_s075<-data.frame(value=ggpVac_ga_tot_c_s075)
 V_ac_ga_c_s1<-data.frame(value=ggpVac_ga_tot_c_s1)
+V_ac_ga_c_s125<-data.frame(value=ggpVac_ga_tot_c_s125)
 V_ac_ga_c_s15<-data.frame(value=ggpVac_ga_tot_c_s15)
+V_ac_ga_c_s175<-data.frame(value=ggpVac_ga_tot_c_s175)
 
 V_ac_ga_c_s0$c_S<-c(0)
+V_ac_ga_c_s025$c_S<-c(0.25)
 V_ac_ga_c_s05$c_S<-c(0.5)
+V_ac_ga_c_s075$c_S<-c(0.75)
 V_ac_ga_c_s1$c_S<-c(1.0)
+V_ac_ga_c_s125$c_S<-c(1.25)
 V_ac_ga_c_s15$c_S<-c(1.5)
+V_ac_ga_c_s175$c_S<-c(1.75)
 
-V_ac_ga_tot<-rbind(V_ac_ga_c_s0,V_ac_ga_c_s05,V_ac_ga_c_s,V_ac_ga_c_s15)
+V_ac_ga_tot<-rbind(V_ac_ga_c_s0,V_ac_ga_c_s025,V_ac_ga_c_s05,V_ac_ga_c_s075,V_ac_ga_c_s1,V_ac_ga_c_s125,V_ac_ga_c_s15,V_ac_ga_c_s175)
 V_ac_ga_tot$gam<-c("g2","g3","g4","g5","g6","g7")
 # La ligne d'en haut à vérifier, il faut que la méthode se répète.
 
-ggplot(data=V_ac_tot,aes(x=V_ac_tot$c_S,y=V_ac_tot$value,group=method,color=method))+
-  geom_line(aes(linetype=method))+
-  geom_point(aes(shape=method))+ 
+ggplot(data=V_ac_ga_tot,aes(x=V_ac_ga_tot$c_S,y=V_ac_ga_tot$value,group=gam,color=gam))+
+  geom_line(aes(linetype=gam))+
+  geom_point(aes(shape=gam))+ 
   scale_shape_discrete(name="",
                        breaks=c("g2", "g3", "g4","g5","g6","g7"),
                        labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
