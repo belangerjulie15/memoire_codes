@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.0125  #Fee applied of the risky asset
-fee_c_f<-0.02448-0.0125  #Fee applied of the funds 
+fee_c_s<-0.0175  #Fee applied of the risky asset
+fee_c_f<-0.02448-0.0175  #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -834,21 +834,21 @@ ggplot(data=Combin_ptf_frais,aes(Combin_ptf_frais$valeur_opt,group=comp,fill=com
 
 
 timer5<-proc.time()
-ggp_v_ac_MMB_c_s125<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+ggp_v_ac_MMB_c_s175<-E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
 proc.time()-timer5
-ggp_v_ac_MM_c_s125<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
+ggp_v_ac_MM_c_s175<-E_utility_martingale(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)
 proc.time()-timer5
-ggp_v_ac_100_c_s125<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
+ggp_v_ac_100_c_s175<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=1.0)
 proc.time()-timer5
-ggp_v_ac_60_c_s125<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
+ggp_v_ac_60_c_s175<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.6)
 proc.time()-timer5
-ggp_v_ac_40_c_s125<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
+ggp_v_ac_40_c_s175<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.4)
 proc.time()-timer5
-ggp_v_ac_20_c_s125<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
+ggp_v_ac_20_c_s175<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=0.2)
 proc.time()-timer5
-ggp_v_ac_Merton_c_s125<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
+ggp_v_ac_Merton_c_s175<-E_utility_prop_cte(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t,prop_act_r=cte_Merton)
 proc.time()-timer5
-ggp_v_ac_terminal_c_s125<-Simulations_fonds_distinct(pre2_S_tilde_t)
+ggp_v_ac_terminal_c_s175<-Simulations_fonds_distinct(pre2_S_tilde_t)
 proc.time()-timer5 #3529.83 sec avec Kronos
 
 
@@ -871,6 +871,8 @@ ggpVac_tot_c_s125<-c(1.0022422,1.0674588,0.9997839,0.9440816,0.9152262,0.8880798
                     1.1591854)#c(ggp_v_ac_MMB_c_s125,ggp_v_ac_MM_c_s125,ggp_v_ac_100_c_s125,ggp_v_ac_60_c_s125,ggp_v_ac_40_c_s125,ggp_v_ac_20_c_s125,ggp_v_ac_Merton_c_s125,ggp_v_ac_terminal_c_s125)
 ggpVac_tot_c_s15<-c(1.0068096, 1.0675851, 0.9993189, 0.9491258, 0.9234596, 0.9013734, 0.9037023,
                    1.1548775)#c(ggp_v_ac_MMB_c_s15,ggp_v_ac_MM_c_s15,ggp_v_ac_100_c_s15,ggp_v_ac_60_c_s15,ggp_v_ac_40_c_s15,ggp_v_ac_20_c_s15,ggp_v_ac_Merton_c_s15,ggp_v_ac_terminal_c_s15)
+ggpVac_tot_c_s175<-c(1.0118382,1.0674703, 1.0008413, 0.9548784, 0.9320741, 0.9152954, 0.9300795,
+                   1.1531930)#c(ggp_v_ac_MMB_c_s175,ggp_v_ac_MM_c_s175,ggp_v_ac_100_c_s175,ggp_v_ac_60_c_s175,ggp_v_ac_40_c_s175,ggp_v_ac_20_c_s175,ggp_v_ac_Merton_c_s175,ggp_v_ac_terminal_c_s175)
 
 V_ac_c_s0<-data.frame(value=ggpVac_tot_c_s0)
 V_ac_c_s025<-data.frame(value=ggpVac_tot_c_s025)
@@ -879,6 +881,7 @@ V_ac_c_s075<-data.frame(value=ggpVac_tot_c_s075)
 V_ac_c_s1<-data.frame(value=ggpVac_tot_c_s1)
 V_ac_c_s125<-data.frame(value=ggpVac_tot_c_s125)
 V_ac_c_s15<-data.frame(value=ggpVac_tot_c_s15)
+V_ac_c_s175<-data.frame(value=ggpVac_tot_c_s175)
 
 V_ac_c_s0$c_S<-c(0)
 V_ac_c_s025$c_S<-c(0.25)
@@ -887,9 +890,10 @@ V_ac_c_s075$c_S<-c(0.75)
 V_ac_c_s1$c_S<-c(1.0)
 V_ac_c_s125$c_S<-c(1.25)
 V_ac_c_s15$c_S<-c(1.5)
+V_ac_c_s175$c_S<-c(1.75)
 
-V_ac_tot<-rbind(V_ac_c_s0,V_ac_c_s025,V_ac_c_s05,V_ac_c_s075,V_ac_c_s1,V_ac_c_s125,V_ac_c_s15)
-V_ac_tot$method<-c('7-Optimale [0,2]','6-Optimale [0,1]','1-100% risque','2-60% risque','3-40% risque','4-20% risque','5-Constante Merton','8-Optimale')
+V_ac_tot<-rbind(V_ac_c_s0,V_ac_c_s025,V_ac_c_s05,V_ac_c_s075,V_ac_c_s1,V_ac_c_s125,V_ac_c_s15,V_ac_c_s175)
+V_ac_tot$method<-c('6-Optimale [0,1]','7-Optimale [0,2]','1-100% risque','2-60% risque','3-40% risque','4-20% risque','5-Constante Merton','8-Optimale')
 # La ligne d'en haut à vérifier, il faut que la méthode se répète.
 
 ggplot(data=V_ac_tot,aes(x=V_ac_tot$c_S,y=V_ac_tot$value,group=method,color=method))+
