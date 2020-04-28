@@ -986,5 +986,5 @@ ggplot(data=V_ac_ga_tot,aes(x=V_ac_ga_tot$c_S,y=V_ac_ga_tot$value,group=gam,colo
                           breaks=c("g2", "g3", "g4","g5","g6","g7"),
                           labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
   theme(legend.position = "bottom")+
-  labs(x=expression(paste(c[s],' (%)')), y=expression(paste("E"^P,"[",xi[T]," ( (","F"[T],"-1)"^"+","+1 )"," ]")))
+  labs(x=expression(paste(c[s],' (%)')), y=expression(paste("E"^P,"[",xi[T]," ( (","F"[T]^"*","-1)"^"+","+1 )"," ]")))
 
