@@ -712,7 +712,7 @@ ggplot(data=simul_combin,aes(simul_combin$Optimal_portfolio,group=simul,fill=sim
                         labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
    theme(legend.position = "bottom")+
    #theme_classic()+
-   labs(x=expression(paste(c[s],"  (%)")), y=expression(paste("E"^P,"[ (",F[T]^"*","-1)"^"+","+1"," ]")))
+   labs(x=expression(paste(c[s],"  (%)")), y=expression(paste("E"^P,"[  U( (",F[T]^"*","-1)"^"+","+1)"," ]")))
    #theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15),hjust = 0.5))
 
  
