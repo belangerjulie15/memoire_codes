@@ -269,6 +269,7 @@ g <- function(x) frais_eq_martingale(para_c_s=0,para_c_f=x)- budget      #-Findi
 result<-uniroot(g, c(0.0001,0.076))$root
 proc.time()-timer1
 #0.04722044
+#0.04731921 #Kornos:7297.97 secondes
 
 
 
@@ -476,7 +477,7 @@ frais_eq_prop_cte<-function(para_c_s,para_c_f,prop_act_r){
 }
 
 timer3<-proc.time()
-frais_eq_prop_cte(para_c_s=0.0,para_c_f=0.02448,prop_act_r=0.16666)#prend  168.76  sec (pour 1 fois)  
+frais_eq_prop_cte(para_c_s=0.0,para_c_f=0.02448,prop_act_r=0.2)#prend  168.76  sec (pour 1 fois)  
 proc.time()-timer3
 
 
@@ -550,14 +551,19 @@ frais_eq_fonds_distinct_maturite<-function(para_c_s,para_c_f){
   return(budg_frais_equ)#c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
 }
 
-timer5<-proc.time()
-
-frais_eq_fonds_distinct_maturite(para_c_s=0.018,para_c_f=0.00648)#funds_final
-
+ timer5<-proc.time()
+# 
+ frais_eq_fonds_distinct_maturite(para_c_s=0.018,para_c_f=0.00648)#funds_final
+# 
 proc.time()-timer5
 
 
+timer6<-proc.time()
 
+f <- function(x) frais_eq_fonds_distinct_maturite(para_c_s=0.0,para_c_f=x)- budget      #-Finding the fee
+result<-uniroot(f, c(0.00001,0.07))$root
+
+proc.time()-timer6
 
 
 
