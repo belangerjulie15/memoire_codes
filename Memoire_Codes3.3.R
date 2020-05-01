@@ -38,13 +38,13 @@ Maturi<-10         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
-gamma<-4           #Parameter of Utility function
+gamma<-3           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.0 #Fee applied of the risky asset
-fee_c_f<-0.00 #Fee applied of the funds 
+fee_c_s<-0.018 #Fee applied of the risky asset
+fee_c_f<-0.00648 #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -189,7 +189,7 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
       }
       
     }
-    #processus_ptf[n,(Frequ*Maturi+1)]<-unit_risque[n,(Frequ*Maturi)]*matrice_S[n,(Frequ*Maturi+1)]+unit_n_risque[n,(Frequ*Maturi)]*B_tilde_t[(Frequ*Maturi+1)]
+    processus_ptf[n,(Frequ*Maturi+1)]<-unit_risque[n,(Frequ*Maturi)]*matrice_S[n,(Frequ*Maturi+1)]+unit_n_risque[n,(Frequ*Maturi)]*B_tilde_t[(Frequ*Maturi+1)]
     #funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
     #cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
   }
@@ -198,7 +198,7 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
   #Esp_cout_garantie<-mean(cout_guar_ass)
-  #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
+  call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
   #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
   #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
@@ -208,10 +208,10 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
   #Utymod<-round(mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=7)))),3) # l'utlité est mesurée pour gamma=7.
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
-  ve_a_de<-mean(nu_Act_R>=1)
-  ve_a_2_de<-mean(nu_Act_R>=2)
+  #ve_a_de<-mean(nu_Act_R>=1)
+  #ve_a_2_de<-mean(nu_Act_R>=2)
     
-  return(c(ve_a_de,ve_a_2_de))#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(Utymod,round(Inverse_P_Utility(Utymod,7),3))#c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
+  return()#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(Utymod,round(Inverse_P_Utility(Utymod,7),3))#c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
 }
 
 timer<-proc.time()
@@ -343,21 +343,21 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
       
     }
     processus_ptf[n,(Frequ*Maturi+1)]<-unit_risque[n,(Frequ*Maturi)]*matrice_S[n,(Frequ*Maturi+1)]+unit_n_risque[n,(Frequ*Maturi)]*B_tilde_t[(Frequ*Maturi+1)]
-    #funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
-    #cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
+    funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
+    cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
   }
   
-  #CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
-  #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
+  CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
+  exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
   #Esp_cout_garantie<-mean(cout_guar_ass)
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
-  #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
-  Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
+  Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
+  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
   #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
-  #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
+  U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
   #Utymod<-round(mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=7)))),3) # l'utlité est mesurée pour gamma=7.
   
-  #EU<-mean(Uty)
+  EU<-mean(Uty)
   
   #xi_tilde[n,(Frequ*Maturi+1)]<-matrice_S[n,(Frequ*Maturi+1)]^(-theta_sim_tilde/sigma)*exp((theta_sim_tilde*alpha_tilde/sigma-theta_sim_tilde*sigma/2-r_no_risk_tilde-0.5*theta_sim_tilde^2)*petit_t)
   
@@ -365,7 +365,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
   
-  return(Uty_t)#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
+  return(c(CAss,exercice_guarantie,EU))#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
 }#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer2<-proc.time()
@@ -402,17 +402,17 @@ Simulations_fonds_distinct<-function(matrice_pre2_S){
   
   for (n in 1:(N_Simulations)){
     funds_d[n]<-a_call_sim*max(0,ptf_optimal[n]-b_call_sim)+K_call_sim
-    #cout_guar_ass[n]<-max(0,b_call_sim-ptf_optimal[n])
+    cout_guar_ass[n]<-max(0,b_call_sim-ptf_optimal[n])
   }
   CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
-  #exercice_guarantie<-sum(ptf_optimal[]<b_call_sim)/N_Simulations
-  #Esp_cout_garantie<-mean(cout_guar_ass)
+  exercice_guarantie<-sum(ptf_optimal[]<b_call_sim)/N_Simulations
+  Esp_cout_garantie<-mean(cout_guar_ass)
   
   #Utymod<-round(mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=7)))),3) # l'utlité est mesurée pour gamma=7.
-  #EU<-mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma))))
+  EU<-mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma))))
   #CB<-mean(ptf_optimal*xi_tilde[,(Frequ*Maturi+1)])
   #verif<-mean(matrice_S[,(Frequ*Maturi+1)]*xi_tilde[,(Frequ*Maturi+1)])
-  return(CAss)#funds_d,c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
+  return(c(CAss,exercice_guarantie,Esp_cout_garantie,EU))#funds_d,c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
 }#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer3<-proc.time()
@@ -750,7 +750,7 @@ ggplot(data=ggp_cs_tot,aes(x=ggp_cs_tot$prop,y=ggp_cs_tot$funds_optimal,group=fe
   #theme_classic()+
   #guides(colour = guide_legend(nrow = 2))+
   theme(legend.position = 'bottom',legend.title = element_blank())+##C77CFF
-labs(x=expression(paste(nu[t])), y=expression(paste("E"^P,"[ U( (","F"[T],"-1)"^"+","+1",") ]")))
+labs(x=expression(paste(nu[t],"  pour tout t compris dans"," [0,T]")), y=expression(paste("E"^P,"[ U( (","F"[T],"-1)"^"+","+1",") ]")))
 
 
 #### -Graphiques: comparaisons, variation des frais- ###

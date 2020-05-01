@@ -483,10 +483,10 @@ proc.time()-timer3
 
 timer4<-proc.time()
 
-f <- function(x) frais_eq_prop_cte(para_c_s=0,para_c_f=x,prop_act_r=1)- budget      #-Finding the fee
-result<-uniroot(f, c(0.000001,0.035))$root
+f <- function(x) frais_eq_prop_cte(para_c_s=0.01224,para_c_f=x,prop_act_r=0.8)- budget      #-Finding the fee
+result<-uniroot(f, c(0.0000001,0.05))$root
 
-proc.time()-timer4
+proc.time()-timer4# Kronos: c_s=1.224 ->3018.17  sec
 
 #0.02438242
 #0.02461108
@@ -561,9 +561,9 @@ proc.time()-timer5
 timer6<-proc.time()
 
 f <- function(x) frais_eq_fonds_distinct_maturite(para_c_s=0.0,para_c_f=x)- budget      #-Finding the fee
-result<-uniroot(f, c(0.00001,0.07))$root
+result<-uniroot(f, c(0.000001,0.15))$root
 
-proc.time()-timer6
+proc.time()-timer6 #Kornos: c_S=1.8%: 678.66 sec
 
 
 
