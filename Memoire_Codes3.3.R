@@ -198,7 +198,7 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
   #Esp_cout_garantie<-mean(cout_guar_ass)
-  #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
+  call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
   #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
   #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
@@ -211,7 +211,7 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
   #ve_a_de<-mean(nu_Act_R>=1)
   #ve_a_2_de<-mean(nu_Act_R>=2)
     
-  return(colMeans(processus_ptf))#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(Utymod,round(Inverse_P_Utility(Utymod,7),3))#c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
+  return(colMeans(call_tout_t))#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(Utymod,round(Inverse_P_Utility(Utymod,7),3))#c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
 }
 
 timer<-proc.time()
@@ -277,7 +277,7 @@ E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vect
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations  
   #Esp_cout_garantie<-mean(cout_guar_ass)
-  #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
+  call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
   #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
   #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
@@ -288,7 +288,7 @@ E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vect
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
   
-  return(colMeans(processus_ptf))#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
+  return(colMeans(call_tout_t))#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
 }
 
 timer<-proc.time()
@@ -350,7 +350,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
   #CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
   #Esp_cout_garantie<-mean(cout_guar_ass)
-  #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
+  call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
   #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
   #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
   #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
@@ -365,7 +365,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
   
-  return(colMeans(processus_ptf))#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
+  return(colMeans(call_tout_t))#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
 }#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer2<-proc.time()
@@ -603,7 +603,7 @@ ggplot(data=ggpm_tot,aes(x=ggpm_tot$temps,y=ggpm_tot$ptf_optimal,group=method,co
   
 
 #ggplot2: fonds moyen à travers le temps #
-ggplot(data=ggpmf_tot,aes(x=ggpmf_tott$temps,y=ggpmf_tot$ptf_optimal,group=method,color=method))+
+ggplot(data=ggpmf_tot,aes(x=ggpmf_tot$temps,y=ggpmf_tot$fonds_optimal,group=method,color=method))+
   geom_line(aes(linetype=method))+
   scale_color_manual(name="",values=c("#F8766D","#CD9600","#7CAE00","#00BE67","#00BFC4","#00A9FF","#C77CFF"),labels=c('1-100% risque','2-60% risque','3-40% risque','4-20% risque','5-Constante de Merton',"6-Optimale [0,1]","7-Optimale [0,2]"))+
   scale_linetype_discrete(name="",
