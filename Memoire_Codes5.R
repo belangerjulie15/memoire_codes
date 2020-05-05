@@ -67,7 +67,7 @@ B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
 
-Frequ<-100#52          #Frequency of rebalancing the portfolio
+Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
 b_call_sim<-1      #Strike price of the variable annuity
@@ -488,11 +488,13 @@ proc.time()-timer3
 
 timer4<-proc.time()
 
-f <- function(x) frais_eq_prop_cte(para_c_s=0.0,para_c_f=x,prop_act_r=0.6)- budget      #-Finding the fee
-result<-uniroot(f, c(-0.01,0.007))$root
+f <- function(x) frais_eq_prop_cte(para_c_s=0.0,para_c_f=x,prop_act_r=1)- budget      #-Finding the fee
+result<-uniroot(f, c(0.01,0.03),tol= 0.000001)$root
 
-proc.time()-timer4# Kronos: c_s=1.224 ->3018.17  sec
-
+proc.time()-timer4# Kronos: c_s=1.224 ->3018.17  sec (pas de tol)
+                  # Kronos: c_s=0.0%  -> 5796.11 sec (tol=1e-9)
+                  # Kronos: cs=0.0% -> 11755.83 
+#0.02438858
 #0.02438242
 #0.02461108
 

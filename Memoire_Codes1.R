@@ -162,7 +162,7 @@ lambda_optimal<-function(r_FLo,alpha_FLo,sigma_FLo,gamma_FLo,K_FLo,b_FLo,a_FLo,X
   
   f <- function(x) Find_lambda(r_FL=r_FLo,alpha_FL=alpha_FLo,sigma_FL=sigma_FLo,gamma_FL=gamma_FLo,K_FL=K_FLo,b_FL=b_FLo,a_FL=a_FLo,T_FL=T_FLo,lambda_FL = x)-X_0_FLo
 
-  lambda_result<-uniroot(f, c(0.0000000000000001,100))$root  
+  lambda_result<-uniroot(f, c(0.0000000000000001,100),tol=0.00001)$root  
   return(lambda_result)
 }
 Ptf_optimalCall_wrt_ST(alpha_par=0.04,r_par=0.02,sigma_par=0.2,gamma_par=4,K_par=1,b_par=1,a_par=1,S_T_par=1,T_par=10,X_0_par=1)

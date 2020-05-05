@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.00 #Fee applied of the risky asset
-fee_c_f<-0.00 #Fee applied of the funds 
+fee_c_s<-0.005 #Fee applied of the risky asset
+fee_c_f<-0.005 #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
