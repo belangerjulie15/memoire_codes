@@ -70,8 +70,8 @@ N_Simulations<-100000 #Number of Simulations
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
-b_call_sim<-1      #Strike price of the variable annuity
-K_call_sim<-1      #Constant of the variable annuity
+b_call_sim<-0.75      #Strike price of the variable annuity
+K_call_sim<-0.75      #Constant of the variable annuity
 
 ################################################################
 
@@ -265,8 +265,8 @@ proc.time()-timer
 
 
 timer1<-proc.time()
-g <- function(x) frais_eq_martingale(para_c_s=0,para_c_f=x)- budget      #-Finding the fee
-result<-uniroot(g, c(0.0001,0.076))$root
+g <- function(x) frais_eq_martingale(para_c_s=0.01224,para_c_f=x)- budget      #-Finding the fee
+result<-uniroot(g, c(-0.01,0.01))$root
 proc.time()-timer1
 #0.04722044
 #0.04731921 #Kornos:7297.97 secondes
@@ -376,6 +376,11 @@ frais_eq_martingale_Borne(para_c_s=0.0,para_c_f=0.02448)#prend 361.96 sec (pour 
 
 proc.time()-timer2
 
+timer3<-proc.time()
+h <- function(x) frais_eq_martingale_Borne(para_c_s=0.01224,para_c_f=x)- budget      #-Finding the fee
+result<-uniroot(h, c(-0.01,0.005))$root
+proc.time()-timer3
+
 
 ########### SECTION 3-) "Proportion" dans l'actif risqué est constante (repré. par un paramètre) ###########
 
@@ -477,14 +482,14 @@ frais_eq_prop_cte<-function(para_c_s,para_c_f,prop_act_r){
 }
 
 timer3<-proc.time()
-frais_eq_prop_cte(para_c_s=0.0,para_c_f=0.02448,prop_act_r=0.2)#prend  168.76  sec (pour 1 fois)  
+frais_eq_prop_cte(para_c_s=0.00,para_c_f=0.00,prop_act_r=0.2)#prend  168.76  sec (pour 1 fois)  
 proc.time()-timer3
 
 
 timer4<-proc.time()
 
-f <- function(x) frais_eq_prop_cte(para_c_s=0.01224,para_c_f=x,prop_act_r=0.8)- budget      #-Finding the fee
-result<-uniroot(f, c(0.0000001,0.05))$root
+f <- function(x) frais_eq_prop_cte(para_c_s=0.0,para_c_f=x,prop_act_r=0.6)- budget      #-Finding the fee
+result<-uniroot(f, c(-0.01,0.007))$root
 
 proc.time()-timer4# Kronos: c_s=1.224 ->3018.17  sec
 
@@ -560,8 +565,8 @@ proc.time()-timer5
 
 timer6<-proc.time()
 
-f <- function(x) frais_eq_fonds_distinct_maturite(para_c_s=0.0,para_c_f=x)- budget      #-Finding the fee
-result<-uniroot(f, c(0.000001,0.15))$root
+f <- function(x) frais_eq_fonds_distinct_maturite(para_c_s=0.018,para_c_f=x)- budget      #-Finding the fee
+result<-uniroot(f, c(-0.005,0.01))$root
 
 proc.time()-timer6 #Kornos: c_S=1.8%: 678.66 sec
 
