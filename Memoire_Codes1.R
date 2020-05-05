@@ -12,7 +12,7 @@ Maturi<-10        #Time 'til maturity
 r<-0.02      #Risk free rate
 alpha<-0.04  #Risky rate
 sigma<-0.2   #Volatility
-gamma<-2     #Parameter of Utility function
+gamma<-3     #Parameter of Utility function
 S_0<-1       #Initial value of the asset (S_0>0)
 budget<-1  #Initial Budget amount
 ################################

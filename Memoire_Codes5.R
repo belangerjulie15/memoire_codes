@@ -67,11 +67,11 @@ B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
 
-Frequ<-52          #Frequency of rebalancing the portfolio
+Frequ<-100#52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
-b_call_sim<-0.75      #Strike price of the variable annuity
-K_call_sim<-0.75      #Constant of the variable annuity
+b_call_sim<-1      #Strike price of the variable annuity
+K_call_sim<-1      #Constant of the variable annuity
 
 ################################################################
 
