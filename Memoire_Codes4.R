@@ -213,8 +213,8 @@ system.time(lapply(1:n, cum_sum))
 #system.time( mclapply(n,cum_sum, mc.cores = 6))
 
 
-registerDoParallel(cores=7)
-as.numeric(foreach(i=1:n) %dopar% cum_sum(i))
+registerDoParallel(cores=39)
+system.time(as.numeric(foreach(i=1:n) %dopar% cum_sum(i)))
 
 cl <- makeCluster(detectCores())
 clusterEvalQ(cl, library(lme4))

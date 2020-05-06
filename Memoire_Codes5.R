@@ -57,7 +57,7 @@ round(Inverse_P_Utility(-0.381,3),3)
 
 ########## PARAMÈTRES ##########################################
 
-Maturi<-10         #Time until maturity
+Maturi<-20         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
@@ -65,7 +65,7 @@ gamma<-3           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
-N_Simulations<-100000 #Number of Simulations
+N_Simulations<-100 #Number of Simulations
 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
@@ -385,6 +385,7 @@ proc.time()-timer3
 ########### SECTION 3-) "Proportion" dans l'actif risqué est constante (repré. par un paramètre) ###########
 
 frais_eq_prop_cte<-function(para_c_s,para_c_f,prop_act_r){
+  library(Optimisation.Power.Utility)
   
   #initialisation
   alpha_tilde<-alpha-para_c_s-para_c_f
@@ -489,16 +490,21 @@ proc.time()-timer3
 timer4<-proc.time()
 
 f <- function(x) frais_eq_prop_cte(para_c_s=0.0,para_c_f=x,prop_act_r=1)- budget      #-Finding the fee
-result<-uniroot(f, c(0.01,0.03),tol= 0.000001)$root
+result<-uniroot(f, c(0.002,0.02),tol= 0.000001)$root
 
 proc.time()-timer4# Kronos: c_s=1.224 ->3018.17  sec (pas de tol)
                   # Kronos: c_s=0.0%  -> 5796.11 sec (tol=1e-9)
                   # Kronos: cs=0.0% -> 11755.83 
+                  # Kronos: cs=0.0% T=20 ->20 10151.64 sec
 #0.02438858
 #0.02438242
 #0.02461108
 
+##### Essai paralléllisation ####
+registerDoParallel(cores=detectCores()-1)
 
+system.time(result_p<-as.numeric(foreach(i=c(0.2,0.4,0.6,1)) %dopar% uniroot(function(x) frais_eq_prop_cte(para_c_s=0.0,para_c_f=x,prop_act_r=i)- budget      #-Finding the fee
+                                                                     , c(-0.01,0.02),tol= 0.000001)$root))
 
 
 
@@ -568,7 +574,7 @@ proc.time()-timer5
 timer6<-proc.time()
 
 f <- function(x) frais_eq_fonds_distinct_maturite(para_c_s=0.018,para_c_f=x)- budget      #-Finding the fee
-result<-uniroot(f, c(-0.005,0.01))$root
+result<-uniroot(f, c(0.00001,0.008),tol= 0.000001)$root
 
 proc.time()-timer6 #Kornos: c_S=1.8%: 678.66 sec
 
