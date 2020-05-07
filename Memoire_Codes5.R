@@ -57,7 +57,7 @@ round(Inverse_P_Utility(-0.381,3),3)
 
 ########## PARAMÈTRES ##########################################
 
-Maturi<-20         #Time until maturity
+Maturi<-15         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
@@ -65,7 +65,7 @@ gamma<-3           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
-N_Simulations<-100 #Number of Simulations
+N_Simulations<-100000 #Number of Simulations
 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
@@ -93,6 +93,10 @@ K_call_sim<-1      #Constant of the variable annuity
 
 ####### Installer le package #####################################
 library(Optimisation.Power.Utility)
+library(parallel)
+library(foreach)
+library(iterators)
+library(doParallel)
 ##################################################################
 
 
@@ -489,8 +493,8 @@ proc.time()-timer3
 
 timer4<-proc.time()
 
-f <- function(x) frais_eq_prop_cte(para_c_s=0.0,para_c_f=x,prop_act_r=1)- budget      #-Finding the fee
-result<-uniroot(f, c(0.002,0.02),tol= 0.000001)$root
+f <- function(x) frais_eq_prop_cte(para_c_s=0.01224,para_c_f=x,prop_act_r=1)- budget      #-Finding the fee
+result<-uniroot(f, c(-0.01,0.02),tol= 0.000001)$root
 
 proc.time()-timer4# Kronos: c_s=1.224 ->3018.17  sec (pas de tol)
                   # Kronos: c_s=0.0%  -> 5796.11 sec (tol=1e-9)
@@ -501,17 +505,20 @@ proc.time()-timer4# Kronos: c_s=1.224 ->3018.17  sec (pas de tol)
 #0.02461108
 
 ##### Essai paralléllisation ####
-registerDoParallel(cores=detectCores()-1)
+registerDoParallel(cores=3)
+system.time(result_p<-as.numeric(foreach(i=c(0.4,0.6,1)) %dopar% uniroot(function(x) frais_eq_prop_cte(para_c_s=0.01224,para_c_f=x,prop_act_r=i)- budget      #-Finding the fee
+                                                                       , c(-0.01,0.02),tol= 0.000001)$root))
+#Kronos: cte=1 (cores=2), T=15 9633.14 sec
+#Kronos:  T=15 10102.58 
+#Kronos: T=15 (cores=3) 8161.69   
 
-system.time(result_p<-as.numeric(foreach(i=c(0.2,0.4,0.6,1)) %dopar% uniroot(function(x) frais_eq_prop_cte(para_c_s=0.0,para_c_f=x,prop_act_r=i)- budget      #-Finding the fee
-                                                                     , c(-0.01,0.02),tol= 0.000001)$root))
 
 
 
 ########### SECTION 4-) Simulations du portefeuille optimal directement ? maturit? ###########
 
 frais_eq_fonds_distinct_maturite<-function(para_c_s,para_c_f){
-  
+  library(Optimisation.Power.Utility)
   #initialisation des  param?tres
   alpha_tilde<-alpha-para_c_s-para_c_f
   r_no_risk_tilde<-r_no_risk-para_c_f
@@ -563,20 +570,21 @@ frais_eq_fonds_distinct_maturite<-function(para_c_s,para_c_f){
   
   return(budg_frais_equ)#c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
 }
-
- timer5<-proc.time()
-# 
+#Vérification#
+timer5<-proc.time()
  frais_eq_fonds_distinct_maturite(para_c_s=0.018,para_c_f=0.00648)#funds_final
-# 
 proc.time()-timer5
 
-
+#Optimisation#
 timer6<-proc.time()
-
-f <- function(x) frais_eq_fonds_distinct_maturite(para_c_s=0.018,para_c_f=x)- budget      #-Finding the fee
-result<-uniroot(f, c(0.00001,0.008),tol= 0.000001)$root
-
+f <- function(x) frais_eq_fonds_distinct_maturite(para_c_s=0.0,para_c_f=x)- budget      #-Finding the fee
+result<-uniroot(f, c(0.00001,0.04),tol= 0.000001)$root
 proc.time()-timer6 #Kornos: c_S=1.8%: 678.66 sec
+
+#Essai parrallélisation#
+registerDoParallel(cores=2)
+system.time(result_opt<-as.numeric(foreach(i=c(0.0,0.01224,0.018)) %dopar% uniroot(function(x) frais_eq_fonds_distinct_maturite(para_c_s=i,para_c_f=x)- budget
+                                                                       , c(-0.01,0.04),tol= 0.000001)$root))
 
 
 
