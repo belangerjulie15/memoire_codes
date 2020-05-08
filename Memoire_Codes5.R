@@ -167,7 +167,7 @@ Investment_Fonct<-function(S_t,B_t,invest_risq_tm1,invest_srisq_tm1,propor){
 ########### SECTION 1-) "Proportion optimale", avec la m?thode martingale ###########
 
 frais_eq_martingale<-function(para_c_s,para_c_f){
-  
+  library(Optimisation.Power.Utility)
   #initialisation
   alpha_tilde<-alpha-para_c_s-para_c_f
   r_no_risk_tilde<-r_no_risk-para_c_f
@@ -259,15 +259,13 @@ frais_eq_martingale<-function(para_c_s,para_c_f){
   return(budg_frais_equ)#processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantiecolMeans(Uty_t[,])
 }
 
-
+#vérification#
 timer<-proc.time()
-
 frais_eq_martingale(para_c_s=0.018,para_c_f=0.02448-0.018)#prend 361.96 sec (pour 1 fois)
-
 proc.time()-timer
 
 
-
+#Optimisation#
 timer1<-proc.time()
 g <- function(x) frais_eq_martingale(para_c_s=0.01224,para_c_f=x)- budget      #-Finding the fee
 result<-uniroot(g, c(-0.01,0.01))$root
@@ -275,12 +273,17 @@ proc.time()-timer1
 #0.04722044
 #0.04731921 #Kornos:7297.97 secondes
 
+#Essai parrallélisation#
+registerDoParallel(cores=3)
+system.time(result_MM<-as.numeric(foreach(i=c(0.0,0.01224,0.018)) %dopar% uniroot(function(x)frais_eq_martingale(para_c_s=i,para_c_f=x)- budget    
+                                                                                 , c(0.000001,0.05),tol= 0.000001)$root))
 
-
+#Kronos: (T=15, cores=3) 17767.19 sec
 
 ########### SECTION 2-) "Proportion optimale", avec la m?thode martingale, proportion born?e [0,1] ###########
 
 frais_eq_martingale_Borne<-function(para_c_s,para_c_f){
+  library(Optimisation.Power.Utility)
   
   #initialisation
   alpha_tilde<-alpha-para_c_s-para_c_f
@@ -373,19 +376,24 @@ frais_eq_martingale_Borne<-function(para_c_s,para_c_f){
   return(budg_frais_equ)#processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantiecolMeans(Uty_t[,])
 }
 
-
+#vérification#
 timer2<-proc.time()
-
 frais_eq_martingale_Borne(para_c_s=0.0,para_c_f=0.02448)#prend 361.96 sec (pour 1 fois)
-
 proc.time()-timer2
 
+#Optimisation#
 timer3<-proc.time()
 h <- function(x) frais_eq_martingale_Borne(para_c_s=0.01224,para_c_f=x)- budget      #-Finding the fee
 result<-uniroot(h, c(-0.01,0.005))$root
 proc.time()-timer3
 
+#Essai parallélisation#
+registerDoParallel(cores=3)
+system.time(result_o<-as.numeric(foreach(i=c(0.0,0.01224,0.018)) %dopar% uniroot(function(x)frais_eq_martingale_Borne(para_c_s=i,para_c_f=x)- budget   
+                                                                                   , c(-0.01,0.05),tol= 0.000001)$root))
 
+
+        #Kronos: cores=3, T=15,   17980.03 sec
 ########### SECTION 3-) "Proportion" dans l'actif risqué est constante (repré. par un paramètre) ###########
 
 frais_eq_prop_cte<-function(para_c_s,para_c_f,prop_act_r){
@@ -505,13 +513,13 @@ proc.time()-timer4# Kronos: c_s=1.224 ->3018.17  sec (pas de tol)
 #0.02461108
 
 ##### Essai paralléllisation ####
-registerDoParallel(cores=3)
-system.time(result_p<-as.numeric(foreach(i=c(0.4,0.6,1)) %dopar% uniroot(function(x) frais_eq_prop_cte(para_c_s=0.01224,para_c_f=x,prop_act_r=i)- budget      #-Finding the fee
-                                                                       , c(-0.01,0.02),tol= 0.000001)$root))
+registerDoParallel(cores=2)
+system.time(result_p<-as.numeric(foreach(i=c(0.01224,0.018)) %dopar% uniroot(function(x) frais_eq_prop_cte(para_c_s=i,para_c_f=x,prop_act_r=1)- budget      #-Finding the fee
+                                                                       , c(-0.01,0.005),tol= 0.000001)$root))
 #Kronos: cte=1 (cores=2), T=15 9633.14 sec
 #Kronos:  T=15 10102.58 
 #Kronos: T=15 (cores=3) 8161.69   
-
+#Kronos: T=15 (cores=2) 8869.61  sec
 
 
 
@@ -582,12 +590,12 @@ result<-uniroot(f, c(0.00001,0.04),tol= 0.000001)$root
 proc.time()-timer6 #Kornos: c_S=1.8%: 678.66 sec
 
 #Essai parrallélisation#
-registerDoParallel(cores=2)
+registerDoParallel(cores=3)
 system.time(result_opt<-as.numeric(foreach(i=c(0.0,0.01224,0.018)) %dopar% uniroot(function(x) frais_eq_fonds_distinct_maturite(para_c_s=i,para_c_f=x)- budget
-                                                                       , c(-0.01,0.04),tol= 0.000001)$root))
+                                                                       , c(-0.1,0.1),tol= 0.000001)$root))
+# Kronos, T=15: 2600.06 sec
 
-
-
+#0.04026580 0.02265016 0.01612437
 proportion_funds_optimale<-function(S_tilde,alpha_prop,r_prop,sigma_prop,c_f_prop,c_s_prop,T_prop1,t_prop2,gamma_prop){
   alpha_tilde<-alpha_prop-c_s_prop-c_f_prop
   r_no_risk_tilde<-r_prop-c_f_prop
