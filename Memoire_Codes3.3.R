@@ -34,17 +34,17 @@ library(Optimisation.Power.Utility)
 ###################################################################
 
 ############## PARAMÈTRES ########################################
-Maturi<-10         #Time until maturity
+Maturi<-1         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
-gamma<-4           #Parameter of Utility function
+gamma<-3           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.005 #Fee applied of the risky asset
-fee_c_f<-0.005 #Fee applied of the funds 
+fee_c_s<-0.01224 #Fee applied of the risky asset
+fee_c_f<-0.01224 #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -269,7 +269,7 @@ E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vect
       
     }
     processus_ptf[n,(Frequ*Maturi+1)]<-unit_risque[n,(Frequ*Maturi)]*matrice_S[n,(Frequ*Maturi+1)]+unit_n_risque[n,(Frequ*Maturi)]*B_tilde_t[(Frequ*Maturi+1)]
-    #funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
+    funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
     #cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
   }
   
@@ -277,7 +277,7 @@ E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vect
   #CB<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*processus_ptf[,(Frequ*Maturi+1)])
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations  
   #Esp_cout_garantie<-mean(cout_guar_ass)
-  call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
+  #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
   #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
   #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
@@ -288,7 +288,7 @@ E_utility_martingale_Borne<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vect
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
   
-  return(colMeans(call_tout_t))#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
+  return(funds_d)#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
 }
 
 timer<-proc.time()
@@ -402,17 +402,17 @@ Simulations_fonds_distinct<-function(matrice_pre2_S){
   
   for (n in 1:(N_Simulations)){
     funds_d[n]<-a_call_sim*max(0,ptf_optimal[n]-b_call_sim)+K_call_sim
-    cout_guar_ass[n]<-max(0,b_call_sim-ptf_optimal[n])
+    #cout_guar_ass[n]<-max(0,b_call_sim-ptf_optimal[n])
   }
-  CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
-  exercice_guarantie<-sum(ptf_optimal[]<b_call_sim)/N_Simulations
-  Esp_cout_garantie<-mean(cout_guar_ass)
+  #CAss<-mean(matrice_xi[,(Frequ*Maturi+1)]*funds_d)
+  #exercice_guarantie<-sum(ptf_optimal[]<b_call_sim)/N_Simulations
+  #Esp_cout_garantie<-mean(cout_guar_ass)
   
   #Utymod<-round(mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=7)))),3) # l'utlité est mesurée pour gamma=7.
-  EU<-mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma))))
+  #EU<-mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma))))
   #CB<-mean(ptf_optimal*xi_tilde[,(Frequ*Maturi+1)])
   #verif<-mean(matrice_S[,(Frequ*Maturi+1)]*xi_tilde[,(Frequ*Maturi+1)])
-  return(c(CAss,exercice_guarantie,Esp_cout_garantie,EU))#funds_d,c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
+  return(funds_d)#funds_d,c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
 }#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer3<-proc.time()
@@ -842,10 +842,10 @@ ggplot(data=Compa_combin_funds_gamma,aes(Compa_combin_funds_gamma$funds_optimal,
 ## -Graphique 4: variation de la maturité du fonds distinct- ##
 # (c_f=1.224% et c_s=1.224% ) #
 
-funds_maturite1<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
-funds_maturite5<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
-funds_maturite10<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
-funds_maturite15<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+#Fait# funds_maturite1<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+#Fait# funds_maturite5<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+#Fait# funds_maturite10<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+#Fait# funds_maturite15<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
 
 funds_maturite1$comp<-'T=1'
 funds_maturite5$comp<-'T=5'
@@ -863,7 +863,39 @@ ggplot(data=Compa_combin_funds_maturite,aes(Compa_combin_funds_maturite$funds_op
   #scale_fill_manual(name=""s,values=c('gold2','darkorange1',"violet","red"),labels=c( expression(paste(gamma,"=2")),expression(paste(gamma,"=3")),expression(paste(gamma,"=4")),expression(paste(gamma,"=7"))))+
   theme(legend.position = 'bottom',legend.title = element_blank())  
 
+ggplot(data=Compa_combin_funds_maturite,aes(Compa_combin_funds_maturite$funds_optimal,group=comp,fill=comp,linetype=comp,color=comp,order = as.numeric(rev(comp))))+
+  stat_ecdf(geom='step')+
+  labs(x=expression(paste("F"[T]^"*")), y="Distribution cumulative")+
+  theme(legend.position = 'bottom',legend.title = element_blank())  
 
+## -Graphique 4.1: variation de la maturité du fonds distinct_ MMB [0,1]- ##
+# (c_f=1.224% et c_s=1.224% ) #
+
+#Fait# MMB_funds_maturite1<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
+#Fait# MMB_funds_maturite5<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
+#Fait# MMB_funds_maturite10<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
+#Fait# MMB_funds_maturite15<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
+
+MMB_funds_maturite1$comp<-'T=1'
+MMB_funds_maturite5$comp<-'T=5'
+MMB_funds_maturite10$comp<-'T=10'
+MMB_funds_maturite15$comp<-'T=15'
+
+MMB_Compa_combin_funds_maturite<-rbind(MMB_funds_maturite1,MMB_funds_maturite5,MMB_funds_maturite10,MMB_funds_maturite15)
+MMB_Compa_combin_funds_maturite$comp<-factor(MMB_Compa_combin_funds_maturite$comp,levels=c('T=1','T=5','T=10','T=15'))
+
+
+ggplot(data=MMB_Compa_combin_funds_maturite,aes(MMB_Compa_combin_funds_maturite$funds_optimal,group=comp,fill=comp,order = as.numeric(rev(comp))))+
+  geom_histogram(colour='black',bins=150,alpha=0.4,position = "identity")+
+  labs(x=expression(paste("F"[T]^"*")), y="Réalisations")+
+  theme_classic()+
+  #scale_fill_manual(name=""s,values=c('gold2','darkorange1',"violet","red"),labels=c( expression(paste(gamma,"=2")),expression(paste(gamma,"=3")),expression(paste(gamma,"=4")),expression(paste(gamma,"=7"))))+
+  theme(legend.position = 'bottom',legend.title = element_blank())  
+
+ggplot(data=MMB_Compa_combin_funds_maturite,aes(MMB_Compa_combin_funds_maturite$funds_optimal,group=comp,fill=comp,linetype=comp,color=comp,order = as.numeric(rev(comp))))+
+  stat_ecdf(geom='step')+
+  labs(x=expression(paste("F"[T])), y="Distribution cumulative")+
+  theme(legend.position = 'bottom',legend.title = element_blank())  
 
 ## -Graphique 5: Pour différentes combinaisons de frais- ##
 ajust_graphique5<-2.5
