@@ -254,12 +254,12 @@ legend(27, budget+3, legend=c( expression(paste(gamma,"=3")), expression(paste(g
 
 #Graphique-retouches
 axe_x<-seq(0.1,2,0.001)
-plot(axe_x,lapply(axe_x,function(x) Ptf_optimal(S_t_par=x,S_0_par=S_0,budget_par=budget,alpha_par=alpha,r_par=r,sigma_par=sigma,T_par=T,gamma_par=3)),xlab=expression(S[T]),ylab=expression(paste("X","*"[T])),type="l",xaxs="i",yaxt = "n",xaxt = "n")
+plot(axe_x,lapply(axe_x,function(x) Ptf_optimal(S_t_par=x,S_0_par=S_0,budget_par=budget,alpha_par=alpha,r_par=r,sigma_par=sigma,T_par=T,gamma_par=3)),xlab=expression(S[T]),ylab=expression(paste("X","*"[T])),type="l",xaxs="i")
 lines(axe_x,lapply(axe_x,function(x) Ptf_optimal(S_t_par=x,S_0_par=S_0,budget_par=budget,alpha_par=alpha,r_par=r,sigma_par=sigma,T_par=T,gamma_par=3.5)),col='gray',lty=2)
 lines(axe_x,lapply(axe_x,function(x) Ptf_optimal(S_t_par=x,S_0_par=S_0,budget_par=budget,alpha_par=alpha,r_par=r,sigma_par=sigma,T_par=T,gamma_par=4)),col='orange',lty=4)
 lines(axe_x,lapply(axe_x,function(x) Ptf_optimal(S_t_par=x,S_0_par=S_0,budget_par=budget,alpha_par=alpha,r_par=r,sigma_par=sigma,T_par=T,gamma_par=4.5)),col='red',lty=3)
 legend(1.5, 1, legend=c( expression(paste(gamma,"=3")), expression(paste(gamma,"=3.5")),expression(paste(gamma,"=4")),expression(paste(gamma,"=4.5"))),
-       col=c("black","grey", "orange","red"), lty=c(1,1,1,1), cex=0.8)
+       col=c("black","grey", "orange","red"), lty=c(1,2,4,3), cex=0.8)
 
 
 par(mfrow=c(1,2))
