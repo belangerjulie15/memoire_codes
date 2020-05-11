@@ -625,3 +625,30 @@ lines(axe_d_s,rep(0.06466667,length(axe_d_s)),col='red',lty=2)
 
 
 
+### -Frais équitables (c_s+c_f): Sans simulation- ###
+##################### Annexe D ######################
+
+frais_eq_prop_cte_theo<-function(r_s_r,si,m_T,bud,garantie,propo){
+  iterat<-function(cf){
+    
+  r_til<-r_s_r-cf
+  k<-(garantie-(1-propo)*exp(r_til*m_T))/propo
+  
+  d1<-((r_til+0.5*si^2)*m_T-log(k))/(si*sqrt(m_T))
+  d2<- (log(k)-(r_til-0.5*si^2)*m_T)/(si*sqrt(m_T))
+  budget_tempo<-exp(-cf*m_T)*(propo*pnorm(d1)+(1-propo))+(exp(-r_s_r*m_T)*garantie-(1-propo)*exp(-cf*m_T))*pnorm(d2)-bud
+  return(budget_tempo)}
+  
+  cf_equita<-uniroot(iterat, c(0.000001,0.10),tol= 0.000001)$root
+  
+  return(cf_equita)
+}
+
+frais_eq_prop_cte_theo(r_s_r=0.02,si=0.2,m_T=10,bud=1,garantie=1,propo=1)
+
+
+
+
+
+
+
