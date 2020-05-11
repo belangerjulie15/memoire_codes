@@ -57,7 +57,7 @@ round(Inverse_P_Utility(-0.381,3),3)
 
 ########## PARAMÈTRES ##########################################
 
-Maturi<-15         #Time until maturity
+Maturi<-10         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
@@ -71,7 +71,7 @@ Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
 b_call_sim<-1      #Strike price of the variable annuity
-K_call_sim<-1      #Constant of the variable annuity
+K_call_sim<-b_call_sim      #Constant of the variable annuity
 
 ################################################################
 
@@ -521,6 +521,8 @@ system.time(result_p<-as.numeric(foreach(i=c(0.01224,0.018)) %dopar% uniroot(fun
 #Kronos: T=15 (cores=3) 8161.69   
 #Kronos: T=15 (cores=2) 8869.61  sec
 
+#### -Frais équitables (c_s+c_f): Sans simulation/Annexe D- ####
+frais_eq_prop_cte_theo(r_no_risk,sigma,15,budget,1,propo=1)
 
 
 ########### SECTION 4-) Simulations du portefeuille optimal directement ? maturit? ###########
@@ -623,28 +625,6 @@ p_g3<-lapply(axe_d_s,function(s)proportion_funds_optimale(S_tilde=s,alpha_prop=0
 plot(axe_d_s,p_g3,type='l')
 lines(axe_d_s,rep(0.06466667,length(axe_d_s)),col='red',lty=2)
 
-
-
-### -Frais équitables (c_s+c_f): Sans simulation- ###
-##################### Annexe D ######################
-
-frais_eq_prop_cte_theo<-function(r_s_r,si,m_T,bud,garantie,propo){
-  iterat<-function(cf){
-    
-  r_til<-r_s_r-cf
-  k<-(garantie-(1-propo)*exp(r_til*m_T))/propo
-  
-  d1<-((r_til+0.5*si^2)*m_T-log(k))/(si*sqrt(m_T))
-  d2<- (log(k)-(r_til-0.5*si^2)*m_T)/(si*sqrt(m_T))
-  budget_tempo<-exp(-cf*m_T)*(propo*pnorm(d1)+(1-propo))+(exp(-r_s_r*m_T)*garantie-(1-propo)*exp(-cf*m_T))*pnorm(d2)-bud
-  return(budget_tempo)}
-  
-  cf_equita<-uniroot(iterat, c(0.000001,0.10),tol= 0.000001)$root
-  
-  return(cf_equita)
-}
-
-frais_eq_prop_cte_theo(r_s_r=0.02,si=0.2,m_T=10,bud=1,garantie=1,propo=1)
 
 
 
