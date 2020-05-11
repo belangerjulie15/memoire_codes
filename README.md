@@ -8,7 +8,7 @@ This file contains many R codes:
 
 -Memoire_Codes1 : which contains functions used to plot relativity between variable (i.e. ptf value wrt to S_t, xi wrt S_t, ..). It also contains functions that Optimisation.Power.Utility contains (such as, find_lambda_optimal)
 
--Memoire_Codes2 : which contains codes to plot relations between variables whit and without taking into account fees. For example, Xi_t wrt to S_t (with and without fees). Also contains Histogramme Portefeuille optimal: dynamique et forme fermée:  to compare the results obtained while similating directly the optimal ptf at maturity and with rebalancing at each simulation node. 
+-Memoire_Codes2 : which contains codes to plot relations between variables with and without taking into account fees. For example, Xi_t wrt to S_t (with and without fees). Also contains Histogramme Portefeuille optimal: dynamique et forme fermée:  to compare the results obtained while simulating directly the optimal ptf at maturity and with rebalancing at each simulation node. 
 
 -Memoire_Codes3.3: which contains the basic function while optimising a portfolio. It can return, the average of the utility of the mutual funds, the average of the utility of the final portfolio, the probability that the guaranty is exercised, the martingale verification value. 
 
