@@ -73,6 +73,13 @@ CRRA<-function(x,gamma){
   result<-(x^(1-gamma)-1)/(1-gamma)
   return(result)
 }
+
+lambda_cas_de_base<-function(xini,gamma, Maturite,alpha, r, sigma){
+  theta<-(alpha-r)/sigma
+  lambda_opti<-(1/xini)^(gamma)*exp((1-gamma)*(r+0.5/gamma*theta^2)*Maturite)
+  return(lambda_opti)
+}
+
 ####### -SECTION 2: Graphes Concavification -#######
 # -Paramètres- #
 par_b<-30
@@ -308,6 +315,25 @@ abline(h=lapply(1.499,function(x)-0.01*(3*x^4-17*x^3+17*x^2+48)-2),col='red',lty
 points(0.22,-2.3849,pch = 19,col='azure4',cex=0.7) #-2.384961
 text(0.25,-2.405,labels=expression(j^'*'),col='azure4')
 text(1,-2.46,labels=expression(c^'*'),col='red')
+
+
+
+#Pour le mémoire: Relation entre lambda optimal et valeur initial du ptf sans call
+axe_x3_1<-seq(0.0005,0.2,0.0001)
+par(mfrow=c(1,1))
+plot(lapply(axe_x3_1,function(x) lambda_cas_de_base(xini=x,gamma=2, Maturite=10,alpha=0.04, r=0.02, sigma=0.2)
+),axe_x3_1,xlab=expression(paste(x["ini"])),ylab=expression(paste(lambda,"*")),type="l",xlim =c(0,50000),las=1 )
+lines(lapply(axe_x3_1,function(x) lambda_cas_de_base(xini=x,gamma=3, Maturite=10,alpha=0.04, r=0.02, sigma=0.2)
+),axe_x3_1,col='red',lty=2)
+lines(lapply(axe_x3_1,function(x) lambda_cas_de_base(xini=x,gamma=4, Maturite=10,alpha=0.04, r=0.02, sigma=0.2)
+),axe_x3_1,col='blueviolet',lty=3)
+lines(lapply(axe_x3_1,function(x) lambda_cas_de_base(xini=x,gamma=5, Maturite=10,alpha=0.04, r=0.02, sigma=0.2)
+),axe_x3_1,col='brown4',lty=4)
+lines(lapply(axe_x3_1,function(x) lambda_cas_de_base(xini=x,gamma=6, Maturite=10,alpha=0.04, r=0.02, sigma=0.2)
+),axe_x3_1,col='blue',lty=5)
+legend(2000000,0.17, legend=c( expression(paste(gamma,"=2")), expression(paste(gamma,"=3")),expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6"))),
+       col=c("black","red","blueviolet",'brown4','blue'), lty=c(1,2,3,4,5), cex=0.8)
+
 
 ##### -TEST SECTION- #####
 plot(seq(-2,5,0.01),lapply(seq(-2,5,0.01),function(x)0.01*(3*x^4-17*x^3+20*x^2+48)),col='gray0',lty=2,type='l')

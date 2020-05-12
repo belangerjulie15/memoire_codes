@@ -346,7 +346,7 @@ legend( 0.0007,2, legend=c( expression(paste(gamma,"=2")), expression(paste(gamm
 axe_x3_1<-seq(0.00001,0.2,0.0001)
 par(mfrow=c(1,1))
 plot(lapply(axe_x3_1,function(x) Find_lambda(r_FL=0.02,alpha_FL=0.04,sigma_FL=0.2,gamma_FL=2,K_FL=1,b_FL=1,a_FL=1,T_FL=10,lambda_FL =x)
-),axe_x3_1,xlab=expression(paste(x)),ylab=expression(paste(lambda,"*")),type="l",xlim=c(0,30),las=1)
+),axe_x3_1,xlab=expression(paste(x["ini"])),ylab=expression(paste(lambda,"*")),type="l",xlim=c(0,30),las=1)
 lines(lapply(axe_x3_1,function(x) Find_lambda(r_FL=0.02,alpha_FL=0.04,sigma_FL=0.2,gamma_FL=3,K_FL=1,b_FL=1,a_FL=1,T_FL=10,lambda_FL =x)
 ),axe_x3_1,col='red',lty=2)
 lines(lapply(axe_x3_1,function(x) Find_lambda(r_FL=0.02,alpha_FL=0.04,sigma_FL=0.2,gamma_FL=4,K_FL=1,b_FL=1,a_FL=1,T_FL=10,lambda_FL =x)
