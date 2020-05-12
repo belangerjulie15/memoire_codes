@@ -183,11 +183,11 @@ legend(10, -0.2, legend=c( expression(paste(gamma,"=2")), expression(paste(gamma
 
 
 #Dérivée de la fonction concavifiée#
-plot(axex,lapply(axex,function(x)Derivee_P_Utility_con(X_T_con=x,gamma_c=par_Gamma,b_c=par_b,a_c=par_a,K_c=par_K)),ylab = c( expression(paste(tilde(u)," '",(x)))),xlab=expression(paste(x)),type='l',col="red" ,xaxt = "n",yaxt = "n",lty=1,xaxs="i",ylim=c(0,1)  )
+plot(axex,lapply(axex,function(x)Derivee_P_Utility_con(X_T_con=x,gamma_c=par_Gamma,b_c=par_b,a_c=par_a,K_c=par_K)),ylab = c( expression(paste(tilde(u)," '","(x,d)"))),xlab=expression(paste(x)),type='l',col="red" ,xaxt = "n",yaxt = "n",lty=1,xaxs="i",ylim=c(0,1)  )
 xtick<-c( 0,round(Find_x_theta_PU(b_o=par_b,a_o=par_a,K_o=par_K,gamma_o=par_Gamma),0))
 ytick<-Derivee_P_Utility_con(0,gamma_c=par_Gamma,b_c=par_b,a_c=par_a,K_c=par_K)
 axis(1, at=xtick, labels=c(0 ,expression(paste(hat(x),(d)))))
-axis(2, at=ytick, labels=expression(paste(tilde(u),"'( ",hat(x),(d)," )")))
+axis(2, at=ytick, labels=expression(paste(tilde(u),"'( ",hat(x),(d),",d )")))
 
 #Graphe: Fonction concave#
 x_1<-1.5
