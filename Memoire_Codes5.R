@@ -627,8 +627,12 @@ lines(axe_d_s,rep(0.06466667,length(axe_d_s)),col='red',lty=2)
 
 
 
-
-
-
-
+#### Frais équitable: test, vérification #####
+test101<-function(frais, r_s_r, matu,K,sigma){
+  d3<-((r_s_r-frais+0.5*sigma^2)*matu-log(K))/(sigma*sqrt(matu))
+  d4<--d3+sigma*sqrt(matu)
+  resss<-exp(-frais*matu)*pnorm(d3)+K*exp(-r_s_r*matu)*pnorm(d4)
+  return(resss)
+}
+#test101(frais=0.02448262, r_s_r=0.02, matu=10,K=1,sigma=0.2)
 
