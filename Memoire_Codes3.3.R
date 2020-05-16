@@ -1024,8 +1024,8 @@ V_ac_tot$method<-c('6-Optimale [0,1]','7-Optimale [0,2]','1-100% risque','2-60% 
 ggplot(data=V_ac_tot,aes(x=V_ac_tot$c_S,y=V_ac_tot$value,group=method,color=method))+
   geom_line(aes(linetype=method))+
   geom_point(aes(shape=method))+ 
-  theme(legend.position = "bottom",legend.title =element_blank())+
-  labs(x=expression(paste(c[s],' (%)')), y=expression(paste("E"^P,"[",xi[T]," ( (","F"[T],"-1)"^"+","+1 )"," ]")))
+  theme(legend.position = "bottom",legend.title =element_blank(),legend.text = element_text(size = 5))+
+  labs(x=expression(paste(c[s],' (%)')), y=expression(paste("E"^P,"[",xi[T]," ( (","F"[T],"-G)"^"+","+G )"," ]")))
 
 
 #ggplot_build(g)$data #pour obtenir les couluers,points, etc.
@@ -1110,6 +1110,6 @@ ggplot(data=V_ac_ga_tot,aes(x=V_ac_ga_tot$c_S,y=V_ac_ga_tot$value,group=gam,colo
   scale_linetype_discrete(name="",
                           breaks=c("g2", "g3", "g4","g5","g6","g7"),
                           labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
-  theme(legend.position = "bottom")+
-  labs(x=expression(paste(c[s],' (%)')), y=expression(paste("E"^P,"[",xi[T]," ( (","F"[T]^"*","-1)"^"+","+1 )"," ]")))
+  theme(legend.position = "bottom",legend.text = element_text(size = 10) )+
+  labs(x=expression(paste(c[s],' (%)')), y=expression(paste("E"^P,"[",xi[T]," ( (","F"[T]^"*","-G)"^"+","+G )"," ]")))
 
