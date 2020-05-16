@@ -772,7 +772,7 @@ ggplot(data=ggp_cs_tot,aes(x=ggp_cs_tot$prop,y=ggp_cs_tot$funds_optimal,group=fe
   #theme_classic()+
   #guides(colour = guide_legend(nrow = 2))+
   theme(legend.position = 'bottom',legend.title = element_blank())+##C77CFF
-labs(x=expression(paste(nu[t],"  pour tout t compris dans"," [0,T]")), y=expression(paste("E"^P,"[ U( (","F"[T],"-G)"^"+","+G",") ]")))
+labs(x=expression(paste(nu[t],"  pour tout t compris dans"," [0,T]")), y=expression(paste("E"^P,"[ U( (",F[T],"-G)"^"+","+G",") ]")))
 
 
 #### -Graphiques: comparaisons, variation des frais- ###
