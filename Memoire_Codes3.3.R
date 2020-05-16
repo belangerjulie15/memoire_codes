@@ -43,8 +43,8 @@ S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.018 #Fee applied of the risky asset
-fee_c_f<-0.00648 #Fee applied of the funds 
+fee_c_s<-0.0 #Fee applied of the risky asset
+fee_c_f<-0.02448 #Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -525,7 +525,7 @@ ggplot(data=Compa_combin_funds_uniq2,aes(Compa_combin_funds_uniq2$funds_optimal,
   #facet_wrap(facets = vars(comp))+
   #scale_colour_gradient(low='#FF61CC',high='blue')+
   scale_fill_grey()+
-  labs(x=expression(paste("F",""[T])), y="Réalisations")+
+  labs(x=expression(paste("(F",""[T]," - G)"^"+","+G")), y="Réalisations")+
   theme_classic()+
   theme(legend.position = 'bottom' ,legend.title = element_blank())
  #legend.text=element_text(size=12)
@@ -772,7 +772,7 @@ ggplot(data=ggp_cs_tot,aes(x=ggp_cs_tot$prop,y=ggp_cs_tot$funds_optimal,group=fe
   #theme_classic()+
   #guides(colour = guide_legend(nrow = 2))+
   theme(legend.position = 'bottom',legend.title = element_blank())+##C77CFF
-labs(x=expression(paste(nu[t],"  pour tout t compris dans"," [0,T]")), y=expression(paste("E"^P,"[ U( (","F"[T],"-1)"^"+","+1",") ]")))
+labs(x=expression(paste(nu[t],"  pour tout t compris dans"," [0,T]")), y=expression(paste("E"^P,"[ U( (","F"[T],"-G)"^"+","+G",") ]")))
 
 
 #### -Graphiques: comparaisons, variation des frais- ###
