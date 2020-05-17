@@ -422,6 +422,8 @@ ggp_gamma6$gamma<-'6'
 ggp_gamma7$gamma<-'7'
 
 F_ggp_total<-rbind(ggp_gamma2,ggp_gamma3,ggp_gamma4,ggp_gamma5,ggp_gamma6,ggp_gamma7)
+F_ggp_total$gamma <- factor(F_ggp_total$gamma , levels = c("2", "3","4","5", "6","7"))
+
 F_ggp_total$S_T<-axe_test
 
 # 1) Avec plot #
@@ -680,12 +682,12 @@ ggplot(data=simul_combin,aes(simul_combin$Optimal_portfolio,group=simul,fill=sim
   #3) Calcul de l'espérance de l'utilité: E[  U( max(X_T,1) ) ]
   EU_Call_sim<-mean(1/(1-gamma_sim)*(as.numeric(lapply(Ptf_call_sim,function(x)max(x,1))))^(1-gamma_sim))
 
- result_g7<-data.frame(results=c(-0.05218744,-0.05192372,-0.05082127,-0.04896291))
- result_g6<-data.frame(results=c(-0.06958732, -0.06941325,-0.06857159,-0.06692696))
- result_g5<-data.frame(results=c(-0.09835473,-0.09831733,-0.09749544,-0.09620082))
- result_g4<-data.frame(results=c(-0.1514656,-0.1522911,-0.1523024,-0.1513727))
- result_g3<-data.frame(results=c(-0.2722601,-0.2745076,-0.2756578,-0.2762874))
- result_g2<-data.frame(results=c(-0.6920812,-0.6977341,-0.702836, -0.7063659))
+ result_g7<-data.frame(results=c(-0.05218744,-0.05255595,-0.05192372,-0.05110159,-0.05082127, -0.05001622,-0.04896291))
+ result_g6<-data.frame(results=c(-0.06958732,-0.0694736, -0.06941325,-0.06909266,-0.06857159, -0.06750208,-0.06692696))
+ result_g5<-data.frame(results=c(-0.09835473,-0.09841349,-0.09831733,-0.09777409,-0.09749544,-0.09729811,-0.09620082))
+ result_g4<-data.frame(results=c(-0.1514656, -0.1517047,-0.1522911,-0.152995,-0.1523024,-0.152193,-0.1513727))
+ result_g3<-data.frame(results=c(-0.2722601, -0.2732045,-0.2745076, -0.2747006,-0.2756578,-0.27709,-0.2762874))
+ result_g2<-data.frame(results=c(-0.6920812, -0.6958573,-0.6977341,-0.7008799,-0.702836,-0.704463, -0.7063659))
  
  result_g7$gamma<-'g7'   
  result_g6$gamma<-'g6'
@@ -696,7 +698,7 @@ ggplot(data=simul_combin,aes(simul_combin$Optimal_portfolio,group=simul,fill=sim
  
  Compa_EU_gamma<-rbind( result_g7, result_g6, result_g5, result_g4, result_g3, result_g2)
  Compa_EU_gamma$gamma <- factor( Compa_EU_gamma$gamma , levels = c("g2", "g3","g4","g5", "g6","g7"))
- Compa_EU_gamma$c_s<-c(0,0.5,1,1.5)
+ Compa_EU_gamma$c_s<-c(0,0.25,0.5,0.75,1,1.25,1.5)
  
  ggplot(data= Compa_EU_gamma,aes(x=Compa_EU_gamma$c_s,y=Compa_EU_gamma$results,group=gamma,color=gamma))+
     geom_line(aes(linetype=gamma))+
@@ -712,7 +714,7 @@ ggplot(data=simul_combin,aes(simul_combin$Optimal_portfolio,group=simul,fill=sim
                         labels=c(expression(paste(gamma,"=2")), expression(paste(gamma,"=3")), expression(paste(gamma,"=4")),expression(paste(gamma,"=5")),expression(paste(gamma,"=6")),expression(paste(gamma,"=7"))))+
    theme(legend.position = "bottom")+
    #theme_classic()+
-   labs(x=expression(paste(c[s],"  (%)")), y=expression(paste("E"^P,"[  U( (",F[T]^"*","-1)"^"+","+1)"," ]")))
+   labs(x=expression(paste(c[s],"  (%)")), y=expression(paste("E"^P,"[  U( (",F[T]^"*"," - G)"^"+ ","+G)"," ]")))
    #theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15),hjust = 0.5))
 
  
