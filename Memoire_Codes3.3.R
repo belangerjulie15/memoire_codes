@@ -38,13 +38,13 @@ Maturi<-10         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
-gamma<-7           #Parameter of Utility function
+gamma<-3           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.01224 #Fee applied of the risky asset
-fee_c_f<-0.01224 #Fee applied of the funds 
+fee_c_s<-0.018 #Fee applied of the risky asset
+fee_c_f<-0.00648#Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
 a_call_sim<-1      #Multiplicator of the variable annuity
@@ -190,7 +190,7 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
       
     }
     processus_ptf[n,(Frequ*Maturi+1)]<-unit_risque[n,(Frequ*Maturi)]*matrice_S[n,(Frequ*Maturi+1)]+unit_n_risque[n,(Frequ*Maturi)]*B_tilde_t[(Frequ*Maturi+1)]
-    #funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
+    funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
     #cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
   }
   
@@ -199,7 +199,7 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
   #exercice_guarantie<-sum(processus_ptf[,(Frequ*Maturi+1)]<b_call_sim)/N_Simulations
   #Esp_cout_garantie<-mean(cout_guar_ass)
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
-  Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
+  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
   #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
     
@@ -211,7 +211,7 @@ E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B)
   #ve_a_de<-mean(nu_Act_R>=1)
   #ve_a_2_de<-mean(nu_Act_R>=2)
     
-  return(colMeans(Uty_t))#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(Utymod,round(Inverse_P_Utility(Utymod,7),3))#c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
+  return(funds_d)#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))c(Utymod,round(Inverse_P_Utility(Utymod,7),3))#c(exercice_guarantie,EU,U_ptf,CB)processus_ptf[,(Frequ*Maturi+1)]c(EU,CB)colMeans(Uprocessus_ptf)c(verif,CB)exercice_guarantie
 }
 
 timer<-proc.time()
@@ -343,7 +343,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
       
     }
     processus_ptf[n,(Frequ*Maturi+1)]<-unit_risque[n,(Frequ*Maturi)]*matrice_S[n,(Frequ*Maturi+1)]+unit_n_risque[n,(Frequ*Maturi)]*B_tilde_t[(Frequ*Maturi+1)]
-    #funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
+    funds_d[n]<-a_call_sim*max(0,processus_ptf[n,(Frequ*Maturi+1)]-b_call_sim)+K_call_sim
     #cout_guar_ass[n]<-max(0,b_call_sim-processus_ptf[n,(Frequ*Maturi+1)])
   }
   
@@ -352,7 +352,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
   #Esp_cout_garantie<-mean(cout_guar_ass)
   #call_tout_t<-apply(processus_ptf,c(1,2),function(x) a_call_sim*max(0,x-b_call_sim)+K_call_sim)
   #Uty<-as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma)))
-  Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
+  #Uty_t<-apply(processus_ptf,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du ptf pour tout t
   #Uty_f_t<-apply(call_tout_t,c(1,2),function(x) P_Utility(X_Tu=x,gamma=gamma))#utilit? des valeurs du fonds pour tout t
   #U_ptf<-mean(P_Utility(X_Tu=processus_ptf[,(Frequ*Maturi+1)],gamma=gamma))
   #Utymod<-round(mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=3)))),3) # l'utlité est mesurée pour gamma=7.
@@ -365,7 +365,7 @@ E_utility_prop_cte<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B,pr
   #Uprocessus_ptf<-P_Utility(X_Tu=processus_ptf,gamma=gamma)
   #verif<-mean(matrice_xi_tilde[,(Frequ*Maturi+1)]*matrice_S[,(Frequ*Maturi+1)])
   
-  return(colMeans(Uty_t))#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
+  return(funds_d)#c(exercice_guarantie,EU,U_ptf,contrainte_budget)c(EU,contrainte_budget)colMeans(Uprocessus_ptf)c(verif,contrainte_budget)exercice_guarantieprocessus_ptf[,(Frequ*Maturi+1)]
 }#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer2<-proc.time()
@@ -466,7 +466,7 @@ ptf_terminal_final<-Simulations_fonds_distinct(pre2_S_tilde_t)
 #60 minutes avec Kronos
 
 ############## Graphique: densit? de toutes les strat?gies ########################################################
-ajust_grap<-2.5 #si pas d'ajustement, alors mettre ex:20. 
+ajust_grap<-3.0 #si pas d'ajustement, alors mettre ex:20. 
 
 
 funds_rebalancement_MMB<-data.frame(funds_optimal=as.numeric(lapply(ptf_terminal_MMB,function(x)min(x,ajust_grap))))
@@ -494,8 +494,9 @@ Compa_combin_funds<-rbind(funds_rebalancement_100,funds_rebalancement_MMB,funds_
 
 ggplot(data=Compa_combin_funds,aes(Compa_combin_funds$funds_optimal,group=comp,fill=comp,linetype=comp,color=comp))+
   stat_ecdf(geom='step')+
+  xlim(0.9,3)+
   #facet_wrap(facets = vars(comp))+
-  labs(x=expression(paste("F",""[T])), y="Distribution cumulative")+
+  labs(x=expression(paste("(F",""[T]," - G)"^"+"," + G")), y="Distribution cumulative")+
   theme(legend.position = 'bottom',legend.title = element_blank())
 
 # ggplot(data=Compa_combin_funds,aes(Compa_combin_funds$funds_optimal,group=comp,fill=comp))+
@@ -778,7 +779,7 @@ labs(x=expression(paste(nu[t],"  pour tout t compris dans"," [0,T]")), y=express
 #### -Graphiques: comparaisons, variation des frais- ###
 ## -Graphique 1: variation de c_f- ##
 # (c_s=1.224%) #
-
+#Ne pas toucher#
 
 #Ne pas toucher#funds_cf0648<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
 #Ne pas toucher#funds_cf1224<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
@@ -792,12 +793,13 @@ Compa_combin_funds_cf<-rbind(funds_cf0648,funds_cf1224,funds_cf2448)
 
 ggplot(data=Compa_combin_funds_cf,aes(Compa_combin_funds_cf$funds_optimal,group=comp,fill=comp))+
   geom_histogram(colour='black',bins=100,alpha=0.5,position = "identity")+
-  labs(x=expression(paste(F[T]^"*")), y="Réalisations")+
+  xlim(0.9, 2.5)+
+  labs(x=expression(paste("(",F[T]^"*"," - G)"^"+"," + G")), y="Réalisations")+
   #scale_x_continuous(breaks=c(x_concavi),labels=expression(paste(widehat(F),'(',1,')')))+
  theme_classic()+
-scale_fill_manual(name="",values=c("yellow","#7CAE00",'#00BFC3'),labels=c( expression(paste(c[f],"=0.648%")),expression(paste(c[f],"=1.224%")),expression(paste(c[f],"=2.448%"))))+
+scale_fill_grey(name="",start = 0.1,end = 0.9,labels=c( expression(paste(c[f],"=0.648%")),expression(paste(c[f],"=1.224%")),expression(paste(c[f],"=2.448%"))))+
 theme(legend.position = 'bottom',legend.title = element_blank())  
-
+#values=c("yellow","#7CAE00",'#00BFC3'),
 
 ## -Graphique 2: variation de c_s- ##
 # (c_f=1.224%) #
@@ -815,11 +817,11 @@ Compa_combin_funds_cs<-rbind(funds_cs0,funds_cs1224,funds_cs18)
 
 ggplot(data=Compa_combin_funds_cs,aes(Compa_combin_funds_cs$funds_optimal,group=comp,fill=comp))+
   geom_histogram(colour='black',bins=100,alpha=0.5,position = "identity")+
-  labs(x=expression(paste(F[T]^"*")), y="Réalisations")+
+  labs(x=expression(paste("(",F[T]^"*"," - G)"^"+"," + G")), y="Réalisations")+
   theme_classic()+
   #scale_x_continuous(breaks=c(x_concavi),labels=expression(paste(widehat(F),'(',1,')')))+
-  scale_fill_manual(name="",values=c('firebrick1','lightsalmon1','darkgoldenrod1'),labels=c( expression(paste(c[s],"=0.000%")),expression(paste(c[s],"=1.224%")),expression(paste(c[s],"=1.800%"))))+
-  theme(legend.position = 'bottom',legend.title = element_blank())  
+  scale_fill_grey(name="",start = 0.1,end = 0.9,labels=c( expression(paste(c[s],"=0.000%")),expression(paste(c[s],"=1.224%")),expression(paste(c[s],"=1.800%"))))+
+  theme(legend.position = 'bottom',legend.title = element_blank())  #,values=c('firebrick1','lightsalmon1','darkgoldenrod1')
 
 
 ## -Graphique 3: variation de gamma- ##
@@ -917,7 +919,7 @@ library(scales)
   
 Ptf_final_2448_0<-data.frame(valeur_opt=as.numeric(lapply(ptf_2448_0,function(x) min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
 Ptf_final_1224_1224<-data.frame(valeur_opt=as.numeric(lapply(ptf_1224_1224,function(x)min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
-Ptf_final_18_648<-data.frame(valeur_opt=as.numeric(lapply(ptf_18_6448,function(x)min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
+Ptf_final_18_648<-data.frame(valeur_opt=as.numeric(lapply(ptf_18_648,function(x)min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
 Ptf_final_0_0<-data.frame(valeur_opt=as.numeric(lapply(ptf_0_0,function(x)min(x,ajust_graphique5))))#Obtenu à l'aide de la méthode 4 MemoireCodes3.3
 
 Ptf_final_2448_0$comp<-'2.c_s=0.000% et c_f=2.448%'
@@ -926,18 +928,18 @@ Ptf_final_18_648$comp<-'4. c_s=1.800% et c_f=0.648%'
 Ptf_final_0_0$comp<-'1. Aucun frais'
 
 
-Combin_ptf_frais<-rbind(Ptf_final_2448_0,Ptf_final_1224_1224,Ptf_final_18_6448,Ptf_final_0_0)
-Combin_ptf_frais$comp <- factor(Combin_ptf_frais$comp, levels = c('1. Aucun frais', '4. c_s=1.800% et c_f=0.648%','3.c_s=1.224% et c_f=1.224%', '2.c_s=0.000% et c_f=2.448%'))
+Combin_ptf_frais<-rbind(Ptf_final_2448_0,Ptf_final_1224_1224,Ptf_final_18_648,Ptf_final_0_0)
+Combin_ptf_frais$comp <- factor(Combin_ptf_frais$comp, levels = c('1. Aucun frais', '2.c_s=0.000% et c_f=2.448%','3.c_s=1.224% et c_f=1.224%','4. c_s=1.800% et c_f=0.648%'))
 
 
 ggplot(data=Combin_ptf_frais,aes(Combin_ptf_frais$valeur_opt,group=comp,fill=comp))+
   geom_histogram(colour='black',binwidth = 0.01,alpha=0.5,position = "identity")+
-  labs(x=expression(paste(F[T]^"*")), y="Réalisations")+
+  labs(x=expression(paste("(",F[T]^"*"," - G)"^"+"," + G")), y="Réalisations")+
   #scale_x_continuous(breaks=c(x_concavi),labels=expression(paste(widehat(x),'(',D[T],')')))+
-  scale_fill_manual(name="",values=c("#F8766D","#C77CFF","#00BFC4","#7CAE00"),labels=c( expression("Aucun frais"), expression(atop(paste(c[s],"=0.000%"),paste(c[f],"=2.448%"))),expression(atop(paste(c[s],"=1.224%"),paste(c[f],"=1.224%"))),expression(atop(paste(c[s],"=1.800%"),paste(c[f],"=0.648%")))))+
+  scale_fill_grey(name="",start=0.9,end=0.1,labels=c( expression("Aucun frais"), expression(atop(paste(c[s],"=0.000%"),paste(c[f],"=2.448%"))),expression(atop(paste(c[s],"=1.224%"),paste(c[f],"=1.224%"))),expression(atop(paste(c[s],"=1.800%"),paste(c[f],"=0.648%")))))+
   theme_classic()+
   guides(colour = guide_legend(nrow = 2))+
-  theme(legend.position = 'bottom',legend.title = element_blank())##C77CFF
+  theme(legend.position = 'bottom',legend.title = element_blank())##C77CFF#,values=c("#F8766D","#C77CFF","#00BFC4","#7CAE00")
 
 
 

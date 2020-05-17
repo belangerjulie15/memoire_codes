@@ -3,33 +3,6 @@
 # -SECTION 3: Power Utility - Simulation de marché #
 #-Note: toutes les formules sont UNIQUEMENT applicables à la fonction de Power Utility
 
-########## PARAMÈTRES ##########################################
-Maturi<-10         #Time until maturity
-r_no_risk<-0.02    #Risk free rate
-alpha<-0.04        #Risky rate
-sigma<-0.2         #Volatility
-gamma<-2           #Parameter of Utility function
-S_0<-1             #Initial value of the asset (S_0>0)
-budget<-1          #Initial Budget amount
-N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.00     #Fee applied of the risky asset
-fee_c_f<-0.00     #Fee applied of the funds 
-
-Frequ<-52          #Frequency of rebalancing the portfolio
-  
-a_call_sim<-1
-b_call_sim<-1
-K_call_sim<-1
-
-library("ggplot2")
-alpha_tilde<-alpha-fee_c_s-fee_c_f
-r_no_risk_tilde<-r_no_risk-fee_c_f
-  
-theta_sim<-(alpha-r_no_risk)/sigma
-theta_sim_tilde<-(alpha_tilde-r_no_risk_tilde)/sigma
-################################################################
-
-
 
 
 ########## Graph: xi_t with respect to S_t ##########
