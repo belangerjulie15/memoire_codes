@@ -34,16 +34,16 @@ library(Optimisation.Power.Utility)
 ###################################################################
 
 ############## PARAMÈTRES ########################################
-Maturi<-10         #Time until maturity
+Maturi<-1         #Time until maturity
 r_no_risk<-0.02    #Risk free rate
 alpha<-0.04        #Risky rate
 sigma<-0.2         #Volatility
-gamma<-7           #Parameter of Utility function
+gamma<-3           #Parameter of Utility function
 S_0<-1             #Initial value of the asset (S_0>0)
 B_0<-1             #Initial value of the bank account
 budget<-1          #Initial Budget amount
 N_Simulations<-100000 #Number of Simulations
-fee_c_s<-0.0125 #Fee applied of the risky asset
+fee_c_s<-0.01224 #Fee applied of the risky asset
 fee_c_f<-0.02448-fee_c_s#Fee applied of the funds 
 Frequ<-52          #Frequency of rebalancing the portfolio
 
@@ -145,7 +145,7 @@ pre1_xi_t<-exp(-(r_no_risk+0.5*theta_sim^2)/Frequ-theta_sim*sqrt(1/Frequ)*random
 pre2_xi_t<-cbind((rep(S_0,N_Simulations)),pre1_xi_t)
 #########################################################################
 
-Simulations_fonds_distinct(pre2_S_tilde_t)
+
 ########### SECTION 1-) "Proportion optimale", avec la méthode martingale ###########
 
 E_utility_martingale<-function(matrice_pre2_S,matrice_pre2_xi_tilde_t,vecteur_B){
@@ -415,10 +415,10 @@ Simulations_fonds_distinct<-function(matrice_pre2_S){
   #Esp_cout_garantie<-mean(cout_guar_ass)
   
   #Utymod<-round(mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=3)))),3) # l'utlité est mesurée pour gamma=7.
-  EU<-mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma))))
+  #EU<-mean(as.numeric(lapply(funds_d,function(x)P_Utility(X_Tu=x,gamma=gamma))))
   #CB<-mean(ptf_optimal*xi_tilde[,(Frequ*Maturi+1)])
   #verif<-mean(matrice_S[,(Frequ*Maturi+1)]*xi_tilde[,(Frequ*Maturi+1)])
-  return(EU)#funds_d,c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
+  return(funds_d)#funds_d,c(CB,EU) verifc(CB,EU,verif,exercice_guarantie)
 }#c(round(exercice_guarantie,3),round(Esp_cout_garantie,3))
 
 timer3<-proc.time()
@@ -853,10 +853,13 @@ ggplot(data=Compa_combin_funds_gamma,aes(Compa_combin_funds_gamma$funds_optimal,
 ## -Graphique 4: variation de la maturité du fonds distinct- ##
 # (c_f=1.224% et c_s=1.224% ) #
 
-#Fait# funds_maturite1<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
-#Fait# funds_maturite5<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
-#Fait# funds_maturite10<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
-#Fait# funds_maturite15<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+#Fait#funds_maturite1<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+#Fait#funds_maturite5<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+#Fait#funds_maturite10<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+#Fait#funds_maturite15<-data.frame(funds_optimal=as.numeric(Simulations_fonds_distinct(pre2_S_tilde_t)))
+#Les données sont déjà dans le dossier memoire.codes sur GitHub.
+
+
 
 funds_maturite1$comp<-'T=1'
 funds_maturite5$comp<-'T=5'
@@ -882,10 +885,12 @@ ggplot(data=Compa_combin_funds_maturite,aes(Compa_combin_funds_maturite$funds_op
 ## -Graphique 4.1: variation de la maturité du fonds distinct_ MMB [0,1]- ##
 # (c_f=1.224% et c_s=1.224% ) #
 
-#Fait# MMB_funds_maturite1<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
-#Fait# MMB_funds_maturite5<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
-#Fait# MMB_funds_maturite10<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
-#Fait# MMB_funds_maturite15<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
+#Fait#MMB_funds_maturite1<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
+#Fait#MMB_funds_maturite5<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
+#Fait#MMB_funds_maturite10<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
+#Fait#MMB_funds_maturite15<-data.frame(funds_optimal=as.numeric(E_utility_martingale_Borne(pre2_S_tilde_t,pre2_xi_tilde_t,B_tilde_t)))
+
+#write.csv(MMB_funds_maturite15,file="MMB_funds_maturite15.cvs") Les doonées se trouvent dans memoire.codes sur Github
 
 MMB_funds_maturite1$comp<-'T=1'
 MMB_funds_maturite5$comp<-'T=5'
