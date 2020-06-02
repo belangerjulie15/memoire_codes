@@ -191,3 +191,39 @@ text(2.65, -0.001, expression(paste(gamma,'=5')))
 text(2.65, -0.49, 'Totale')
 abline(v=Find_x_theta_PU_Numerous(b_call_sim,a_call_sim,K_call_sim,c(2,3,5)),  col ='blue',lty=3)
 
+
+
+
+##### Test: Maximisation Lagrangien pour S_{T} #######
+#0.9575921 lambda optimal
+
+
+xi_wrt_s_t<-function(S_repo,al_repo,r_repo,sigma_repo,T_repo){
+  theta_repo<-(al_repo-r_repo)/sigma_repo
+  
+  xi_reponse<-S_repo*exp((theta_repo*al_repo/sigma_repo-theta_repo*sigma_repo/2-r_repo-0.5*theta_repo^2)*T_repo)
+  return(xi_reponse)
+}
+
+lagrangien<-function(S_test,lambda_test){
+  lagr<-P_Utility(S_test,3)-lambda_test*(xi_wrt_s_t(S_test,0.04,0.02,0.2,1)*S_test-1)
+  return(lagr)
+}
+axe_x_test_00<-seq(0.1,2,0.1)
+
+
+plot(axe_x_test_00,lapply(axe_x_test_00,function(x)P_Utility(x,3)),type='l')
+lines(axe_x_test_00,lapply(axe_x_test_00,function(x)lagrangien(x,2)),col='red',lty=2)
+lines(axe_x_test_00,lapply(axe_x_test_00,function(x)lagrangien(x,1)),col='blue',lty=2)
+lines(axe_x_test_00,lapply(axe_x_test_00,function(x)lagrangien(x,3)),col='blue',lty=2)
+
+l02<-max(as.numeric(lapply(axe_x_test_00,function(x)lagrangien(x,0.2))))
+l03<-max(as.numeric(lapply(axe_x_test_00,function(x)lagrangien(x,0.3))))
+l05<-max(as.numeric(lapply(axe_x_test_00,function(x)lagrangien(x,0.5))))
+l075<-max(as.numeric(lapply(axe_x_test_00,function(x)lagrangien(x,0.75))))
+l09<-max(as.numeric(lapply(axe_x_test_00,function(x)lagrangien(x,0.9))))
+l1<-max(as.numeric(lapply(axe_x_test_00,function(x)lagrangien(x,1))))
+l15<-max(as.numeric(lapply(axe_x_test_00,function(x)lagrangien(x,1.5))))
+l2<-max(as.numeric(lapply(axe_x_test_00,function(x)lagrangien(x,2))))
+
+plot(c(0.2,0.3,0.5,0.75,0.9,1,1.5,2),c(l02,l03,l05,l075,l09,l1,l15,l2))
